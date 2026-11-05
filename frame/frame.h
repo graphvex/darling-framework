@@ -7,14 +7,14 @@
 #include "graphics/graphics.h"   // graphvex R3: Rect, Color, DisplayList
 #include "panel/panel.h"         // darling: Panel (wrapper over a GraphicsPanel)
 #include "ui/element.h"          // graphvex R3: Element (the GraphicsPanel)
-#include "image.h"               // graphvex R3: Image (CAPTURE returns one)
+#include "graphvex/lang/image.h"               // graphvex R3: Image (CAPTURE returns one)
 #include "vulkan/surface.h"      // graphvex R3: the present seam (Surface)
 #include "window/window.h"       // hotcwap R1: the OS window
 #include "properties/add.h"        // Frame_add(...), Frame_addPanel(...)
 #include "properties/remove.h"     // Frame_removePanels(...)
 #include "properties/revalidate.h" // Frame_revalidate(...)
 #include "properties/set_size.h"   // Frame_setSize(...)
-#include "kernel/application.h"
+#include "core/application.h"
 
 // darling R4 — frame.h
 //

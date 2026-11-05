@@ -4,14 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "image.h"                   // graphvex R3
+#include "graphvex/lang/image.h"                   // graphvex R3
 #include "vulkan/surface.h"          // graphvex R3: the present seam
 #include "vulkan/vulkan_backend.h"   // graphvex R3: the GPU backend
 #include "input/pointer.h"           // automatic per-window hover bridge
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/intention.h"
+#include "annotation/annotation.h"
 
 ;;INTENTION("Application owns the keep-alive lifetime. Frame focus selects a "
             "Surface presentation ceiling, never a scene update rate. Default "
