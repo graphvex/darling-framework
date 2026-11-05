@@ -1,17 +1,14 @@
-#include "panel/markdown_panel.h"
+#include "panel/layered_panel.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * MarkdownPanel — reserved R4 class home, not an implementation.
+ * LayeredPanel — reserved R4 class home, not an implementation.
  *
- * Markdown block/inline parsing into retained text children, with selection, links and future code/table composition.
+ * Overlapping child Panels with explicit ordering and topmost visible hit routing.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: MarkdownPanel (panel/markdown_panel.c)
+ * CLASS: LayeredPanel (panel/layered_panel.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Markdown block/inline parsing into retained text children, with selection, links and future code/table composition.
+ * IMPLEMENT NEXT: Overlapping child Panels with explicit ordering and topmost visible hit routing.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

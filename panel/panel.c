@@ -5,8 +5,7 @@
 
 #include "panel/panel_internal.h"   // the ownership seam the properties layer uses
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
+#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

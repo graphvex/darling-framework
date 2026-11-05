@@ -1,17 +1,14 @@
-#include "panel/flex_panel.h"
+#include "panel/web_panel.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * FlexPanel — reserved R4 class home, not an implementation.
+ * WebPanel — reserved R4 class home, not an implementation.
  *
- * Panel composition with row/column flow, wrapping, gap, justification, alignment and hug/fill/fixed sizing policies.
+ * Capability-gated native-web-content Panel facade; platform handles are borrowed through a host bridge, not an embedded browser runtime.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: FlexPanel (panel/flex_panel.c)
+ * CLASS: WebPanel (panel/web_panel.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Panel composition with row/column flow, wrapping, gap, justification, alignment and hug/fill/fixed sizing policies.
+ * IMPLEMENT NEXT: Capability-gated native-web-content Panel facade; platform handles are borrowed through a host bridge, not an embedded browser runtime.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

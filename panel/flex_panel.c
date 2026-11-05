@@ -1,17 +1,14 @@
-#include "panel/dock_panel.h"
+#include "panel/flex_panel.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * DockPanel — reserved R4 class home, not an implementation.
+ * FlexPanel — reserved R4 class home, not an implementation.
  *
- * Panel composition with named dock regions and splitters, borrowing Frame geometry rather than owning native windows.
+ * Panel composition with row/column flow, wrapping, gap, justification, alignment and hug/fill/fixed sizing policies.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: DockPanel (panel/dock_panel.c)
+ * CLASS: FlexPanel (panel/flex_panel.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Panel composition with named dock regions and splitters, borrowing Frame geometry rather than owning native windows.
+ * IMPLEMENT NEXT: Panel composition with row/column flow, wrapping, gap, justification, alignment and hug/fill/fixed sizing policies.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

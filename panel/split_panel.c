@@ -1,17 +1,14 @@
-#include "panel/table_panel.h"
+#include "panel/split_panel.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * TablePanel — reserved R4 class home, not an implementation.
+ * SplitPanel — reserved R4 class home, not an implementation.
  *
- * Multi-column data-grid Panel with sorting, headers, resize and paginated or virtualized rows.
+ * Panel composition with pane ratios, divider interaction and min/max pane constraints; child ownership follows Panel.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: TablePanel (panel/table_panel.c)
+ * CLASS: SplitPanel (panel/split_panel.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Multi-column data-grid Panel with sorting, headers, resize and paginated or virtualized rows.
+ * IMPLEMENT NEXT: Panel composition with pane ratios, divider interaction and min/max pane constraints; child ownership follows Panel.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

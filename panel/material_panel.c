@@ -1,17 +1,14 @@
-#include "panel/section_panel.h"
+#include "panel/material_panel.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * SectionPanel — reserved R4 class home, not an implementation.
+ * MaterialPanel — reserved R4 class home, not an implementation.
  *
- * Compound titled header/body Panel with collapsible content and future animated height.
+ * Panel facade for borrowed graphvex material-rendered content; no material shader or GPU ownership belongs here.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: SectionPanel (panel/section_panel.c)
+ * CLASS: MaterialPanel (panel/material_panel.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Compound titled header/body Panel with collapsible content and future animated height.
+ * IMPLEMENT NEXT: Panel facade for borrowed graphvex material-rendered content; no material shader or GPU ownership belongs here.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
