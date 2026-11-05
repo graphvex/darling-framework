@@ -1,7 +1,7 @@
 # Darling implementation checklist
 
 Source audit: **2026-10-04**. This is the current remastered framework, not the
-retired implementation in `_trash/`. Update this file when a capability changes.
+retired implementation in `../../_trash`. Update this file when a capability changes.
 Per-file executed commands, content hashes and actual Unix completion timestamps
 live in the workspace's `../../../metadata/gists/test-checklist.md`.
 
@@ -64,7 +64,7 @@ Relevant drafts: `src/text/text_core.*`, `src/text/typography.*`,
 `src/properties/set_font.*` and `src/bridge/text_bridge.*`.
 The live graphvex source tree has no font/text implementation directories.
 
-Retired reference code remains in `_trash/darling-framework/text/`,
+Retired reference code remains in `../../_trash/darling-framework/text`,
 `_trash/darling-framework/objc/text_core.m`,
 `_trash/darling-framework/darling/label/` and `_trash/graphvex/src/font/`.
 These are not live dependencies. Restoration needs a deliberate ownership/API
@@ -87,5 +87,5 @@ whole-platform or visual approval.
 
 `panel_test`, `scroll_panel_test`, `panel_events_test`, `properties_test`,
 `set_cursor_test`, `event_invoke_test` and `event_kinds_test`: **7 passed**.
-Commands and timestamps are recorded in `../../../metadata/gists/test-checklist.md`. No window,
+Commands and timestamps are recorded in `../../metadata/gists/test-checklist.md`. No window,
 demo, visual tour, whole-suite claim or text-rendering readiness was exercised.
