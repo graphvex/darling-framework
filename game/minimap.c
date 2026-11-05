@@ -1,17 +1,14 @@
-#include "game/inventory_grid.h"
+#include "game/minimap.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * InventoryGrid — reserved R4 class home, not an implementation.
+ * Minimap — reserved R4 class home, not an implementation.
  *
- * GridPanel composition for item slots, stack counts, tier styles, locks and drag/drop intent.
+ * Scene/Panel composition for map/radar content, player direction, pings and fog-mask intent.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: InventoryGrid (game/inventory_grid.c)
+ * CLASS: Minimap (game/minimap.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: GridPanel composition for item slots, stack counts, tier styles, locks and drag/drop intent.
+ * IMPLEMENT NEXT: Scene/Panel composition for map/radar content, player direction, pings and fog-mask intent.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

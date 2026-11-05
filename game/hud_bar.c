@@ -1,17 +1,14 @@
-#include "game/dialog_box.h"
+#include "game/hud_bar.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * DialogBox — reserved R4 class home, not an implementation.
+ * HudBar — reserved R4 class home, not an implementation.
  *
- * NPC-dialogue Panel composition with portrait, text reveal and action choices.
+ * HUD value-bar Panel with primary fill, delayed ghost drain and damage-feedback intent.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: DialogBox (game/dialog_box.c)
+ * CLASS: HudBar (game/hud_bar.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: NPC-dialogue Panel composition with portrait, text reveal and action choices.
+ * IMPLEMENT NEXT: HUD value-bar Panel with primary fill, delayed ghost drain and damage-feedback intent.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

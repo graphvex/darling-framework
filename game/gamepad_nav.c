@@ -1,17 +1,14 @@
-#include "game/cooldown_button.h"
+#include "game/gamepad_nav.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * CooldownButton — reserved R4 class home, not an implementation.
+ * GamepadNav — reserved R4 class home, not an implementation.
  *
- * Button composition with owner-driven cooldown phase, radial progress and hotkey/ready indicators.
+ * Spatial focus-navigation policy for D-pad directions, bumper tabs and device glyph requests.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: CooldownButton (game/cooldown_button.c)
+ * CLASS: GamepadNav (game/gamepad_nav.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Button composition with owner-driven cooldown phase, radial progress and hotkey/ready indicators.
+ * IMPLEMENT NEXT: Spatial focus-navigation policy for D-pad directions, bumper tabs and device glyph requests.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

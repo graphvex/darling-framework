@@ -1,17 +1,14 @@
-#include "game/minimap.h"
+#include "game/cooldown_button.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Minimap — reserved R4 class home, not an implementation.
+ * CooldownButton — reserved R4 class home, not an implementation.
  *
- * Scene/Panel composition for map/radar content, player direction, pings and fog-mask intent.
+ * Button composition with owner-driven cooldown phase, radial progress and hotkey/ready indicators.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Minimap (game/minimap.c)
+ * CLASS: CooldownButton (game/cooldown_button.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Scene/Panel composition for map/radar content, player direction, pings and fog-mask intent.
+ * IMPLEMENT NEXT: Button composition with owner-driven cooldown phase, radial progress and hotkey/ready indicators.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
