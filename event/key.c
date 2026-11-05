@@ -1,17 +1,14 @@
-#include "event/bridge.h"
+#include "event/key.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Event bridge — reserved R4 operation/bridge home, not an implementation.
+ * Key events — reserved R4 operation/bridge home, not an implementation.
  *
- * Translate host event payloads into existing c23/event_invoke dispatch, preserving window-scoped coordinates and ownership.
+ * Focused-target keyboard delivery policy over shared event carriers; no Key struct duplication or blanket widget opt-ins.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: Event bridge (event/bridge.c)
+ * MODULE: Key events (event/key.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Translate host event payloads into existing c23/event_invoke dispatch, preserving window-scoped coordinates and ownership.
+ * IMPLEMENT NEXT: Focused-target keyboard delivery policy over shared event carriers; no Key struct duplication or blanket widget opt-ins.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

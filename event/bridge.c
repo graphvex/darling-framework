@@ -1,17 +1,14 @@
-#include "event/gesture.h"
+#include "event/bridge.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Gesture events — reserved R4 operation/bridge home, not an implementation.
+ * Event bridge — reserved R4 operation/bridge home, not an implementation.
  *
- * Gesture-recognition policy over borrowed scroll/pinch/pan payloads and owner-driven timing.
+ * Translate host event payloads into existing c23/event_invoke dispatch, preserving window-scoped coordinates and ownership.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: Gesture events (event/gesture.c)
+ * MODULE: Event bridge (event/bridge.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Gesture-recognition policy over borrowed scroll/pinch/pan payloads and owner-driven timing.
+ * IMPLEMENT NEXT: Translate host event payloads into existing c23/event_invoke dispatch, preserving window-scoped coordinates and ownership.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

@@ -1,17 +1,14 @@
-#include "event/key.h"
+#include "event/tree.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Key events — reserved R4 operation/bridge home, not an implementation.
+ * Tree events — reserved R4 operation/bridge home, not an implementation.
  *
- * Focused-target keyboard delivery policy over shared event carriers; no Key struct duplication or blanket widget opt-ins.
+ * Hierarchy mutation notification policy for attach/detach/dirty changes without duplicating the live tree operations.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: Key events (event/key.c)
+ * MODULE: Tree events (event/tree.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Focused-target keyboard delivery policy over shared event carriers; no Key struct duplication or blanket widget opt-ins.
+ * IMPLEMENT NEXT: Hierarchy mutation notification policy for attach/detach/dirty changes without duplicating the live tree operations.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

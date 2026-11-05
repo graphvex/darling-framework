@@ -1,17 +1,14 @@
-#include "event/value.h"
+#include "event/action.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Value events — reserved R4 operation/bridge home, not an implementation.
+ * Action events — reserved R4 operation/bridge home, not an implementation.
  *
- * Value-change notification policy for controls, with explicit delivery/reentrancy contracts to be defined.
+ * Abstract UI command dispatch and activation policy using borrowed handler/context lifetimes.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: Value events (event/value.c)
+ * MODULE: Action events (event/action.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Value-change notification policy for controls, with explicit delivery/reentrancy contracts to be defined.
+ * IMPLEMENT NEXT: Abstract UI command dispatch and activation policy using borrowed handler/context lifetimes.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

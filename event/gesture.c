@@ -1,17 +1,14 @@
-#include "event/document.h"
+#include "event/gesture.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Document events — reserved R4 operation/bridge home, not an implementation.
+ * Gesture events — reserved R4 operation/bridge home, not an implementation.
  *
- * Text mutation notification policy for insertion/removal/replacement over existing document event carriers.
+ * Gesture-recognition policy over borrowed scroll/pinch/pan payloads and owner-driven timing.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: Document events (event/document.c)
+ * MODULE: Gesture events (event/gesture.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Text mutation notification policy for insertion/removal/replacement over existing document event carriers.
+ * IMPLEMENT NEXT: Gesture-recognition policy over borrowed scroll/pinch/pan payloads and owner-driven timing.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
