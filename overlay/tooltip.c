@@ -1,17 +1,14 @@
-#include "overlay/overlay_root.h"
+#include "overlay/tooltip.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * OverlayRoot — reserved R4 class home, not an implementation.
+ * Tooltip — reserved R4 class home, not an implementation.
  *
- * Explicit top-level overlay tree that escapes content clips while retaining modal input isolation and one Frame presentation seam.
+ * Hover-hint overlay with placement/arrow intent and bounded lifetime; timers are borrowed from the owner loop.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: OverlayRoot (overlay/overlay_root.c)
+ * CLASS: Tooltip (overlay/tooltip.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Explicit top-level overlay tree that escapes content clips while retaining modal input isolation and one Frame presentation seam.
+ * IMPLEMENT NEXT: Hover-hint overlay with placement/arrow intent and bounded lifetime; timers are borrowed from the owner loop.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

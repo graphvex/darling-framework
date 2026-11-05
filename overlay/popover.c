@@ -1,17 +1,14 @@
-#include "overlay/tooltip.h"
+#include "overlay/popover.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Tooltip — reserved R4 class home, not an implementation.
+ * Popover — reserved R4 class home, not an implementation.
  *
- * Hover-hint overlay with placement/arrow intent and bounded lifetime; timers are borrowed from the owner loop.
+ * Click-anchored overlay card with light-dismiss, focus return and clipping escape policy.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Tooltip (overlay/tooltip.c)
+ * CLASS: Popover (overlay/popover.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Hover-hint overlay with placement/arrow intent and bounded lifetime; timers are borrowed from the owner loop.
+ * IMPLEMENT NEXT: Click-anchored overlay card with light-dismiss, focus return and clipping escape policy.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

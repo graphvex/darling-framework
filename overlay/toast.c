@@ -1,17 +1,14 @@
-#include "overlay/menu.h"
+#include "overlay/toast.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Menu — reserved R4 class home, not an implementation.
+ * Toast — reserved R4 class home, not an implementation.
  *
- * Hierarchical action-menu overlay with shortcuts, item selection and keyboard traversal policy.
+ * Nonmodal notification Panel with message/action composition and owner-driven dismissal.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Menu (overlay/menu.c)
+ * CLASS: Toast (overlay/toast.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Hierarchical action-menu overlay with shortcuts, item selection and keyboard traversal policy.
+ * IMPLEMENT NEXT: Nonmodal notification Panel with message/action composition and owner-driven dismissal.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
