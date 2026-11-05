@@ -1,17 +1,14 @@
-#include "button/checkbox.h"
+#include "button/switch.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Checkbox — reserved R4 class home, not an implementation.
+ * Switch — reserved R4 class home, not an implementation.
  *
- * Checked/indeterminate Panel with label hit region, value notifications and keyboard activation intent.
+ * Boolean-choice Panel with track/thumb composition, change notifications and eventual animated state transitions.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Checkbox (button/checkbox.c)
+ * CLASS: Switch (button/switch.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Checked/indeterminate Panel with label hit region, value notifications and keyboard activation intent.
+ * IMPLEMENT NEXT: Boolean-choice Panel with track/thumb composition, change notifications and eventual animated state transitions.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
