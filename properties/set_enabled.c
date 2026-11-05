@@ -1,17 +1,14 @@
-#include "properties/set_anchor.h"
+#include "properties/set_enabled.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_anchor — reserved R4 operation/bridge home, not an implementation.
+ * set_enabled — reserved R4 operation/bridge home, not an implementation.
  *
- * Parent anchor property routing over existing Element/Panel placement; migrate existing setters here rather than define parallel behavior.
+ * Future control enabled-state operation with input and appearance policy.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_anchor (properties/set_anchor.c)
+ * MODULE: set_enabled (properties/set_enabled.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Parent anchor property routing over existing Element/Panel placement; migrate existing setters here rather than define parallel behavior.
+ * IMPLEMENT NEXT: Future control enabled-state operation with input and appearance policy.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

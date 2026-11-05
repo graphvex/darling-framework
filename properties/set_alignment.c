@@ -1,17 +1,14 @@
-#include "properties/set_border.h"
+#include "properties/set_alignment.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_border — reserved R4 operation/bridge home, not an implementation.
+ * set_alignment — reserved R4 operation/bridge home, not an implementation.
  *
- * Border width/color property routing; eventually migrate current widget setters and preserve CPU/GPU paint contracts.
+ * Future content/cross-axis alignment operation; do not conflate it with anchor/pivot.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_border (properties/set_border.c)
+ * MODULE: set_alignment (properties/set_alignment.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Border width/color property routing; eventually migrate current widget setters and preserve CPU/GPU paint contracts.
+ * IMPLEMENT NEXT: Future content/cross-axis alignment operation; do not conflate it with anchor/pivot.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

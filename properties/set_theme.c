@@ -1,17 +1,14 @@
-#include "properties/set_sizing_mode.h"
+#include "properties/set_theme.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_sizing_mode — reserved R4 operation/bridge home, not an implementation.
+ * set_theme — reserved R4 operation/bridge home, not an implementation.
  *
- * Future fixed/hug/fill layout policy operation with explicit measurement semantics.
+ * Future theme-token binding operation for widgets and compound parts.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_sizing_mode (properties/set_sizing_mode.c)
+ * MODULE: set_theme (properties/set_theme.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Future fixed/hug/fill layout policy operation with explicit measurement semantics.
+ * IMPLEMENT NEXT: Future theme-token binding operation for widgets and compound parts.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

@@ -1,17 +1,14 @@
-#include "properties/set_shadow.h"
+#include "properties/set_value.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_shadow — reserved R4 operation/bridge home, not an implementation.
+ * set_value — reserved R4 operation/bridge home, not an implementation.
  *
- * Shadow offset/blur/color property routing; eventually migrate existing setters and retain layout-versus-paint bounds.
+ * Future typed control-value operation with range/clamp/notification contracts.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_shadow (properties/set_shadow.c)
+ * MODULE: set_value (properties/set_value.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Shadow offset/blur/color property routing; eventually migrate existing setters and retain layout-versus-paint bounds.
+ * IMPLEMENT NEXT: Future typed control-value operation with range/clamp/notification contracts.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

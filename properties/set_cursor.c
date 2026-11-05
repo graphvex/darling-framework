@@ -3,8 +3,7 @@
 #include "frame/frame.h"
 #include "panel/panel.h"
 #include "panel/scroll_panel.h"
-#include "annotation/definition.h"
-#include "annotation/overview.h"
+#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

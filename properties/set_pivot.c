@@ -1,17 +1,14 @@
-#include "properties/set_font.h"
+#include "properties/set_pivot.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_font — reserved R4 operation/bridge home, not an implementation.
+ * set_pivot — reserved R4 operation/bridge home, not an implementation.
  *
- * Future typography/font request operation that borrows lower-level font resources.
+ * Self-pivot property routing over existing Element/Panel placement; migrate existing setters here rather than define parallel behavior.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_font (properties/set_font.c)
+ * MODULE: set_pivot (properties/set_pivot.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Future typography/font request operation that borrows lower-level font resources.
+ * IMPLEMENT NEXT: Self-pivot property routing over existing Element/Panel placement; migrate existing setters here rather than define parallel behavior.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

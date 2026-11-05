@@ -1,17 +1,14 @@
-#include "properties/set_background_color.h"
+#include "properties/set_shadow.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_background_color — reserved R4 operation/bridge home, not an implementation.
+ * set_shadow — reserved R4 operation/bridge home, not an implementation.
  *
- * Background paint routing; eventually migrate current setters while preserving explicit window-transparency independence.
+ * Shadow offset/blur/color property routing; eventually migrate existing setters and retain layout-versus-paint bounds.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_background_color (properties/set_background_color.c)
+ * MODULE: set_shadow (properties/set_shadow.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Background paint routing; eventually migrate current setters while preserving explicit window-transparency independence.
+ * IMPLEMENT NEXT: Shadow offset/blur/color property routing; eventually migrate existing setters and retain layout-versus-paint bounds.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

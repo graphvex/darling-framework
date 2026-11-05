@@ -1,17 +1,14 @@
-#include "properties/set_focus.h"
+#include "properties/set_scroll_offset.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * set_focus — reserved R4 operation/bridge home, not an implementation.
+ * set_scroll_offset — reserved R4 operation/bridge home, not an implementation.
  *
- * Future focus-state operation over the event/focus coordinator and retained tree.
+ * Future shared scroll-offset operation preserving ScrollPanel clamp/revalidation semantics.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * MODULE: set_focus (properties/set_focus.c)
+ * MODULE: set_scroll_offset (properties/set_scroll_offset.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * STORAGE: none; this is a procedural operation/bridge placeholder.
  * PUBLIC API: none added; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Future focus-state operation over the event/focus coordinator and retained tree.
+ * IMPLEMENT NEXT: Future shared scroll-offset operation preserving ScrollPanel clamp/revalidation semantics.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
