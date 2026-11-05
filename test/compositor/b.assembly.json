@@ -1,0 +1,58 @@
+{
+  "application": {
+    "id": "org.vexgraph.filtergallery",
+    "name": "filter_gallery",
+    "displayName": "Filter Gallery",
+    "version": "0.1.0",
+    "type": "cli",
+    "authors": [
+      "vexgraph"
+    ],
+    "publisher": "vexgraph",
+    "description": "Interactive filter gallery: native window, GPU filter outputs",
+    "license": "MIT",
+    "homepage": "",
+    "icon": ""
+  },
+  "build": {
+    "entry": "filter_gallery.c",
+    "sources": [
+      "filter_gallery.c",
+      "gallery_photo.c"
+    ],
+    "includes": [
+      "darling",
+      "darling/test",
+      "graphvex",
+      "graphvex/vulkan",
+      "vexspoke",
+      "re",
+      "lifetime",
+      "determinant",
+      "language"
+    ],
+    "dependencies": [
+      "darling",
+      "graphvex",
+      "vexspoke",
+      "re",
+      "lifetime",
+      "determinant",
+      "language"
+    ],
+    "defines": [],
+    "options": [
+      "-Wall",
+      "-Wextra"
+    ],
+    "link": "executable"
+  },
+  "payload": {
+    "files": []
+  },
+  "targets": {},
+  "formats": [
+    "portable"
+  ],
+  "statePolicy": "clean"
+}
