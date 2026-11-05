@@ -1,17 +1,14 @@
-#include "feedback/spinner.h"
+#include "feedback/skeleton.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Spinner — reserved R4 class home, not an implementation.
+ * Skeleton — reserved R4 class home, not an implementation.
  *
- * Loading-indicator Panel with owner-driven phase and rendering intent; no independent animation thread.
+ * Loading-placeholder Panel with shape tokens and eventual owner-driven shimmer.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Spinner (feedback/spinner.c)
+ * CLASS: Skeleton (feedback/skeleton.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Loading-indicator Panel with owner-driven phase and rendering intent; no independent animation thread.
+ * IMPLEMENT NEXT: Loading-placeholder Panel with shape tokens and eventual owner-driven shimmer.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

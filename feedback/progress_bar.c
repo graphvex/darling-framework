@@ -1,17 +1,14 @@
-#include "feedback/focus_ring.h"
+#include "feedback/progress_bar.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * FocusRing — reserved R4 class home, not an implementation.
+ * ProgressBar — reserved R4 class home, not an implementation.
  *
- * Keyboard-focus indicator Panel tied to focus-visible policy, theme color and explicit offset.
+ * Determinate/indeterminate progress Panel with normalized value, fill and owner-driven animation.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: FocusRing (feedback/focus_ring.c)
+ * CLASS: ProgressBar (feedback/progress_bar.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Keyboard-focus indicator Panel tied to focus-visible policy, theme color and explicit offset.
+ * IMPLEMENT NEXT: Determinate/indeterminate progress Panel with normalized value, fill and owner-driven animation.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

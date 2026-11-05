@@ -1,17 +1,14 @@
-#include "feedback/progress_bar.h"
+#include "feedback/spinner.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * ProgressBar — reserved R4 class home, not an implementation.
+ * Spinner — reserved R4 class home, not an implementation.
  *
- * Determinate/indeterminate progress Panel with normalized value, fill and owner-driven animation.
+ * Loading-indicator Panel with owner-driven phase and rendering intent; no independent animation thread.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: ProgressBar (feedback/progress_bar.c)
+ * CLASS: Spinner (feedback/spinner.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Determinate/indeterminate progress Panel with normalized value, fill and owner-driven animation.
+ * IMPLEMENT NEXT: Loading-indicator Panel with owner-driven phase and rendering intent; no independent animation thread.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
