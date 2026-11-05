@@ -1,17 +1,14 @@
-#include "drawable/viewer_3d.h"
+#include "drawable/object_3d.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Viewer3D — reserved R4 class home, not an implementation.
+ * Object3D — reserved R4 class home, not an implementation.
  *
- * Scene3D viewer composition with orbit camera, lighting controls and Object3D content.
+ * UI scene-node wrapper for borrowed mesh/material resources and transform hierarchy; GPU mesh ownership remains in graphvex.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Viewer3D (drawable/viewer_3d.c)
+ * CLASS: Object3D (drawable/object_3d.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Scene3D viewer composition with orbit camera, lighting controls and Object3D content.
+ * IMPLEMENT NEXT: UI scene-node wrapper for borrowed mesh/material resources and transform hierarchy; GPU mesh ownership remains in graphvex.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

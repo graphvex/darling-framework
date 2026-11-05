@@ -1,7 +1,7 @@
 #ifndef DARLING_DRAWABLE_PICTURE_H
 #define DARLING_DRAWABLE_PICTURE_H
 
-#include "image.h"
+#include "graphvex/lang/image.h"
 #include "ui/element.h"
 
 // Picture owns a standalone graphical Element and BORROWS the Image. It starts
