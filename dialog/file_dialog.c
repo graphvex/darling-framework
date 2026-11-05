@@ -1,17 +1,14 @@
-#include "dialog/alert_dialog.h"
+#include "dialog/file_dialog.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * AlertDialog — reserved R4 class home, not an implementation.
+ * FileDialog — reserved R4 class home, not an implementation.
  *
- * Dialog composition for title, body and confirmation actions, preserving modal close/cancel policy.
+ * Dialog composition for path/filter/entry selection; file access is borrowed from vexspoke, never a new filesystem backend.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: AlertDialog (dialog/alert_dialog.c)
+ * CLASS: FileDialog (dialog/file_dialog.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Dialog composition for title, body and confirmation actions, preserving modal close/cancel policy.
+ * IMPLEMENT NEXT: Dialog composition for path/filter/entry selection; file access is borrowed from vexspoke, never a new filesystem backend.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

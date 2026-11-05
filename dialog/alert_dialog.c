@@ -1,17 +1,14 @@
-#include "dialog/color_dialog.h"
+#include "dialog/alert_dialog.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * ColorDialog — reserved R4 class home, not an implementation.
+ * AlertDialog — reserved R4 class home, not an implementation.
  *
- * Dialog composition for a ColorPicker and live color-change/result notifications.
+ * Dialog composition for title, body and confirmation actions, preserving modal close/cancel policy.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: ColorDialog (dialog/color_dialog.c)
+ * CLASS: AlertDialog (dialog/alert_dialog.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Dialog composition for a ColorPicker and live color-change/result notifications.
+ * IMPLEMENT NEXT: Dialog composition for title, body and confirmation actions, preserving modal close/cancel policy.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
