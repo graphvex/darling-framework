@@ -1,17 +1,14 @@
-#include "kit/breadcrumb.h"
+#include "kit/pagination.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Breadcrumb — reserved R4 class home, not an implementation.
+ * Pagination — reserved R4 class home, not an implementation.
  *
- * Hierarchical navigation-path Panel with separators, current item and action intent.
+ * Page-navigation Panel with page count/current page, boundaries and previous/next actions.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Breadcrumb (kit/breadcrumb.c)
+ * CLASS: Pagination (kit/pagination.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Hierarchical navigation-path Panel with separators, current item and action intent.
+ * IMPLEMENT NEXT: Page-navigation Panel with page count/current page, boundaries and previous/next actions.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
