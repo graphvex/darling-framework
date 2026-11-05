@@ -1,17 +1,14 @@
-#include "picker/color_picker.h"
+#include "picker/date_picker.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * ColorPicker — reserved R4 class home, not an implementation.
+ * DatePicker — reserved R4 class home, not an implementation.
  *
- * Color-selection widget with HSV/hex editing, hue/saturation/value controls and borrowed sample intent.
+ * Date-selection widget with calendar model, month navigation and future popup/month-grid composition.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: ColorPicker (picker/color_picker.c)
+ * CLASS: DatePicker (picker/date_picker.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Color-selection widget with HSV/hex editing, hue/saturation/value controls and borrowed sample intent.
+ * IMPLEMENT NEXT: Date-selection widget with calendar model, month navigation and future popup/month-grid composition.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

@@ -1,17 +1,14 @@
-#include "picker/color_swatch.h"
+#include "picker/color_picker.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * ColorSwatch — reserved R4 class home, not an implementation.
+ * ColorPicker — reserved R4 class home, not an implementation.
  *
- * Selectable color-chip Panel with selection/change notifications and shared Color representation.
+ * Color-selection widget with HSV/hex editing, hue/saturation/value controls and borrowed sample intent.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: ColorSwatch (picker/color_swatch.c)
+ * CLASS: ColorPicker (picker/color_picker.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Selectable color-chip Panel with selection/change notifications and shared Color representation.
+ * IMPLEMENT NEXT: Color-selection widget with HSV/hex editing, hue/saturation/value controls and borrowed sample intent.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
