@@ -1,17 +1,14 @@
-#include "spatial/spatial_canvas.h"
+#include "spatial/property_inspector.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * SpatialCanvas — reserved R4 class home, not an implementation.
+ * PropertyInspector — reserved R4 class home, not an implementation.
  *
- * Retained pan/zoom content-canvas policy with guides, minimap and borrowed driver transforms; no separate render loop.
+ * Retained property-editing Panel composition with explicit bindings for geometry, paint and text; edits use shared properties operations.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: SpatialCanvas (spatial/spatial_canvas.c)
+ * CLASS: PropertyInspector (spatial/property_inspector.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Retained pan/zoom content-canvas policy with guides, minimap and borrowed driver transforms; no separate render loop.
+ * IMPLEMENT NEXT: Retained property-editing Panel composition with explicit bindings for geometry, paint and text; edits use shared properties operations.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
