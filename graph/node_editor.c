@@ -1,17 +1,14 @@
-#include "graph/plot.h"
+#include "graph/node_editor.h"
 
-#include "annotation/definition.h"
-#include "annotation/overview.h"
-#include "annotation/draft.h"
-#include "annotation/incomplete.h"
+#include "annotation/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
 ;;DEFINITION
 /**
- * Plot — reserved R4 class home, not an implementation.
+ * NodeEditor — reserved R4 class home, not an implementation.
  *
- * Retained data-chart widget with borrowed data spans, line/bar/scatter modes, axes and data hit/tooltip intent.
+ * Retained graph-canvas widget with node/pin/socket models, connection curves and edit/selection intent.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -25,12 +22,12 @@
 
 ;;OVERVIEW
 /**
- * CLASS: Plot (graph/plot.c)
+ * CLASS: NodeEditor (graph/node_editor.c)
  * STATUS: draft scaffold; zero implemented runtime capabilities.
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Retained data-chart widget with borrowed data spans, line/bar/scatter modes, axes and data hit/tooltip intent.
+ * IMPLEMENT NEXT: Retained graph-canvas widget with node/pin/socket models, connection curves and edit/selection intent.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.
