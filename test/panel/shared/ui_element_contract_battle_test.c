@@ -15,7 +15,7 @@
 #include "test_application.h"
 // Exercise Element operations, shared-property behavior, null guards, and cleanup.
 int main(void) {
-    uint32_t baseline = PropertyPool_live(PropertyPool_default());
+    u32 baseline = PropertyPool_live(PropertyPool_default());
     Element *root = Element();
     ElementDesc desc1 = {.width = 40, .height = 30, .tag = "a"};
     Element *a = Element(&desc1);

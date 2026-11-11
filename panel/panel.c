@@ -92,7 +92,7 @@ Panel *Panel_1(const ElementDesc *desc) {
 }
 
 // Creates a Panel with the requested Element dimensions.
-Panel *Panel_2(float width, float height) {
+Panel *Panel_2(f32 width, f32 height) {
     ElementDesc d = {0};
     d.width = width;
     d.height = height;
@@ -127,7 +127,7 @@ void Panel_ownChild(Panel *parent, Panel *child) {
     if (!parent || !child) return;
     if ((*parent).ownedCount == (*parent).ownedCap) {
         int cap = (*parent).ownedCap ? (*parent).ownedCap * 2 : 4;
-        struct Panel **grown = realloc((*parent).owned, (size_t)cap * sizeof *grown);
+        struct Panel **grown = realloc((*parent).owned, (bytes)cap * sizeof *grown);
         if (!grown) return;
         (*parent).owned = grown;
         (*parent).ownedCap = cap;
@@ -142,7 +142,7 @@ bool Panel_disownChild(Panel *parent, Panel *child) {
     for (int i = 0; i < (*parent).ownedCount; i++) {
         if ((*parent).owned[i] != child) continue;
         memmove(&(*parent).owned[i], &(*parent).owned[i + 1],
-                (size_t)((*parent).ownedCount - i - 1) * sizeof *(*parent).owned);
+                (bytes)((*parent).ownedCount - i - 1) * sizeof *(*parent).owned);
         (*parent).ownedCount--;
         (*child).parent = nullptr;
         return true;
@@ -163,7 +163,7 @@ Element *Panel_childElement(const Panel *panel, int index) {
 // ── geometry ────────────────────────────────────────────────────────────────
 // Panel_setSize is in properties/set_size.c (grouped by property).
 // Sets the Element's x/y offset.
-void Panel_setOffset(Panel *panel, float x, float y) {
+void Panel_setOffset(Panel *panel, f32 x, f32 y) {
     if (panel) Element_setOffset((*panel).graphics, x, y);
 }
 // Sets the Element's anchor mode.
@@ -181,7 +181,7 @@ void Panel_setTag(Panel *panel, const char *tag) {
 
 // ── visual ──────────────────────────────────────────────────────────────────
 // Sets the Element's corner radius.
-void Panel_setRadius(Panel *panel, float radius) {
+void Panel_setRadius(Panel *panel, f32 radius) {
     if (panel) Element_setRadius((*panel).graphics, radius);
 }
 // Sets the Element's background color.
@@ -189,11 +189,11 @@ void Panel_setBackground(Panel *panel, Color color) {
     if (panel) Element_setBackground((*panel).graphics, color);
 }
 // Sets the Element's border color and width.
-void Panel_setBorder(Panel *panel, Color color, float width) {
+void Panel_setBorder(Panel *panel, Color color, f32 width) {
     if (panel) Element_setBorder((*panel).graphics, color, width);
 }
 // Sets the Element's shadow offset and blur.
-void Panel_setShadow(Panel *panel, float offsetX, float offsetY, float blur) {
+void Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur) {
     if (panel) Element_setShadow((*panel).graphics, offsetX, offsetY, blur);
 }
 // Sets the Element's shadow color.
@@ -207,11 +207,11 @@ void Panel_setVisible(Panel *panel, bool visible) {
 
 // ── queries ─────────────────────────────────────────────────────────────────
 // Returns the Element width, or zero for a null wrapper.
-float Panel_width(const Panel *panel) { return panel ? Element_width((*panel).graphics) : 0.0f; }
+f32 Panel_width(const Panel *panel) { return panel ? Element_width((*panel).graphics) : 0.0f; }
 // Returns the element height, or zero for a null wrapper.
-float Panel_height(const Panel *panel) { return panel ? Element_height((*panel).graphics) : 0.0f; }
+f32 Panel_height(const Panel *panel) { return panel ? Element_height((*panel).graphics) : 0.0f; }
 // Returns the corner radius, or zero for a null wrapper.
-float Panel_radius(const Panel *panel) { return panel ? Element_radius((*panel).graphics) : 0.0f; }
+f32 Panel_radius(const Panel *panel) { return panel ? Element_radius((*panel).graphics) : 0.0f; }
 // Returns the anchor mode, or zero for a null wrapper.
 int Panel_anchor(const Panel *panel) { return panel ? Element_anchor((*panel).graphics) : 0; }
 // Returns the pivot mode, or zero for a null wrapper.

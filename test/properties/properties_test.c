@@ -23,8 +23,8 @@ static int g_fail = 0;
         }                                                                  \
     } while (0)
 
-// Compare resolved geometry with tolerance for floating-point calculations.
-static bool near(float a, float b) { return (a > b ? a - b : b - a) < 0.01f; }
+// Compare resolved geometry with tolerance for f32ing-point calculations.
+static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 #include "test_application.h"
 // Verify property operations, detachment ownership, location arities, and bounds.

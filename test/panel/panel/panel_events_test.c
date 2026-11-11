@@ -22,8 +22,8 @@ static int g_fail = 0;
         }                                                                  \
     } while (0)
 
-// Compare scroll offsets with tolerance for floating-point layout math.
-static bool near(float a, float b) { return (a > b ? a - b : b - a) < 0.01f; }
+// Compare scroll offsets with tolerance for f32ing-point layout math.
+static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 typedef struct Trace { int ids[8]; int count; } Trace;
 // Append one dispatch marker while capacity remains.
@@ -76,7 +76,7 @@ int main(void) {
     Event wheel = { .kind = EV_SCROLL, .x = 20, .y = 20, .dx = 0, .dy = 120 };
     CHECK(Element_dispatchEvent(ScrollPanel_graphics(sp), &wheel));
 
-    float oy = ScrollPanel_getOffsetY(sp);
+    f32 oy = ScrollPanel_getOffsetY(sp);
     CHECK(near(oy, 120.0f));    // the wheel really scrolled the viewport
 
     ScrollPanel_destroy(sp);

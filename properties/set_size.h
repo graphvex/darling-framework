@@ -19,7 +19,7 @@
 typedef struct Panel Panel;
 typedef struct Frame Frame;
 
-Panel *Panel_setSize_3(Panel *panel, float width, float height);
+Panel *Panel_setSize_3(Panel *panel, f32 width, f32 height);
 void Frame_setSize_3(Frame *frame, int widthPx, int heightPx);
 
 #define Panel_setSize(...) OVERLOAD_DISPATCH(Panel_setSize, __VA_ARGS__)

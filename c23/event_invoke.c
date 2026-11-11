@@ -98,7 +98,7 @@ static int s_count = 0;
 static int s_capacity = 0;
 
 // Stores one typed handler record for an Element and event group.
-static Element *bind(Element *element, int group, const void *handlers, size_t size) {
+static Element *bind(Element *element, int group, const void *handlers, bytes size) {
     if (!element) return nullptr;
     for (int i = 0; i < s_count; i++) {
         if (s_bindings[i].element == element && s_bindings[i].group == group) {
@@ -108,7 +108,7 @@ static Element *bind(Element *element, int group, const void *handlers, size_t s
     }
     if (s_count == s_capacity) {
         int next = s_capacity ? s_capacity * 2 : 16;
-        Binding *grown = realloc(s_bindings, (size_t)next * sizeof *grown);
+        Binding *grown = realloc(s_bindings, (bytes)next * sizeof *grown);
         if (!grown) return element;   // registration is best-effort
         s_bindings = grown;
         s_capacity = next;

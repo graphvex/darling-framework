@@ -1,6 +1,6 @@
 #include "input/input_otp.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

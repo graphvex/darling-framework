@@ -8,7 +8,7 @@ policy, input/focus and the native-window/application bridge over the graphvex
 
 **Implemented and proven (macOS arm64, window tests opt-in):** `frame.c` (the
 retained UI host: window + panel/element tree, Surface/Board revalidation,
-double-buffered IOSurface GPU present with RGBA fallback, capture/PNG, Application
+d64-buffered IOSurface GPU present with RGBA fallback, capture/PNG, Application
 lifecycle, FPS policy), `panel.c` ownership, `scroll_panel.c` (partial viewport:
 clamp/clip/revalidate/events), nine `properties/*` operations, `event_invoke.c`
 dispatch, `hit.c` resolver, `pointer.c` synthetic+OS input, and `picture.c`.

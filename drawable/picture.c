@@ -14,7 +14,7 @@
  * Native initial size, explicit stretching and ordinary Element paint are the
  * implemented scope, not the legacy crop/fit API. Parent attachment borrows the
  * wrapper's Element: teardown must destroy this wrapper before the parent's
- * tree. Destroy detaches first so the parent cannot double-free the Element.
+ * tree. Destroy detaches first so the parent cannot d64-free the Element.
  * Image ownership never transfers. Retained lists may outlive the wrapper but
  * must not outlive the borrowed image. R3 still owns all rendering semantics.
  */
@@ -46,8 +46,8 @@ Picture *Picture_1(const Image *image) {
         THROW("Picture allocation failed");
         return nullptr;
     }
-    ElementDesc desc = {.width = (float) Image_width(image),
-                        .height = (float) Image_height(image)};
+    ElementDesc desc = {.width = (f32) Image_width(image),
+                        .height = (f32) Image_height(image)};
     Element *graphics = Element(&desc);
     if (!graphics) {
         free(picture);
@@ -97,7 +97,7 @@ void Picture_setImage(Picture *picture, const Image *image) {
 }
 
 // Sets finite, nonnegative display dimensions; invalid dimensions are rejected.
-void Picture_setSize(Picture *picture, float width, float height) {
+void Picture_setSize(Picture *picture, f32 width, f32 height) {
     if (!picture)
         return;
     if (!isfinite(width) || !isfinite(height) || width < 0 || height < 0) {
@@ -108,7 +108,7 @@ void Picture_setSize(Picture *picture, float width, float height) {
 }
 
 // Sets the element offset when both coordinates are finite.
-void Picture_setLocation(Picture *picture, float x, float y) {
+void Picture_setLocation(Picture *picture, f32 x, f32 y) {
     if (!picture)
         return;
     if (!isfinite(x) || !isfinite(y)) {
@@ -119,11 +119,11 @@ void Picture_setLocation(Picture *picture, float x, float y) {
 }
 
 // Returns the displayed width, or the Element safe default for a null Picture.
-float Picture_width(const Picture *picture) {
+f32 Picture_width(const Picture *picture) {
     return Element_width(Picture_graphics(picture));
 }
 // Returns the displayed height, or the Element safe default for a null Picture.
-float Picture_height(const Picture *picture) {
+f32 Picture_height(const Picture *picture) {
     return Element_height(Picture_graphics(picture));
 }
 // Returns the event-bound origin of the Picture's Element.
@@ -132,7 +132,7 @@ Point Picture_location(const Picture *picture) {
     return (Point){rect.x, rect.y};
 }
 
-static void format(const Picture *picture, bool structure, char *dest, size_t cap,
+static void format(const Picture *picture, bool structure, char *dest, bytes cap,
                    bool *outTruncated) {
     if (!dest && cap) {
         if (outTruncated)
@@ -145,22 +145,22 @@ static void format(const Picture *picture, bool structure, char *dest, size_t ca
         length = snprintf(dest, cap, "nullptr");
     else if (structure)
         length = snprintf(dest, cap, "Picture{graphics=Element(width=%g,height=%g)}",
-                          (double) Picture_width(picture), (double) Picture_height(picture));
+                          (d64) Picture_width(picture), (d64) Picture_height(picture));
     else {
         const Image *image = Picture_image(picture);
         length = snprintf(dest, cap, "Picture(%gx%g,image=%ux%u)",
-                          (double) Picture_width(picture), (double) Picture_height(picture),
+                          (d64) Picture_width(picture), (d64) Picture_height(picture),
                           Image_width(image), Image_height(image));
     }
     if (outTruncated)
-        *outTruncated = length < 0 || (size_t) length >= cap;
+        *outTruncated = length < 0 || (bytes) length >= cap;
 }
 
 // Writes a bounded value summary and reports whether it was truncated.
-void Picture_toString(const Picture *picture, char *dest, size_t cap, bool *outTruncated) {
+void Picture_toString(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
     format(picture, false, dest, cap, outTruncated);
 }
 // Writes a bounded one-level field projection and reports truncation.
-void Picture_toStringStruct(const Picture *picture, char *dest, size_t cap, bool *outTruncated) {
+void Picture_toStringStruct(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
     format(picture, true, dest, cap, outTruncated);
 }

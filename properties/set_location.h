@@ -15,9 +15,9 @@
 
 typedef struct Panel Panel;
 
-Panel *Panel_setLocation_3(Panel *panel, float x, float y);
-Panel *Panel_setLocation_4(Panel *panel, float x, float y, int anchor);
-Panel *Panel_setLocation_5(Panel *panel, float x, float y, int anchor, int pivot);
+Panel *Panel_setLocation_3(Panel *panel, f32 x, f32 y);
+Panel *Panel_setLocation_4(Panel *panel, f32 x, f32 y, int anchor);
+Panel *Panel_setLocation_5(Panel *panel, f32 x, f32 y, int anchor, int pivot);
 
 #define Panel_setLocation(...) OVERLOAD_DISPATCH(Panel_setLocation, __VA_ARGS__)
 

@@ -1,6 +1,6 @@
 #include "panel/grid_panel.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

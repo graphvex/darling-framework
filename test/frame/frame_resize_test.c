@@ -36,7 +36,7 @@ int main(void) {
     for (int i = 0; i < n; i++) {
         Frame_setSize(f, sizes[i][0], sizes[i][1]);
         Frame_render(f);
-        CHECK(Frame_root(f).w == (float)sizes[i][0]);
+        CHECK(Frame_root(f).w == (f32)sizes[i][0]);
 #if defined(VEX_PLATFORM_APPLE)
         CHECK(Window_presentSurfaceContents(Frame_window(f)) != nullptr);
 #endif

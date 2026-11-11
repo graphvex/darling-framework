@@ -36,7 +36,7 @@
  * ============================================================================
  */
 
-Panel *Panel_setCornerRadius_2(Panel *panel, float radius) {
+Panel *Panel_setCornerRadius_2(Panel *panel, f32 radius) {
     if (panel) Element_setRadius(Panel_graphics(panel), radius);
     return panel;
 }

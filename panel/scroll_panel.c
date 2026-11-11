@@ -34,9 +34,9 @@
  * ----------------------------------------------------------------------------
  *   Element *viewport;  // owned, clipped Element (the scroll window)
  *   Element *content;   // owned; a TOP_LEFT child of the viewport
- *   float viewW, viewH; // viewport extent (native px)
- *   float contentW, contentH; // content extent (native px)
- *   float offsetX, offsetY;   // scroll offset; [0, max(0, content-viewport)]
+ *   f32 viewW, viewH; // viewport extent (native px)
+ *   f32 contentW, contentH; // content extent (native px)
+ *   f32 offsetX, offsetY;   // scroll offset; [0, max(0, content-viewport)]
  *
  * PRIVATE HELPERS:
  * ----------------------------------------------------------------------------
@@ -63,18 +63,18 @@
 struct ScrollPanel {
     Element *viewport;      // owned, clipped
     Element *content;       // owned; a child of the viewport
-    float viewW, viewH;
-    float contentW, contentH;
-    float offsetX, offsetY;
+    f32 viewW, viewH;
+    f32 contentW, contentH;
+    f32 offsetX, offsetY;
 };
 
 // Creates a zero-sized clipped viewport.
 ScrollPanel *ScrollPanel_0(void) { return ScrollPanel_2(0.0f, 0.0f); }
 // Creates a square clipped viewport with the given side length.
-ScrollPanel *ScrollPanel_1(float viewSize) { return ScrollPanel_2(viewSize, viewSize); }
+ScrollPanel *ScrollPanel_1(f32 viewSize) { return ScrollPanel_2(viewSize, viewSize); }
 
 // Creates a clipped viewport with the requested width and height.
-ScrollPanel *ScrollPanel_2(float viewW, float viewH) {
+ScrollPanel *ScrollPanel_2(f32 viewW, f32 viewH) {
     ScrollPanel *sp = calloc(1, sizeof *sp);
     if (!sp) return nullptr;
     (*sp).viewport = Element();
@@ -115,7 +115,7 @@ void ScrollPanel_setContent(ScrollPanel *sp, Element *content) {
 }
 
 // Updates the clipped viewport extent and re-clamps the current offset.
-void ScrollPanel_setViewportSize(ScrollPanel *sp, float w, float h) {
+void ScrollPanel_setViewportSize(ScrollPanel *sp, f32 w, f32 h) {
     if (!sp) return;
     (*sp).viewW = w;
     (*sp).viewH = h;
@@ -124,7 +124,7 @@ void ScrollPanel_setViewportSize(ScrollPanel *sp, float w, float h) {
 }
 
 // Updates the content extent used to calculate the scroll range.
-void ScrollPanel_setContentSize(ScrollPanel *sp, float w, float h) {
+void ScrollPanel_setContentSize(ScrollPanel *sp, f32 w, f32 h) {
     if (!sp) return;
     (*sp).contentW = w;
     (*sp).contentH = h;
@@ -132,24 +132,24 @@ void ScrollPanel_setContentSize(ScrollPanel *sp, float w, float h) {
 }
 
 // Returns the viewport width, or zero for a null wrapper.
-float ScrollPanel_viewportWidth(const ScrollPanel *sp) { return sp ? (*sp).viewW : 0.0f; }
+f32 ScrollPanel_viewportWidth(const ScrollPanel *sp) { return sp ? (*sp).viewW : 0.0f; }
 // Returns the viewport height, or zero for a null wrapper.
-float ScrollPanel_viewportHeight(const ScrollPanel *sp) { return sp ? (*sp).viewH : 0.0f; }
+f32 ScrollPanel_viewportHeight(const ScrollPanel *sp) { return sp ? (*sp).viewH : 0.0f; }
 // Returns the content width, or zero for a null wrapper.
-float ScrollPanel_contentWidth(const ScrollPanel *sp) { return sp ? (*sp).contentW : 0.0f; }
+f32 ScrollPanel_contentWidth(const ScrollPanel *sp) { return sp ? (*sp).contentW : 0.0f; }
 // Returns the content height, or zero for a null wrapper.
-float ScrollPanel_contentHeight(const ScrollPanel *sp) { return sp ? (*sp).contentH : 0.0f; }
+f32 ScrollPanel_contentHeight(const ScrollPanel *sp) { return sp ? (*sp).contentH : 0.0f; }
 
 // Returns the maximum horizontal offset, never less than zero.
-float ScrollPanel_maxX(const ScrollPanel *sp) {
+f32 ScrollPanel_maxX(const ScrollPanel *sp) {
     if (!sp) return 0.0f;
-    float m = (*sp).contentW - (*sp).viewW;
+    f32 m = (*sp).contentW - (*sp).viewW;
     return m > 0.0f ? m : 0.0f;
 }
 // Returns the maximum vertical offset, never less than zero.
-float ScrollPanel_maxY(const ScrollPanel *sp) {
+f32 ScrollPanel_maxY(const ScrollPanel *sp) {
     if (!sp) return 0.0f;
-    float m = (*sp).contentH - (*sp).viewH;
+    f32 m = (*sp).contentH - (*sp).viewH;
     return m > 0.0f ? m : 0.0f;
 }
 // Reports whether content extends beyond the viewport horizontally.
@@ -158,9 +158,9 @@ bool ScrollPanel_canScrollX(const ScrollPanel *sp) { return ScrollPanel_maxX(sp)
 bool ScrollPanel_canScrollY(const ScrollPanel *sp) { return ScrollPanel_maxY(sp) > 0.0f; }
 
 // Sets both offsets, clamped independently to the current scroll ranges.
-void ScrollPanel_setOffset(ScrollPanel *sp, float x, float y) {
+void ScrollPanel_setOffset(ScrollPanel *sp, f32 x, f32 y) {
     if (!sp) return;
-    float mx = ScrollPanel_maxX(sp), my = ScrollPanel_maxY(sp);
+    f32 mx = ScrollPanel_maxX(sp), my = ScrollPanel_maxY(sp);
     if (x < 0.0f) x = 0.0f; if (x > mx) x = mx;   // THE clamp: one funnel
     if (y < 0.0f) y = 0.0f; if (y > my) y = my;
     (*sp).offsetX = x;
@@ -169,17 +169,17 @@ void ScrollPanel_setOffset(ScrollPanel *sp, float x, float y) {
 }
 
 // Returns the current horizontal offset.
-float ScrollPanel_getOffsetX(const ScrollPanel *sp) {
+f32 ScrollPanel_getOffsetX(const ScrollPanel *sp) {
     return sp ? (*sp).offsetX : 0.0f;
 }
 
 // Returns the current vertical offset.
-float ScrollPanel_getOffsetY(const ScrollPanel *sp) {
+f32 ScrollPanel_getOffsetY(const ScrollPanel *sp) {
     return sp ? (*sp).offsetY : 0.0f;
 }
 
 // Applies a relative scroll delta through the clamping setter.
-void ScrollPanel_scrollBy(ScrollPanel *sp, float dx, float dy) {
+void ScrollPanel_scrollBy(ScrollPanel *sp, f32 dx, f32 dy) {
     if (!sp) return;
     ScrollPanel_setOffset(sp, (*sp).offsetX + dx, (*sp).offsetY + dy);
 }

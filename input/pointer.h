@@ -18,13 +18,13 @@
 typedef void (*PointerFn)(Panel *panel, void *userdata);
 
 // ── actions (target the content element; hit-test runs from its root) ────────
-void Pointer_move(Element *root, float x, float y);
-void Pointer_press(Element *root, float x, float y);
-void Pointer_release(Element *root, float x, float y);
-void Pointer_click(Element *root, float x, float y);
-void Pointer_hold(Element *root, float x, float y, double seconds);
-void Pointer_drag(Element *root, float x, float y, float toX, float toY, double seconds);
-Panel *Pointer_hover(Element *root, float x, float y);   // the bound Panel under (x,y)
+void Pointer_move(Element *root, f32 x, f32 y);
+void Pointer_press(Element *root, f32 x, f32 y);
+void Pointer_release(Element *root, f32 x, f32 y);
+void Pointer_click(Element *root, f32 x, f32 y);
+void Pointer_hold(Element *root, f32 x, f32 y, d64 seconds);
+void Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds);
+Panel *Pointer_hover(Element *root, f32 x, f32 y);   // the bound Panel under (x,y)
 
 // ── handlers ────────────────────────────────────────────────────────────────
 void   Pointer_onClick(Panel *panel, PointerFn fn, void *userdata);

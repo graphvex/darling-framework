@@ -46,8 +46,8 @@ static bool sampleMatches(const Image *capture, const Image *source,
                           unsigned x, unsigned y, unsigned sx, unsigned sy) {
     if (!capture || x >= Image_width(capture) || y >= Image_height(capture))
         return false;
-    const uint8_t *a = Image_pixels(capture) + (size_t) y * Image_stride(capture) + (size_t) x * 4;
-    const uint8_t *b = Image_pixels(source) + (size_t) sy * Image_stride(source) + (size_t) sx * 4;
+    const u8 *a = Image_pixels(capture) + (bytes) y * Image_stride(capture) + (bytes) x * 4;
+    const u8 *b = Image_pixels(source) + (bytes) sy * Image_stride(source) + (bytes) sx * 4;
     for (unsigned c = 0; c < 4; ++c)
         if (abs((int) a[c] - b[c]) > 1) {
             fprintf(stderr, "sample %u,%u channel %u got %u expected %u\n", x, y, c, a[c], b[c]);
@@ -57,7 +57,7 @@ static bool sampleMatches(const Image *capture, const Image *source,
 }
 
 // Supplies a fixed time source so the smoke checks have deterministic pacing.
-static uint64_t galleryFrozenClock(void *userdata) {
+static u64 galleryFrozenClock(void *userdata) {
     (void) userdata;
     return 1000000000ULL;
 }
@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
     if (smoke) {
         static const int widths[] = {1160, 1400, 1240, 1632};
         for (unsigned step = 0; step < sizeof widths / sizeof widths[0]; ++step) {
-            uint64_t before = Surface_getPresentCount(Frame_surface(frame));
+            u64 before = Surface_getPresentCount(Frame_surface(frame));
             if (step)
                 Window_setSize(Frame_window(frame), widths[step], 430 + (int) step * 20);
             if (step && Surface_getPresentCount(Frame_surface(frame)) != before + 1) {

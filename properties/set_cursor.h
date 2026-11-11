@@ -25,7 +25,7 @@ typedef struct Frame Frame;
 Element *Element_setCursor(Element *element, CursorType cursor);
 // Deepest visible hit wins; absent/inherited preferences walk up to root only.
 // A miss or no preference resolves to arrow. Rounded/viewport clips apply.
-CursorType Element_cursorAt(Element *root, float x, float y);
+CursorType Element_cursorAt(Element *root, f32 x, f32 y);
 
 #define DECLARE_CURSOR(Class) Class *Class##_setCursor(Class *self, CursorType cursor)
 #define IMPLEMENT_CURSOR_WITH(Class, ELEMENT_OF)                         \

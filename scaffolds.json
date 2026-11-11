@@ -582,7 +582,7 @@
       "name": "DamageNumbers",
       "kind": "class",
       "status": "draft",
-      "scope": "Pooled floating-text Panel coordinator with bounded combat-text lifetime and owner-driven motion."
+      "scope": "Pooled f32ing-text Panel coordinator with bounded combat-text lifetime and owner-driven motion."
     },
     {
       "path": "game/inventory_grid",

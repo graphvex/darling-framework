@@ -14,7 +14,7 @@ attached windows to **close**, not merely hide; worker close requests close all.
 | :--- | :--- | :--- |
 | `naked_frame_test` | Empty content, naked mode, retained traffic-light visibility preferences on macOS, resize, paint/transparency independence and reversible chrome | Transparent titlebar; drag the empty background to move the window |
 | `borderless_frame_test` | Empty content, borderless mode, resize, paint/transparency independence and reversible chrome | No native titlebar/buttons; drag the background; click the red square to exit |
-| `traffic_light_frame_test` | macOS per-button visibility preferences, exact header position, floating/decorated transitions, empty content and resize | Native red/yellow/green buttons; drag the background; red square also exits |
+| `traffic_light_frame_test` | macOS per-button visibility preferences, exact header position, f32ing/decorated transitions, empty content and resize | Native red/yellow/green buttons; drag the background; red square also exits |
 | `ui_matryoshka_battle_test` | 96 captured rings, mutation, hit testing, resize, scripted press/drag/release with pixel assertions, pool reclamation | Drag a ring or the center to move it and its nested children; native close button exits |
 | `liquid_glass_frame_test` | Descriptor round-trip assertions only; no appearance claim | `--interactive` stays open until actual window closure; no 12-second timeout |
 | `frame_application_lifecycle_test` | Worker startup/return, owner invocation, multiple windows, hide-versus-close and close-all/join | Automated only |

@@ -31,7 +31,7 @@ static const char *galleryPhotoPath(void) {
     const char *marker = strstr(__FILE__, "/darling/");
     if (marker == nullptr)
         return nullptr;
-    size_t prefix = (size_t) (marker - __FILE__);
+    bytes prefix = (bytes) (marker - __FILE__);
     snprintf(resolved, sizeof resolved, "%.*s/_resources/sunflower.png", (int) prefix, __FILE__);
     return resolved;
 }
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     if (argc == 2 && !strcmp(argv[1], "--bundle"))
         path = nullptr;
     enum { WIDTH = 360, HEIGHT = 300, BYTES = WIDTH * HEIGHT * 4 };
-    uint8_t *pixels = malloc(BYTES), *again = malloc(BYTES);
+    u8 *pixels = malloc(BYTES), *again = malloc(BYTES);
     assert(pixels && again);
     memset(pixels, 0x5a, BYTES);
     memcpy(again, pixels, BYTES);
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     assert(!memcmp(pixels, again, BYTES));
 
     // Encode an asymmetric 2x2 PNG to prove top-left orientation/channel order.
-    uint8_t corners[] = {255,0,0,255, 0,255,0,255, 0,0,255,255, 255,255,255,255};
+    u8 corners[] = {255,0,0,255, 0,255,0,255, 0,0,255,255, 255,255,255,255};
     char temporary[] = "gallery-photo-XXXXXX";
     int fd = mkstemp(temporary);
     assert(fd >= 0);
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
     CGDataProviderRelease(provider);
     CGColorSpaceRelease(space);
     CFRelease(url);
-    uint8_t decoded[16];
+    u8 decoded[16];
     assert(GalleryPhoto_decode(temporary, 2, 2, decoded, 8));
     assert(!memcmp(decoded, corners, sizeof corners));
     assert(!GalleryPhoto_decode(temporary, 1, GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT + 1, decoded, 4));
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     assert(GalleryPhoto_decode(path, WIDTH, HEIGHT, again, WIDTH * 4));
     assert(!memcmp(pixels, again, BYTES));
     unsigned differing = 0;
-    for (size_t i = 0; i < BYTES; i += 4) {
+    for (bytes i = 0; i < BYTES; i += 4) {
         assert(pixels[i + 3] == 255);
         differing += pixels[i] != pixels[0] || pixels[i + 1] != pixels[1] || pixels[i + 2] != pixels[2];
     }

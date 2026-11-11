@@ -38,7 +38,7 @@ typedef struct Panel Panel;
 
 Panel *Panel_0(void);
 Panel *Panel_1(const ElementDesc *desc);
-Panel *Panel_2(float width, float height);
+Panel *Panel_2(f32 width, f32 height);
 #define PANEL_CHOOSER(_0, _1, _2, NAME, ...) NAME
 #define Panel(...) PANEL_CHOOSER(dummy __VA_OPT__(,) __VA_ARGS__, Panel_2, Panel_1, Panel_0)(__VA_ARGS__)
 void   Panel_destroy(Panel *panel);            // frees the attached Element
@@ -52,23 +52,23 @@ Panel *Panel_parent(const Panel *panel);
 
 // ── geometry (forwards to the Element) ──────────────────────────────────────
 // Panel_setSize lives in properties/set_size.h (overloaded by arity).
-void Panel_setOffset(Panel *panel, float x, float y);
+void Panel_setOffset(Panel *panel, f32 x, f32 y);
 void Panel_setAnchor(Panel *panel, int anchor);     // PART_* on the parent
 void Panel_setPivot(Panel *panel, int pivot);       // PART_* on the panel
 void Panel_setTag(Panel *panel, const char *tag);
 
 // ── visual ──────────────────────────────────────────────────────────────────
-void Panel_setRadius(Panel *panel, float radius);
+void Panel_setRadius(Panel *panel, f32 radius);
 void Panel_setBackground(Panel *panel, Color color);
-void Panel_setBorder(Panel *panel, Color color, float width);
-void Panel_setShadow(Panel *panel, float offsetX, float offsetY, float blur);
+void Panel_setBorder(Panel *panel, Color color, f32 width);
+void Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur);
 void Panel_setShadowColor(Panel *panel, Color color);
 void Panel_setVisible(Panel *panel, bool visible);
 
 // ── queries (null-safe) ─────────────────────────────────────────────────────
-float Panel_width(const Panel *panel);
-float Panel_height(const Panel *panel);
-float Panel_radius(const Panel *panel);
+f32 Panel_width(const Panel *panel);
+f32 Panel_height(const Panel *panel);
+f32 Panel_radius(const Panel *panel);
 int   Panel_anchor(const Panel *panel);
 int   Panel_pivot(const Panel *panel);
 const char *Panel_tag(const Panel *panel);

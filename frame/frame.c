@@ -30,7 +30,7 @@
  * requiring applications to install mouse handlers themselves.
  * Revalidation follows Frame -> Surface -> content Board -> Element tree/paint: the Board
  * owns the content generation/callback, and GPU pixels stay on the borrowed
- * double-buffered IOSurfaces, not a redundant CPU render target.
+ * d64-buffered IOSurfaces, not a redundant CPU render target.
  *
  * Attach/detach and the revalidate entry live in properties/ (add, remove,
  * revalidate); this file exposes the small ownership seam they call
@@ -56,7 +56,7 @@
  *   Surface  *surface;       // owned present seam
  *   Board    *contentBoard;  // content revalidate step + generation (owned)
  *   bool      paintReady;    // content produced a frame; present may publish
- *   void     *surfaces[2];   // borrowed IOSurfaces (Apple zero-copy, double buf)
+ *   void     *surfaces[2];   // borrowed IOSurfaces (Apple zero-copy, d64 buf)
  *   int       targets[2];    // graphvex surface slots for those IOSurfaces
  *   int       front;         // which surface the layer shows
  *   bool      gpu;           // zero-copy path is live
@@ -116,7 +116,7 @@ struct Frame {
     Surface *surface;    // the present seam: capture target + host blit (fallback)
     Board *contentBoard; // content revalidator + generation; pixels stay on the present seam
     bool paintReady;     // only publish after the content callback produced a frame
-    void *surfaces[2];   // borrowed IOSurfaces (Apple zero-copy seam, double buffer)
+    void *surfaces[2];   // borrowed IOSurfaces (Apple zero-copy seam, d64 buffer)
     int targets[2];      // graphvex surface slots for those IOSurfaces
     int front;           // which surface the layer currently shows
     bool gpu;            // the zero-copy present path is live
@@ -148,7 +148,7 @@ static void frame_pollApplication(Application *application, void *userdata);
 static void live_add(Frame *f) {
     if (s_liveCount == s_liveCap) {
         s_liveCap = s_liveCap ? s_liveCap * 2 : 4;
-        s_live = realloc(s_live, (size_t)s_liveCap * sizeof *s_live);
+        s_live = realloc(s_live, (bytes)s_liveCap * sizeof *s_live);
     }
     s_live[s_liveCount++] = f;
 }
@@ -157,7 +157,7 @@ static void live_add(Frame *f) {
 static void live_remove(Frame *f) {
     for (int i = 0; i < s_liveCount; i++) {
         if (s_live[i] != f) continue;
-        memmove(&s_live[i], &s_live[i + 1], (size_t)(s_liveCount - i - 1) * sizeof *s_live);
+        memmove(&s_live[i], &s_live[i + 1], (bytes)(s_liveCount - i - 1) * sizeof *s_live);
         s_liveCount--;
         return;
     }
@@ -167,7 +167,7 @@ static void live_remove(Frame *f) {
 static void child_add(Frame *owner, Frame *child) {
     if ((*owner).childCount == (*owner).childCap) {
         (*owner).childCap = (*owner).childCap ? (*owner).childCap * 2 : 4;
-        (*owner).children = realloc((*owner).children, (size_t)((*owner).childCap) * sizeof *((*owner).children));
+        (*owner).children = realloc((*owner).children, (bytes)((*owner).childCap) * sizeof *((*owner).children));
     }
     (*owner).children[(*owner).childCount++] = child;
 }
@@ -177,7 +177,7 @@ static void child_remove(Frame *owner, Frame *child) {
     for (int i = 0; i < (*owner).childCount; i++) {
         if ((*owner).children[i] != child) continue;
         memmove(&(*owner).children[i], &(*owner).children[i + 1],
-                (size_t)((*owner).childCount - i - 1) * sizeof *(*owner).children);
+                (bytes)((*owner).childCount - i - 1) * sizeof *(*owner).children);
         (*owner).childCount--;
         return;
     }
@@ -232,7 +232,7 @@ static bool frame_gpu_open(Frame *f, int wpx, int hpx) {
         (*f).surfaces[i] = Window_createPresentSurface((*f).window, wpx, hpx);
     if (!(*f).surfaces[0] || !(*f).surfaces[1]) return false;
     for (int i = 0; i < 2; i++) {
-        (*f).targets[i] = VulkanBackend_addSurface((*f).surfaces[i], (uint32_t)wpx, (uint32_t)hpx);
+        (*f).targets[i] = VulkanBackend_addSurface((*f).surfaces[i], (u32)wpx, (u32)hpx);
         if ((*f).targets[i] < 0) return false;
     }
     (*f).front = 0;
@@ -278,7 +278,7 @@ Frame *Frame_3(const char *title, int widthPx, int heightPx) {
     if (!(*f).window) { free(f); return nullptr; }
     // The present seam: its retained Image is the capture target, and its host
     // blit publishes to the window. The borrowed native is the content view.
-    (*f).surface = Surface(Window_contentView((*f).window), (uint32_t)wpx, (uint32_t)hpx);
+    (*f).surface = Surface(Window_contentView((*f).window), (u32)wpx, (u32)hpx);
     if (!(*f).surface) { Window_destroy((*f).window); free(f); return nullptr; }
     Surface_onPresent((*f).surface, frame_on_present, f);
     // Prefer the zero-copy GPU seam; it falls back silently when unavailable.
@@ -288,7 +288,7 @@ Frame *Frame_3(const char *title, int widthPx, int heightPx) {
     (*f).background = COLOR_RGBA(18, 20, 28, 255);
     (*f).root = Element();   // the window's content element (transparent)
     Element_setBackground((*f).root, COLOR_CLEAR);
-    Element_setSize((*f).root, (float)Window_width((*f).window), (float)Window_height((*f).window));
+    Element_setSize((*f).root, (f32)Window_width((*f).window), (f32)Window_height((*f).window));
     (*f).dl = DisplayList_0();
     (*f).contentBoard = Board_0();
     if (!(*f).dl || !(*f).contentBoard) { Frame_destroy(f); return nullptr; }
@@ -364,7 +364,7 @@ void  Frame_setTransparent(Frame *frame, bool transparent) {   // true = see-thr
     if (frame && (*frame).window) Window_setTransparentBackground((*frame).window, transparent);
 }
 // Sets the host window's backdrop blur radius.
-void  Frame_setBlur(Frame *frame, float radius) {   // frost the WINDOW backdrop
+void  Frame_setBlur(Frame *frame, f32 radius) {   // frost the WINDOW backdrop
     if (frame && (*frame).window) Window_setBackdropBlur((*frame).window, radius);
 }
 
@@ -387,8 +387,8 @@ void Frame_onClose(Frame *frame, FrameCloseFn fn, void *userdata) {
     if (!frame || !fn) return;
     if ((*frame).closeCount == (*frame).closeCap) {
         int ncap = (*frame).closeCap ? (*frame).closeCap * 2 : 4;
-        FrameCloseFn *gf = realloc((*frame).closeFns, (size_t)ncap * sizeof *gf);
-        void **gu = realloc((*frame).closeUd, (size_t)ncap * sizeof *gu);
+        FrameCloseFn *gf = realloc((*frame).closeFns, (bytes)ncap * sizeof *gf);
+        void **gu = realloc((*frame).closeUd, (bytes)ncap * sizeof *gu);
         if (!gf || !gu) return;
         (*frame).closeFns = gf;
         (*frame).closeUd = gu;
@@ -439,11 +439,11 @@ bool Frame_ownPanel(Frame *frame, Panel *panel, int index) {
     if (!frame || !(*frame).root || !panel) return false;
     int at = index < 0 ? (*frame).count : index;
     if (at > (*frame).count) at = (*frame).count;
-    Panel **grown = realloc((*frame).panels, (size_t)((*frame).count + 1) * sizeof *grown);
+    Panel **grown = realloc((*frame).panels, (bytes)((*frame).count + 1) * sizeof *grown);
     if (!grown) return false;
     (*frame).panels = grown;
     memmove(&(*frame).panels[at + 1], &(*frame).panels[at],
-            (size_t)((*frame).count - at) * sizeof *(*frame).panels);
+            (bytes)((*frame).count - at) * sizeof *(*frame).panels);
     (*frame).panels[at] = panel;
     (*frame).count++;
     Element_addAt((*frame).root, Panel_graphics(panel), at);
@@ -480,7 +480,7 @@ Rect Frame_root(const Frame *frame) {
         w = Window_width((*frame).window);
         h = Window_height((*frame).window);
     }
-    return (Rect){0, 0, (float)w, (float)h};
+    return (Rect){0, 0, (f32)w, (f32)h};
 }
 
 // Appends the root element tree's paint commands to the supplied display list.
@@ -495,12 +495,12 @@ bool Frame_resizeTargets(Frame *frame, int widthPx, int heightPx) {
     if (widthPx == (*frame).lastW && heightPx == (*frame).lastH) return false;
     (*frame).lastW = widthPx;
     (*frame).lastH = heightPx;
-    if ((*frame).root) Element_setSize((*frame).root, (float)widthPx, (float)heightPx);
-    Graphics_resize((uint32_t)widthPx, (uint32_t)heightPx);
+    if ((*frame).root) Element_setSize((*frame).root, (f32)widthPx, (f32)heightPx);
+    Graphics_resize((u32)widthPx, (u32)heightPx);
     // revalidate the present seam: an IOSurface cannot grow, so rebuild the GPU
-    // double buffer; the fallback capture Image is resized in place.
+    // d64 buffer; the fallback capture Image is resized in place.
     if ((*frame).gpu) frame_gpu_reopen(frame, widthPx, heightPx);
-    Surface_resize((*frame).surface, (uint32_t)widthPx, (uint32_t)heightPx);
+    Surface_resize((*frame).surface, (u32)widthPx, (u32)heightPx);
     return true;
 }
 
@@ -666,7 +666,7 @@ Image *Frame_capture(Frame *frame) {
     if ((*frame).lastW <= 0 || (*frame).lastH <= 0) return nullptr;
     if (!(*frame).shot) (*frame).shot = Image_0();
     if (!(*frame).shot) return nullptr;
-    if (!Image_ensureShadow((*frame).shot, (uint32_t)(*frame).lastW, (uint32_t)(*frame).lastH))
+    if (!Image_ensureShadow((*frame).shot, (u32)(*frame).lastW, (u32)(*frame).lastH))
         return nullptr;
     Window_readPresentSurface((*frame).window, (*frame).surfaces[(*frame).front],
                               Image_pixels((*frame).shot), Image_stride((*frame).shot));

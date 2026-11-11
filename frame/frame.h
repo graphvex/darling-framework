@@ -51,7 +51,7 @@ void Frame_setBackground(Frame *frame, Color color);
 void Frame_setBackgroundColor(Frame *frame, Color color);   // alias
 Color Frame_background(const Frame *frame);
 void Frame_setTransparent(Frame *frame, bool transparent);  // OS window see-through
-void Frame_setBlur(Frame *frame, float radius);             // frosted backdrop blur (0 = none)
+void Frame_setBlur(Frame *frame, f32 radius);             // frosted backdrop blur (0 = none)
 
 // ── Liquid Glass (macOS-exclusive, capability-gated) ─────────────────────────
 // Liquid Glass has no cross-platform equivalent, so it is a platform-exclusive

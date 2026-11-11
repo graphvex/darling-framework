@@ -1,6 +1,6 @@
 #include "panel/rich_text_panel.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

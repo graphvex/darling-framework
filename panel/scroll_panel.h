@@ -25,8 +25,8 @@
 typedef struct ScrollPanel ScrollPanel;
 
 ScrollPanel *ScrollPanel_0(void);
-ScrollPanel *ScrollPanel_1(float viewSize);              // square viewport
-ScrollPanel *ScrollPanel_2(float viewW, float viewH);
+ScrollPanel *ScrollPanel_1(f32 viewSize);              // square viewport
+ScrollPanel *ScrollPanel_2(f32 viewW, f32 viewH);
 #define SCROLL_PANEL_CHOOSER(_0, _1, _2, NAME, ...) NAME
 #define ScrollPanel(...) SCROLL_PANEL_CHOOSER(dummy __VA_OPT__(,) __VA_ARGS__, ScrollPanel_2, ScrollPanel_1, ScrollPanel_0)(__VA_ARGS__)
 void ScrollPanel_destroy(ScrollPanel *scroll);
@@ -37,20 +37,20 @@ Element *ScrollPanel_content(const ScrollPanel *scroll);
 void ScrollPanel_setContent(ScrollPanel *scroll, Element *content);   // takes ownership
 
 // Viewport / content extents (native px).
-void ScrollPanel_setViewportSize(ScrollPanel *scroll, float w, float h);
-void ScrollPanel_setContentSize(ScrollPanel *scroll, float w, float h);
-float ScrollPanel_viewportWidth(const ScrollPanel *scroll);
-float ScrollPanel_viewportHeight(const ScrollPanel *scroll);
-float ScrollPanel_contentWidth(const ScrollPanel *scroll);
-float ScrollPanel_contentHeight(const ScrollPanel *scroll);
+void ScrollPanel_setViewportSize(ScrollPanel *scroll, f32 w, f32 h);
+void ScrollPanel_setContentSize(ScrollPanel *scroll, f32 w, f32 h);
+f32 ScrollPanel_viewportWidth(const ScrollPanel *scroll);
+f32 ScrollPanel_viewportHeight(const ScrollPanel *scroll);
+f32 ScrollPanel_contentWidth(const ScrollPanel *scroll);
+f32 ScrollPanel_contentHeight(const ScrollPanel *scroll);
 
 // The offset is end-clamped: [0, max(0, content - viewport)] per axis.
-void ScrollPanel_setOffset(ScrollPanel *scroll, float x, float y);
-float ScrollPanel_getOffsetX(const ScrollPanel *scroll);
-float ScrollPanel_getOffsetY(const ScrollPanel *scroll);
-void ScrollPanel_scrollBy(ScrollPanel *scroll, float dx, float dy);
-float ScrollPanel_maxX(const ScrollPanel *scroll);
-float ScrollPanel_maxY(const ScrollPanel *scroll);
+void ScrollPanel_setOffset(ScrollPanel *scroll, f32 x, f32 y);
+f32 ScrollPanel_getOffsetX(const ScrollPanel *scroll);
+f32 ScrollPanel_getOffsetY(const ScrollPanel *scroll);
+void ScrollPanel_scrollBy(ScrollPanel *scroll, f32 dx, f32 dy);
+f32 ScrollPanel_maxX(const ScrollPanel *scroll);
+f32 ScrollPanel_maxY(const ScrollPanel *scroll);
 bool ScrollPanel_canScrollY(const ScrollPanel *scroll);
 bool ScrollPanel_canScrollX(const ScrollPanel *scroll);
 

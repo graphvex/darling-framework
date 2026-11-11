@@ -10,7 +10,7 @@
 #include "test_application.h"
 
 // Supplies a fixed Surface clock for deterministic native resize publication.
-static uint64_t frozenNow(void *context) {
+static u64 frozenNow(void *context) {
     (void) context;
     return 1000000000ULL;
 }
@@ -30,7 +30,7 @@ int main(void) {
     Frame_setFPSCap(frame, 30);
     Frame_setFPSCapWhenFocusLost(frame, 0);
     Frame_render(frame);
-    uint64_t count = Surface_getPresentCount(surface);
+    u64 count = Surface_getPresentCount(surface);
     CHECK(count == 1);
     Frame_render(frame);
     CHECK(Surface_getPresentCount(surface) == count); // ordinary demand still capped
@@ -54,8 +54,8 @@ int main(void) {
         Image_fill(snapshot, COLOR_CLEAR);
         CHECK(Window_readPresentSurface(window, published,
                                         Image_pixels(snapshot), Image_stride(snapshot)));
-        const uint8_t *pixel = Image_pixels(snapshot) + (size_t) (height - 2) * Image_stride(snapshot) +
-                               (size_t) (width - 2) * 4;
+        const u8 *pixel = Image_pixels(snapshot) + (bytes) (height - 2) * Image_stride(snapshot) +
+                               (bytes) (width - 2) * 4;
         CHECK(pixel[0] == 20 && pixel[1] == 80 && pixel[2] == 140 && pixel[3] == 255);
         Image_destroy(snapshot);
         Frame_render(frame);

@@ -1,6 +1,6 @@
 #include "properties/set_sizing_mode.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

@@ -13,7 +13,7 @@
 
 typedef struct Panel Panel;
 
-Panel *Panel_setMaximumSize_3(Panel *panel, float width, float height);
+Panel *Panel_setMaximumSize_3(Panel *panel, f32 width, f32 height);
 
 #define Panel_setMaximumSize(...) OVERLOAD_DISPATCH(Panel_setMaximumSize, __VA_ARGS__)
 

@@ -17,7 +17,7 @@ static void captureEvidence(const Image *image) {
     name = name ? name + 1 : __FILE__;
     char path[1024];
     int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
-    if (n > 0 && (size_t) n < sizeof path &&
+    if (n > 0 && (bytes) n < sizeof path &&
         Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
@@ -25,8 +25,8 @@ static void captureEvidence(const Image *image) {
 // Asserts one captured RGBA pixel within the test's channel tolerance.
 static inline void pixel(const Image *image, int x, int y, Color expected) {
     CHECK(image && Image_pixels(image));
-    CHECK(x >= 0 && y >= 0 && (uint32_t) x < Image_width(image) && (uint32_t) y < Image_height(image));
-    const uint8_t *p = Image_pixels(image) + (size_t) y * Image_stride(image) + (size_t) x * 4;
+    CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
+    const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
     int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
     for (int i = 0; i < 4; ++i) {
         if (abs((int) p[i] - want[i]) > 2) {
@@ -45,7 +45,7 @@ static inline void pixel(const Image *image, int x, int y, Color expected) {
 #include "test_application.h"
 // Exercises all 50,000 child tiles, targeted hit/mutation, reordering, and reclamation.
 int main(void) {
-    uint32_t baseline = PropertyPool_live(PropertyPool_default());
+    u32 baseline = PropertyPool_live(PropertyPool_default());
     Frame *frame = Frame("50k children battle", COLUMNS * TILE, CHILDREN / COLUMNS * TILE);
     CHECK(frame);
     Frame_setBackground(frame, COLOR_BLACK);
@@ -56,7 +56,7 @@ int main(void) {
     for (int i = 0; i < CHILDREN; ++i) {
         children[i] = Panel(TILE, TILE);
         CHECK(children[i]);
-        Panel_setOffset(children[i], (float) (i % COLUMNS * TILE), (float) (i / COLUMNS * TILE));
+        Panel_setOffset(children[i], (f32) (i % COLUMNS * TILE), (f32) (i / COLUMNS * TILE));
         Panel_setBackground(children[i], i % 2 ? COLOR_RGBA(20, 180, 60, 255) : COLOR_RGBA(200, 40, 80, 255));
         CHECK(Panel_add(parent, children[i]) == children[i]);
         CHECK(Panel_parent(children[i]) == parent);
@@ -72,14 +72,14 @@ int main(void) {
         CHECK(Panel_childElement(parent, i) == Panel_graphics(children[i]));
     }
     const int probes[] = {0, CHILDREN / 2, CHILDREN - 1};
-    for (size_t j = 0; j < sizeof probes / sizeof probes[0]; ++j) {
+    for (bytes j = 0; j < sizeof probes / sizeof probes[0]; ++j) {
         int i = probes[j];
-        CHECK(Element_hit(Frame_element(frame), (float) (i % COLUMNS * TILE + 1),
-                          (float) (i / COLUMNS * TILE + 1)) == Panel_graphics(children[i]));
+        CHECK(Element_hit(Frame_element(frame), (f32) (i % COLUMNS * TILE + 1),
+                          (f32) (i / COLUMNS * TILE + 1)) == Panel_graphics(children[i]));
         Panel_setBackground(children[i], COLOR_WHITE);
     }
     shot = Frame_capture(frame);
-    for (size_t j = 0; j < sizeof probes / sizeof probes[0]; ++j) {
+    for (bytes j = 0; j < sizeof probes / sizeof probes[0]; ++j) {
         int i = probes[j];
         pixel(shot, i % COLUMNS * TILE + 1, i / COLUMNS * TILE + 1, COLOR_WHITE);
     }

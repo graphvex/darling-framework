@@ -1,4 +1,4 @@
-// Decorated Frame: red/yellow/green visibility, custom header and floating mode.
+// Decorated Frame: red/yellow/green visibility, custom header and f32ing mode.
 // Content capture cannot verify native chrome pixels; --interactive is user viewing.
 #include "frame_chrome_lab.h"
 

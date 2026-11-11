@@ -15,7 +15,7 @@
 // releases them on every path, and writes only the caller's bounded shadow.
 // Source pixel safety bound: 16 Mi pixels; output bound matches GpuScope budget.
 bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
-                         uint8_t *dest, size_t stride) {
+                         u8 *dest, bytes stride) {
 #if !defined(VEX_PLATFORM_APPLE)
     (void) path;
     (void) width;
@@ -24,8 +24,8 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
     (void) stride;
     return false;
 #else
-    if (!dest || !width || !height || (uint64_t) width * height > GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT ||
-        stride < (size_t) width * 4u || stride > SIZE_MAX / height)
+    if (!dest || !width || !height || (u64) width * height > GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT ||
+        stride < (bytes) width * 4u || stride > SIZE_MAX / height)
         return false;
     CFURLRef url = path ? CFURLCreateFromFileSystemRepresentation(nullptr,
         (const UInt8*) path, (CFIndex) strlen(path), false) :
@@ -48,7 +48,7 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
         CFRelease(properties);
     }
     if (sourceWidth <= 0 || sourceHeight <= 0 ||
-        (uint64_t) sourceWidth * (uint64_t) sourceHeight > GALLERY_PHOTO_SOURCE_PIXEL_LIMIT) {
+        (u64) sourceWidth * (u64) sourceHeight > GALLERY_PHOTO_SOURCE_PIXEL_LIMIT) {
         CFRelease(source);
         return false;
     }
@@ -65,9 +65,9 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
         CGImageRelease(photograph);
         return false;
     }
-    double scaleX = (double) width / sourceWidth, scaleY = (double) height / sourceHeight;
-    double scale = scaleX > scaleY ? scaleX : scaleY;
-    double drawWidth = sourceWidth * scale, drawHeight = sourceHeight * scale;
+    d64 scaleX = (d64) width / sourceWidth, scaleY = (d64) height / sourceHeight;
+    d64 scale = scaleX > scaleY ? scaleX : scaleY;
+    d64 drawWidth = sourceWidth * scale, drawHeight = sourceHeight * scale;
     // Bitmap-context row order already matches CGImage's decoded top row;
     // a UI-style vertical transform would invert the fixture (owner-tested).
     CGContextSetBlendMode(context, kCGBlendModeCopy);
@@ -77,9 +77,9 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
     CGImageRelease(photograph);
     for (unsigned y = 0; y < height; ++y)
         for (unsigned x = 0; x < width; ++x) {
-            uint8_t *pixel = dest + (size_t) y * stride + (size_t) x * 4;
+            u8 *pixel = dest + (bytes) y * stride + (bytes) x * 4;
             for (unsigned c = 0; c < 3; ++c)
-                pixel[c] = pixel[3] ? (uint8_t) ((pixel[c] * 255u + pixel[3] / 2u) / pixel[3]) : 0;
+                pixel[c] = pixel[3] ? (u8) ((pixel[c] * 255u + pixel[3] / 2u) / pixel[3]) : 0;
         }
     return true;
 #endif

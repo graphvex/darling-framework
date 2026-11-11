@@ -26,9 +26,9 @@ static void chromeClose(Element *element, const Mouse *mouse, void *userdata) {
 static bool chromeContent(Frame *frame, Color color) {
     Image *image = Frame_capture(frame);
     if (!image || !Image_pixels(image)) return false;
-    if (Image_width(image) != (uint32_t)Frame_root(frame).w ||
-        Image_height(image) != (uint32_t)Frame_root(frame).h) return false;
-    const uint8_t *p = Image_pixels(image) + (Image_height(image) / 2) * Image_stride(image)
+    if (Image_width(image) != (u32)Frame_root(frame).w ||
+        Image_height(image) != (u32)Frame_root(frame).h) return false;
+    const u8 *p = Image_pixels(image) + (Image_height(image) / 2) * Image_stride(image)
                        + (Image_width(image) / 2) * 4;
     int want[] = {Color_red(color), Color_green(color), Color_blue(color), Color_alpha(color)};
     for (int i = 0; i < 4; ++i) if (abs((int)p[i] - want[i]) > 2) return false;
@@ -94,7 +94,7 @@ static int frameChromeLab(int argc, char **argv, const char *title, int mode, bo
         Window_setFloatingTrafficLights(window, true);
         CHROME_CHECK(Window_isViewportFlushToTop(window));
         Window_macOS_setTrafficLightHeaderPosition(window, 18, 12);
-        float x = -1, y = -1;
+        f32 x = -1, y = -1;
         Window_macOS_getTrafficLightHeaderPosition(window, &x, &y);
         CHROME_CHECK(fabsf(x - 18) < 0.01f && fabsf(y - 12) < 0.01f);
         Window_setFloatingTrafficLights(window, false);

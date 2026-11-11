@@ -19,7 +19,7 @@ enum { FILTER_GALLERY_WIDTH = 360, FILTER_GALLERY_HEIGHT = 300,
 static inline void FilterGallery_pixel(Image *image, unsigned x, unsigned y, Color color) {
     if (x >= Image_width(image) || y >= Image_height(image))
         return;
-    uint8_t *pixel = Image_pixels(image) + (size_t) y * Image_stride(image) + (size_t) x * 4;
+    u8 *pixel = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
     pixel[0] = Color_red(color);
     pixel[1] = Color_green(color);
     pixel[2] = Color_blue(color);
@@ -29,7 +29,7 @@ static inline void FilterGallery_pixel(Image *image, unsigned x, unsigned y, Col
 // Small uppercase fixture font; readable labels do not claim Label/text support.
 static inline void FilterGallery_text(Image *image, unsigned x, unsigned y,
                                       const char *text, unsigned scale, Color color) {
-    static const uint8_t letters[26][7] = {
+    static const u8 letters[26][7] = {
         {14,17,17,31,17,17,17}, {30,17,17,30,17,17,30}, {14,17,16,16,16,17,14},
         {30,17,17,17,17,17,30}, {31,16,16,30,16,16,31}, {31,16,16,30,16,16,16},
         {14,17,16,23,17,17,15}, {17,17,17,31,17,17,17}, {14,4,4,4,4,4,14},
@@ -40,10 +40,10 @@ static inline void FilterGallery_text(Image *image, unsigned x, unsigned y,
         {17,17,17,17,17,10,4}, {17,17,17,21,21,21,10}, {17,17,10,4,10,17,17},
         {17,17,10,4,4,4,4}, {31,1,2,4,8,16,31}
     };
-    for (size_t i = 0; text[i]; ++i) {
+    for (bytes i = 0; text[i]; ++i) {
         if (text[i] < 'A' || text[i] > 'Z')
             continue;
-        const uint8_t *glyph = letters[(unsigned) (text[i] - 'A')];
+        const u8 *glyph = letters[(unsigned) (text[i] - 'A')];
         for (unsigned row = 0; row < 7; ++row)
             for (unsigned column = 0; column < 5; ++column)
                 if (glyph[row] & (1u << (4 - column)))
@@ -58,7 +58,7 @@ static inline void FilterGallery_text(Image *image, unsigned x, unsigned y,
 // allocating; return nullptr on failure, never synthesize replacement artwork.
 // Draw into a top-left RGBA shadow, then convert premultiplied to straight alpha.
 static inline Image *FilterGallery_photoFromPath(const char *path, unsigned width, unsigned height) {
-    if (!width || !height || (uint64_t) width * height > FILTER_GALLERY_GPU_PIXEL_BUDGET)
+    if (!width || !height || (u64) width * height > FILTER_GALLERY_GPU_PIXEL_BUDGET)
         return nullptr;
     Image *image = Image_2(width, height);
     if (!image || !Image_ensureShadow(image, width, height)) {
@@ -102,7 +102,7 @@ static inline Image *FilterGallery_photoCopy(Image *source, unsigned width, unsi
         Image_destroy(copy);
         return nullptr;
     }
-    memcpy(Image_pixels(copy), Image_pixels(source), (size_t) width * height * 4u);
+    memcpy(Image_pixels(copy), Image_pixels(source), (bytes) width * height * 4u);
     return copy;
 }
 
@@ -134,13 +134,13 @@ static inline Image *FilterGallery_photo(unsigned width, unsigned height) {
 // The compositor's SPIR-V modules are tracked beside their sources. Resolve
 // that directory from this header's own compiled path, so the gallery finds
 // them from the repository or from inside a .app bundle alike.
-static inline bool FilterGallery_shaderDirectory(char *dest,size_t cap) {
+static inline bool FilterGallery_shaderDirectory(char *dest,bytes cap) {
     const char *marker = strstr(__FILE__, "/darling/");
     if (marker == nullptr)
         return false;
     int length = snprintf(dest, cap, "%.*s/graphvex/shaders/spv",
                           (int) (marker - __FILE__), __FILE__);
-    return length >= 0 && (size_t) length < cap;
+    return length >= 0 && (bytes) length < cap;
 }
 
 // Builds one backdrop/foreground/element fixture and renders the chosen output form.

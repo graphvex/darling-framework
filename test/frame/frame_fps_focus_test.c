@@ -6,9 +6,9 @@
 
 static int failures;
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %d: %s\n", __LINE__, #c); failures++; } } while (0)
-static uint64_t now;
+static u64 now;
 // Returns the test-controlled time used by the Surface cadence checks.
-static uint64_t clockNow(void *userdata) { (void)userdata; return now; }
+static u64 clockNow(void *userdata) { (void)userdata; return now; }
 static int presentations;
 static _Atomic unsigned sceneSteps;
 // Advances a separate scene counter to prove render demand does not own scene work.
@@ -79,7 +79,7 @@ int main(void) {
 
     // Focus policy changes do not execute/re-time scene work; publication count
     // is independent of the number of invalidations submitted above.
-    CHECK(Surface_getPresentCount(surface) == (uint64_t)presentations);
+    CHECK(Surface_getPresentCount(surface) == (u64)presentations);
     Frame_destroy(other); Frame_destroy(frame);
     puts("frame_fps_focus_test: focus selection, uncapped/1/120 FPS ceilings and demand coalescing");
     return failures ? 1 : 0;

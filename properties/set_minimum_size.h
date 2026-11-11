@@ -13,7 +13,7 @@
 
 typedef struct Panel Panel;
 
-Panel *Panel_setMinimumSize_3(Panel *panel, float width, float height);
+Panel *Panel_setMinimumSize_3(Panel *panel, f32 width, f32 height);
 
 #define Panel_setMinimumSize(...) OVERLOAD_DISPATCH(Panel_setMinimumSize, __VA_ARGS__)
 

@@ -1,6 +1,6 @@
 #include "label/kbd.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

@@ -2,7 +2,7 @@
 //
 // Headless: Panels nest. Panel_add attaches a child and the parent owns the
 // wrapper, so one Panel_destroy frees the whole wrapper chain plus the Element
-// tree (no leaks, no double free) — including a grandchild added after the
+// tree (no leaks, no d64 free) — including a grandchild added after the
 // child was adopted.
 
 #include <stdio.h>

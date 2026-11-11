@@ -19,7 +19,7 @@ static int g_fail = 0;
         }                                                                  \
     } while (0)
 
-typedef struct Trace { int ids[32]; int count; float lastMag; } Trace;
+typedef struct Trace { int ids[32]; int count; f32 lastMag; } Trace;
 // Appends an event-kind identifier while the fixed trace has room.
 static void push(Trace *t, int id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
 
@@ -52,7 +52,7 @@ static void k_down(Element *e, const Key *k, void *ud)   { (void)e; (void)k; pus
 static void k_up(Element *e, const Key *k, void *ud)     { (void)e; (void)k; push(ud, 11); }
 
 // Dispatches a test event with shared coordinates and deterministic payloads.
-static bool dispatch(Element *root, int kind, float x, float y) {
+static bool dispatch(Element *root, int kind, f32 x, f32 y) {
     Event ev = { .kind = kind, .x = x, .y = y, .magnitude = 2.5f, .key = 42 };
     return Element_dispatchEvent(root, &ev);
 }

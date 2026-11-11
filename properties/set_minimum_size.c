@@ -35,7 +35,7 @@
  * ============================================================================
  */
 
-Panel *Panel_setMinimumSize_3(Panel *panel, float width, float height) {
+Panel *Panel_setMinimumSize_3(Panel *panel, f32 width, f32 height) {
     if (panel) Element_setMinimumSize(Panel_graphics(panel), width, height);
     return panel;
 }

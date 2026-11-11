@@ -43,7 +43,7 @@
  * ============================================================================
  */
 
-Panel *Panel_setSize_3(Panel *panel, float width, float height) {
+Panel *Panel_setSize_3(Panel *panel, f32 width, f32 height) {
     if (panel) Element_setSize(Panel_graphics(panel), width, height);
     return panel;
 }

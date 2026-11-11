@@ -22,7 +22,7 @@ static int g_fail = 0;
 
 // Read one RGBA pixel from the image using its row stride.
 static void px(const Image *img, int x, int y, int *r, int *g, int *b, int *a) {
-    const uint8_t *p = Image_pixels(img) + (size_t)y * Image_stride(img) + (size_t)x * 4;
+    const u8 *p = Image_pixels(img) + (bytes)y * Image_stride(img) + (bytes)x * 4;
     *r = p[0]; *g = p[1]; *b = p[2]; *a = p[3];
 }
 

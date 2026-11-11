@@ -1,6 +1,6 @@
 #include "panel/tab_panel.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

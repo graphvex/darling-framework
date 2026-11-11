@@ -31,7 +31,7 @@ Element *Element_setCursor(Element *element, CursorType cursor) {
 }
 
 // Resolves the cursor preference at the deepest hit, inheriting through ancestors.
-CursorType Element_cursorAt(Element *root, float x, float y) {
+CursorType Element_cursorAt(Element *root, f32 x, f32 y) {
     for (Element *hit = Element_hit(root, x, y); hit; hit = Element_parent(hit)) {
         int cursor = Element_cursorPreference(hit);
         if (cursor >= CURSOR_ARROW && cursor <= CURSOR_HIDDEN) return (CursorType) cursor;

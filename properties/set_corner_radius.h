@@ -13,7 +13,7 @@
 
 typedef struct Panel Panel;
 
-Panel *Panel_setCornerRadius_2(Panel *panel, float radius);
+Panel *Panel_setCornerRadius_2(Panel *panel, f32 radius);
 
 #define Panel_setCornerRadius(...) OVERLOAD_DISPATCH(Panel_setCornerRadius, __VA_ARGS__)
 

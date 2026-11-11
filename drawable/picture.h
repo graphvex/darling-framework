@@ -26,14 +26,14 @@ void Picture_destroy(Picture *picture);
 Element *Picture_graphics(const Picture *picture); // borrowed; normal Element_paint
 const Image *Picture_image(const Picture *picture);
 void Picture_setImage(Picture *picture, const Image *image);
-void Picture_setSize(Picture *picture, float width, float height);
-void Picture_setLocation(Picture *picture, float x, float y);
-float Picture_width(const Picture *picture);
-float Picture_height(const Picture *picture);
+void Picture_setSize(Picture *picture, f32 width, f32 height);
+void Picture_setLocation(Picture *picture, f32 x, f32 y);
+f32 Picture_width(const Picture *picture);
+f32 Picture_height(const Picture *picture);
 // Top-left in a zero-origin/zero-size parent context; defaults round-trip
 // setLocation. Changing anchor/pivot via graphics changes that resolved query.
 Point Picture_location(const Picture *picture);
-void Picture_toString(const Picture *picture, char *dest, size_t cap, bool *outTruncated);
-void Picture_toStringStruct(const Picture *picture, char *dest, size_t cap, bool *outTruncated);
+void Picture_toString(const Picture *picture, char *dest, bytes cap, bool *outTruncated);
+void Picture_toStringStruct(const Picture *picture, char *dest, bytes cap, bool *outTruncated);
 
 #endif // DARLING_DRAWABLE_PICTURE_H

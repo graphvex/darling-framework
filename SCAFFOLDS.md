@@ -57,7 +57,7 @@ OS backends, independent schedulers or duplicate Color/Window implementations we
 | `Skeleton` | `src/feedback/skeleton.c` / `.h` | Loading-placeholder Panel with shape tokens and eventual owner-driven shimmer. |
 | `Spinner` | `src/feedback/spinner.c` / `.h` | Loading-indicator Panel with owner-driven phase and rendering intent; no independent animation thread. |
 | `CooldownButton` | `src/game/cooldown_button.c` / `.h` | Button composition with owner-driven cooldown phase, radial progress and hotkey/ready indicators. |
-| `DamageNumbers` | `src/game/damage_numbers.c` / `.h` | Pooled floating-text Panel coordinator with bounded combat-text lifetime and owner-driven motion. |
+| `DamageNumbers` | `src/game/damage_numbers.c` / `.h` | Pooled f32ing-text Panel coordinator with bounded combat-text lifetime and owner-driven motion. |
 | `DialogBox` | `src/game/dialog_box.c` / `.h` | NPC-dialogue Panel composition with portrait, text reveal and action choices. |
 | `GamepadNav` | `src/game/gamepad_nav.c` / `.h` | Spatial focus-navigation policy for D-pad directions, bumper tabs and device glyph requests. |
 | `HudBar` | `src/game/hud_bar.c` / `.h` | HUD value-bar Panel with primary fill, delayed ghost drain and damage-feedback intent. |

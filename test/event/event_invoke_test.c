@@ -24,7 +24,7 @@ static int g_fail = 0;
 typedef struct Trace {
     int ids[16];
     int count;
-    float last_dy;
+    f32 last_dy;
 } Trace;
 
 // Appends a handler identifier while the fixed trace has room.
@@ -93,7 +93,7 @@ int main(void) {
     CHECK(trace.count == 2);
     CHECK(trace.ids[0] == 1);
     CHECK(trace.ids[1] == 3);
-    CHECK((float)trace.last_dy == -7.5f);   // the delta reached the handler
+    CHECK((f32)trace.last_dy == -7.5f);   // the delta reached the handler
 
     // scroll outside the child: only the root
     trace.count = 0;

@@ -11,7 +11,7 @@ typedef struct State {
     pthread_t owner;
     _Atomic bool returned;
     int stage;
-    uint32_t polls;
+    u32 polls;
 } State;
 
 // Marks that the worker start callback returned without closing the app.

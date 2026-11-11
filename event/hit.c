@@ -43,8 +43,8 @@
  */
 
 // Sums ancestor offsets for node i, stopping at an invalid link or bounded walk.
-static void node_origin(const HitNode *n, int count, int i, float *ox, float *oy) {
-    float x = 0.0f, y = 0.0f;
+static void node_origin(const HitNode *n, int count, int i, f32 *ox, f32 *oy) {
+    f32 x = 0.0f, y = 0.0f;
     int cur = i, guard = 0;
     while (cur >= 0 && cur < count && guard++ <= count) {
         x += n[cur].rect.x;
@@ -76,11 +76,11 @@ static bool node_visible_chain(const HitNode *n, int count, int i) {
 }
 
 // every clipping ancestor (and self) must contain the point
-static bool node_clip_chain(const HitNode *n, int count, int i, float px, float py) {
+static bool node_clip_chain(const HitNode *n, int count, int i, f32 px, f32 py) {
     int cur = i, guard = 0;
     while (cur >= 0 && cur < count && guard++ <= count) {
         if (n[cur].clip) {
-            float ox, oy;
+            f32 ox, oy;
             node_origin(n, count, cur, &ox, &oy);
             const Rect r = n[cur].rect;
             if (!(px >= ox && px < ox + r.w && py >= oy && py < oy + r.h)) return false;
@@ -91,7 +91,7 @@ static bool node_clip_chain(const HitNode *n, int count, int i, float px, float 
 }
 
 // Resolves the topmost eligible node and returns its window, parent, and local coordinates.
-bool Hit_resolve(const HitNode *nodes, int count, float winX, float winY, Hit *out) {
+bool Hit_resolve(const HitNode *nodes, int count, f32 winX, f32 winY, Hit *out) {
     if (!nodes || count <= 0 || !out) return false;
     (*out).id = -1;
     (*out).index = -1;
@@ -105,7 +105,7 @@ bool Hit_resolve(const HitNode *nodes, int count, float winX, float winY, Hit *o
     int best = -1, bestDepth = -1, bestZ = 0;
     for (int i = 0; i < count; i++) {
         if (!nodes[i].visible) continue;
-        float ox, oy;
+        f32 ox, oy;
         node_origin(nodes, count, i, &ox, &oy);
         const Rect r = nodes[i].rect;
         if (!(winX >= ox && winX < ox + r.w && winY >= oy && winY < oy + r.h)) continue;
@@ -121,7 +121,7 @@ bool Hit_resolve(const HitNode *nodes, int count, float winX, float winY, Hit *o
     }
     if (best < 0) return false;
 
-    float sox, soy, pox = 0.0f, poy = 0.0f;
+    f32 sox, soy, pox = 0.0f, poy = 0.0f;
     node_origin(nodes, count, best, &sox, &soy);
     int parent = nodes[best].parent;
     if (parent >= 0 && parent < count) {

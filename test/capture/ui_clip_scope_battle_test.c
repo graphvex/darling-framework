@@ -17,7 +17,7 @@ static void captureEvidence(const Image *image) {
     name = name ? name + 1 : __FILE__;
     char path[1024];
     int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
-    if (n > 0 && (size_t) n < sizeof path &&
+    if (n > 0 && (bytes) n < sizeof path &&
         Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
@@ -25,8 +25,8 @@ static void captureEvidence(const Image *image) {
 // Asserts one captured RGBA pixel within the test's channel tolerance.
 static inline void pixel(const Image *image, int x, int y, Color expected) {
     CHECK(image && Image_pixels(image));
-    CHECK(x >= 0 && y >= 0 && (uint32_t) x < Image_width(image) && (uint32_t) y < Image_height(image));
-    const uint8_t *p = Image_pixels(image) + (size_t) y * Image_stride(image) + (size_t) x * 4;
+    CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
+    const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
     int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
     for (int i = 0; i < 4; ++i) {
         if (abs((int) p[i] - want[i]) > 2) {

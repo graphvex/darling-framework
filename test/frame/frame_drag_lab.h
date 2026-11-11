@@ -11,7 +11,7 @@ typedef struct FrameDragLab {
     Frame *frame;
     Panel **panels;
     int count, selected;
-    float x[96], y[96], startX, startY, baseX, baseY;
+    f32 x[96], y[96], startX, startY, baseX, baseY;
 } FrameDragLab;
 
 // Selects the hit panel and stores its starting pointer and offset coordinates.

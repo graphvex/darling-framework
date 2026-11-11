@@ -1,6 +1,6 @@
 #include "picker/color_swatch.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

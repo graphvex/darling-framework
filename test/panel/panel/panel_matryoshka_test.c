@@ -30,7 +30,7 @@ static Color layerColor(int i) {
 // Exercise layout, paint, and teardown for a deeply nested Panel chain.
 int main(void) {
     Panel *layers[LAYERS];
-    float sizes[LAYERS];
+    f32 sizes[LAYERS];
 
     sizes[0] = 400.0f;
     layers[0] = Panel();

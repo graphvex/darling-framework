@@ -36,12 +36,12 @@ enum {
 };
 
 // ── payloads (what a handler receives) ──────────────────────────────────────
-typedef struct Mouse { float x, y; int button; } Mouse;
-typedef struct Scroll { float x, y, dx, dy; } Scroll;
-typedef struct Zoom { float x, y, magnitude; } Zoom;
+typedef struct Mouse { f32 x, y; int button; } Mouse;
+typedef struct Scroll { f32 x, y, dx, dy; } Scroll;
+typedef struct Zoom { f32 x, y, magnitude; } Zoom;
 typedef struct Key { int code; } Key;
-typedef struct Touch { float x, y; int id; } Touch;
-typedef struct Document { const char *text; uint32_t start, end; } Document;
+typedef struct Touch { f32 x, y; int id; } Touch;
+typedef struct Document { const char *text; u32 start, end; } Document;
 
 // ── handler structs (the ()()s) ─────────────────────────────────────────────
 typedef struct MouseEvent {
@@ -111,9 +111,9 @@ Element *Element_addDocumentEvent(Element *element, DocumentEvent handlers);
 // ── dispatch ────────────────────────────────────────────────────────────────
 typedef struct Event {
     int   kind;
-    float x, y;         // pointer (native px, top-left origin)
-    float dx, dy;       // scroll / drag delta
-    float magnitude;    // zoom scale (1.0 = none)
+    f32 x, y;         // pointer (native px, top-left origin)
+    f32 dx, dy;       // scroll / drag delta
+    f32 magnitude;    // zoom scale (1.0 = none)
     int   key;          // key code or drag button
     void *native;       // borrowed OS event (nullable)
 } Event;

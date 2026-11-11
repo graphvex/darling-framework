@@ -1,6 +1,6 @@
 #include "game/damage_numbers.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE
@@ -8,7 +8,7 @@
 /**
  * DamageNumbers — reserved R4 class home, not an implementation.
  *
- * Pooled floating-text Panel coordinator with bounded combat-text lifetime and owner-driven motion.
+ * Pooled f32ing-text Panel coordinator with bounded combat-text lifetime and owner-driven motion.
  *
  * This draft currently owns no storage or borrowed resources and executes no
  * behavior. Before implementation, specify lifetime/ownership, failure results,
@@ -27,7 +27,7 @@
  * TYPE: opaque declaration in the paired header; no struct fields defined.
  * PUBLIC API: the forward type declaration only; no callable functions declared or defined.
  * PRIVATE HELPERS: none defined.
- * IMPLEMENT NEXT: Pooled floating-text Panel coordinator with bounded combat-text lifetime and owner-driven motion.
+ * IMPLEMENT NEXT: Pooled f32ing-text Panel coordinator with bounded combat-text lifetime and owner-driven motion.
  * LAB PROOF NOW: source/header compilation only, never runtime readiness.
  * LAB PROOF LATER: constructors, ownership/teardown, failure/boundary cases,
  * property routing and captured-pixel/input oracles where applicable.

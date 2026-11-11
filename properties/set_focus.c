@@ -1,6 +1,6 @@
 #include "properties/set_focus.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

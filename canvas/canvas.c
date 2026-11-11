@@ -1,6 +1,6 @@
 #include "canvas/canvas.h"
 
-#include "annotation/annotation.h"
+#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

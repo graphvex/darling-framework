@@ -13,5 +13,5 @@ enum { GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT = 262144,
 // successful context construction. Success writes straight sRGB RGBA, top-left,
 // center-cropped without stretching. No production decoder support is claimed.
 bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
-                         uint8_t *dest, size_t stride);
+                         u8 *dest, bytes stride);
 #endif
