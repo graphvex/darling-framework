@@ -18,20 +18,20 @@ static fn captureEvidence(const Image *image) {
     const char *name = strrchr(__FILE__, '/');
     name = name ? name + 1 : __FILE__;
     char path[1024];
-    int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
+    i32 n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
     if (n > 0 && (bytes) n < sizeof path &&
-        Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
+        Window_writePNG(Image_pixels(image), Image_stride(image), (i32) Image_width(image), (i32) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline fn pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, i32 x, i32 y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
-    int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
-    for (int i = 0; i < 4; ++i) {
-        if (abs((int) p[i] - want[i]) > 2) {
+    i32 want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
+    for (i32 i = 0; i < 4; ++i) {
+        if (abs((i32) p[i] - want[i]) > 2) {
             fprintf(stderr, "FAIL pixel (%d,%d) channel %d: got %d expected %d\n", x, y, i, p[i], want[i]);
             captureEvidence(image);
             exit(1);
@@ -40,7 +40,7 @@ static inline fn pixel(const Image *image, int x, int y, Color expected) {
 }
 
 // Paints an element tree with Raster and returns its captured pixels.
-static inline Image *rasterCapture(Element *root, int width, int height) {
+static inline Image *rasterCapture(Element *root, i32 width, i32 height) {
     CHECK(Graphics_use(BACKEND_RASTER));
     CHECK(Graphics_resize((u32) width, (u32) height));
     DisplayList *dl = DisplayList_0();
@@ -65,8 +65,8 @@ static f32 distance(f32 x, f32 y, f32 left, f32 top, f32 width, f32 height, f32 
 }
 // Compares interior pixels against the intersection of both rounded shapes.
 static fn verify(Image *shot) {
-    for (int y = 0; y < 128; ++y) {
-        for (int x = 0; x < 128; ++x) {
+    for (i32 y = 0; y < 128; ++y) {
+        for (i32 x = 0; x < 128; ++x) {
             f32 outer = distance(x + 0.5f, y + 0.5f, 16, 16, 96, 96, 30);
             f32 inner = distance(x + 0.5f, y + 0.5f, 32, 8, 88, 88, 28);
             if (fabsf(outer) < 2 || fabsf(inner) < 2) continue;
@@ -77,7 +77,7 @@ static fn verify(Image *shot) {
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Checks independently-oracled rounded-mask intersection on GPU and Raster.
-int main() {
+i32 main() {
     ElementDesc od = {.width = 96, .height = 96, .offsetX = 16, .offsetY = 16, .radius = 30};
     ElementDesc id = {.width = 88, .height = 88, .offsetX = 16, .offsetY = -8, .radius = 28};
     ElementDesc ld = {.width = 256, .height = 256, .offsetX = -64, .offsetY = -64, .background = COLOR_WHITE};

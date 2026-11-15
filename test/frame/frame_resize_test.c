@@ -11,7 +11,7 @@
 #include "frame/frame.h"
 #include "window/window.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -23,17 +23,17 @@ static int g_fail = 0;
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Exercises a spread of resize dimensions and repeated no-op resizing.
-int main() {
+i32 main() {
     Frame *f = Frame("resize", 800, 600);
     CHECK(f != nullptr);
     if (!f) return 1;
 
-    static const int sizes[][2] = {
+    static const i32 sizes[][2] = {
         {900, 600}, {1204, 753}, {2408, 1506}, {1000, 700},
         {801, 601}, {640, 480}, {1920, 1080}, {450, 300},
     };
-    int n = (int)(sizeof sizes / sizeof sizes[0]);
-    for (int i = 0; i < n; i++) {
+    i32 n = (i32)(sizeof sizes / sizeof sizes[0]);
+    for (i32 i = 0; i < n; i++) {
         Frame_setSize(f, sizes[i][0], sizes[i][1]);
         Frame_render(f);
         CHECK(Frame_root(f).w == (f32)sizes[i][0]);

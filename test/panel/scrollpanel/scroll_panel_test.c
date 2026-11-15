@@ -9,7 +9,7 @@
 #include "panel/scroll_panel.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -23,7 +23,7 @@ static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 #include "test_application.h"
 // Check clamping, content placement, resizing, painting, and ownership.
-int main() {
+i32 main() {
     ScrollPanel *sp = ScrollPanel(200, 150);
     CHECK(sp != nullptr);
     CHECK(ScrollPanel_graphics(sp) != nullptr);

@@ -33,12 +33,12 @@ static const char *galleryPhotoPath() {
     if (marker == nullptr)
         return nullptr;
     bytes prefix = (bytes) (marker - __FILE__);
-    snprintf(resolved, sizeof resolved, "%.*s/_resources/sunflower.png", (int) prefix, __FILE__);
+    snprintf(resolved, sizeof resolved, "%.*s/_resources/sunflower.png", (i32) prefix, __FILE__);
     return resolved;
 }
 
 // Tests bounded photo decoding, bundled lookup, orientation, and rejection recovery.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
 #if !defined(VEX_PLATFORM_APPLE)
     (discard) argc;
     (discard) argv;
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     // Encode an asymmetric 2x2 PNG to prove top-left orientation/channel order.
     u8 corners[] = {255,0,0,255, 0,255,0,255, 0,0,255,255, 255,255,255,255};
     char temporary[] = "gallery-photo-XXXXXX";
-    int fd = mkstemp(temporary);
+    i32 fd = mkstemp(temporary);
     assert(fd >= 0);
     close(fd);
     CFURLRef url = CFURLCreateFromFileSystemRepresentation(nullptr,
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
     assert(GalleryPhoto_decode(path, WIDTH, HEIGHT, pixels, WIDTH * 4));
     assert(GalleryPhoto_decode(path, WIDTH, HEIGHT, again, WIDTH * 4));
     assert(!memcmp(pixels, again, BYTES));
-    unsigned differing = 0;
+    u32 differing = 0;
     for (bytes i = 0; i < BYTES; i += 4) {
         assert(pixels[i + 3] == 255);
         differing += pixels[i] != pixels[0] || pixels[i + 1] != pixels[1] || pixels[i + 2] != pixels[2];

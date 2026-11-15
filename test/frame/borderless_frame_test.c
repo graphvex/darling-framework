@@ -5,6 +5,6 @@
 #include "frame_chrome_lab.h"
 
 // Runs the shared chrome lab for an undecorated, borderless Frame.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     return frameChromeLab(argc, argv, "borderless frame", WINDOW_UNDECORATED_BORDERLESS, false);
 }

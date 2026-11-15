@@ -11,7 +11,7 @@
 #include "c23/event_invoke.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -23,13 +23,13 @@ static int g_fail = 0;
 // A little sequence log the handlers append to, so we can assert WHO ran in
 // WHAT order rather than just that something fired.
 typedef struct Trace {
-    int ids[16];
-    int count;
+    i32 ids[16];
+    i32 count;
     f32 last_dy;
 } Trace;
 
 // Appends a handler identifier while the fixed trace has room.
-static fn push(Trace *t, int id) {
+static fn push(Trace *t, i32 id) {
     if ((*t).count < 16) (*t).ids[(*t).count++] = id;
 }
 
@@ -68,7 +68,7 @@ static fn on_document_changed(Element *e, const Document *d, any ud) {
 
 #include "test_application.h"
 // Verifies event replacement, hit dispatch, bubbling order, and clearing.
-int main() {
+i32 main() {
     ElementDesc dd = {0};
     dd.width = 200; dd.height = 200;
     Element *root = Element(&dd);

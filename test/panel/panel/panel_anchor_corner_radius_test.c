@@ -17,7 +17,7 @@
 #include "panel/panel.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -30,7 +30,7 @@ static int g_fail = 0;
 #define DARLING_TEST_WITH_ARGS
 #include "test_application.h"
 // Build and capture Panels at each parent anchor with rounded corners and shadows.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     bool interactive = argc == 2 && strcmp(argv[1], "--interactive") == 0;
     if (argc > 1 && !interactive) { fprintf(stderr, "usage: %s [--interactive]\n", argv[0]); return 1; }
     Frame *f = Frame("panel — anchor + corner radius", 1200, 820);
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
         COLOR_RGBA(120, 200, 150, 255), COLOR_RGBA(120, 190, 220, 255), COLOR_RGBA(140, 160, 230, 255),
         COLOR_RGBA(170, 140, 220, 255), COLOR_RGBA(220, 130, 200, 255), COLOR_RGBA(230, 140, 160, 255),
     };
-    for (int a = 0; a < PART_COUNT; a++) {
+    for (i32 a = 0; a < PART_COUNT; a++) {
         Panel *p = Panel();                     // the arity chooser -> Panel_0()
         Panel_setSize(p, 320, 220);             // big: the corners are the point
         Panel_setAnchor(p, a);                  // a PARENT anchor (row-major)

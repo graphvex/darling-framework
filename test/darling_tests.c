@@ -51,16 +51,16 @@ static const TestInfo kInfos[] = {
     {"scrollpanel test", COLOR_RGBA(170, 140, 220, 255)},
     {"button test", COLOR_RGBA(220, 130, 200, 255)},
 };
-static const int kCount = (int)(sizeof kInfos / sizeof kInfos[0]);
+static const i32 kCount = (i32)(sizeof kInfos / sizeof kInfos[0]);
 static TestCase kCases[sizeof kInfos / sizeof kInfos[0]];
 
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Builds the launcher window and attaches a button for each test entry.
-int main() {
+i32 main() {
     Frame *m = Frame("darling — tests", 460, 700);
 
-    for (int i = 0; i < kCount; i++) {
+    for (i32 i = 0; i < kCount; i++) {
         kCases[i] = (TestCase){kInfos[i].name, kInfos[i].color, m};
         ElementDesc d = {0};
         d.width = 380; d.height = 62;

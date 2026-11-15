@@ -15,7 +15,7 @@
 #include "properties/set_corner_radius.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -29,7 +29,7 @@ static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 #include "test_application.h"
 // Verify property operations, detachment ownership, location arities, and bounds.
-int main() {
+i32 main() {
     Panel *root = Panel(200, 200);
     Panel *a = Panel(50, 50);
     Panel *b = Panel(50, 50);

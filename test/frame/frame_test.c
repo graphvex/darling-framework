@@ -10,7 +10,7 @@
 #include "panel/panel.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -22,13 +22,13 @@ static int g_fail = 0;
 // Counts invocation of a child Frame's close callback.
 static fn onClosed(Frame *frame, any ud) {
     (discard)frame;
-    *(int*) ud += 1;
+    *(i32*) ud += 1;
 }
 
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Checks Frame lifecycle, surface sizing, appearance state, panels, and ownership.
-int main() {
+i32 main() {
     Frame *f = Frame("frame test", 400, 300);
     CHECK(f != nullptr);
     CHECK(Frame_window(f) != nullptr);
@@ -123,7 +123,7 @@ int main() {
     Frame *child = Frame("child", 200, 150);
     Frame_setOwner(child, f);
     CHECK(Frame_owner(child) == f);
-    int closed = 0;
+    i32 closed = 0;
     Frame_onClose(child, onClosed, &closed);
     Frame_close(f);                    // frees f AND child
     CHECK(closed == 1);                // the child's close hook fired

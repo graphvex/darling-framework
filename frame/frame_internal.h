@@ -12,7 +12,7 @@
 
 // Link `panel` into the frame's content Element and take the wrapper into the
 // frame's owned set. index < 0 appends; index >= 0 inserts there. False on OOM.
-bool Frame_ownPanel(Frame *frame, Panel *panel, int index);
+bool Frame_ownPanel(Frame *frame, Panel *panel, i32 index);
 
 // Unlink and destroy every panel the frame owns (the wrappers + their Elements).
 fn Frame_clearPanels(Frame *frame);
@@ -24,6 +24,6 @@ bool Frame_prepareRevalidate(Frame *frame);
 
 // Resize the private layout/render targets without presenting. Returns true
 // only for a changed positive extent; invalid and same-size calls are no-ops.
-bool Frame_resizeTargets(Frame *frame, int widthPx, int heightPx);
+bool Frame_resizeTargets(Frame *frame, i32 widthPx, i32 heightPx);
 
 #endif // DARLING_FRAME_INTERNAL_H

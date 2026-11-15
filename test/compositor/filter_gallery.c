@@ -32,25 +32,25 @@ static fn galleryClosed(Frame *frame, any userdata) {
         (*state).gpu=nullptr;
         (*state).device=nullptr;
     } // unsignaled GPU job/device remain alive; never free under outstanding work
-    for (unsigned i = 0; i < 6; ++i) {
+    for (u32 i = 0; i < 6; ++i) {
         Picture_destroy((*state).pictures[i]);
         (*state).pictures[i] = nullptr;
         Image_destroy((*state).images[i]);
         (*state).images[i] = nullptr;
     }
-    for (unsigned i = 0; i < 3; ++i)
+    for (u32 i = 0; i < 3; ++i)
         Image_destroy((*state).oracles[i]);
 }
 
 // Compares one captured RGBA sample with its reference sample.
 static bool sampleMatches(const Image *capture, const Image *source,
-                          unsigned x, unsigned y, unsigned sx, unsigned sy) {
+                          u32 x, u32 y, u32 sx, u32 sy) {
     if (!capture || x >= Image_width(capture) || y >= Image_height(capture))
         return false;
     const u8 *a = Image_pixels(capture) + (bytes) y * Image_stride(capture) + (bytes) x * 4;
     const u8 *b = Image_pixels(source) + (bytes) sy * Image_stride(source) + (bytes) sx * 4;
-    for (unsigned c = 0; c < 4; ++c)
-        if (abs((int) a[c] - b[c]) > 1) {
+    for (u32 c = 0; c < 4; ++c)
+        if (abs((i32) a[c] - b[c]) > 1) {
             fprintf(stderr, "sample %u,%u channel %u got %u expected %u\n", x, y, c, a[c], b[c]);
             return false;
         }
@@ -69,8 +69,8 @@ static Image *galleryPublished(Frame *frame) {
     any surface = Window_presentSurfaceContents(Frame_window(frame));
     if (!surface)
         return nullptr;
-    unsigned width = Surface_width(Frame_surface(frame));
-    unsigned height = Surface_height(Frame_surface(frame));
+    u32 width = Surface_width(Frame_surface(frame));
+    u32 height = Surface_height(Frame_surface(frame));
     Image *image = Image_2(width, height);
     if (!image || !Image_ensureShadow(image, width, height)) {
         Image_destroy(image);
@@ -90,7 +90,7 @@ static Image *galleryPublished(Frame *frame) {
 
 // Builds the filter gallery; --smoke checks published pixels and resized anchors.
 
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     bool smoke = argc > 1 && strcmp(argv[1], "--smoke") == 0;
     // Boot bottom-up: the device is R3 and the frame is R4, so the GPU exists
     // before any window does. MoltenVK brings itself up in ~60 ms, and a frame
@@ -119,7 +119,7 @@ int main(int argc, char **argv) {
     if (!gpu) {
         Frame_destroy(frame); return 1;
     }
-    for (unsigned i = 0; i < 3; ++i) {
+    for (u32 i = 0; i < 3; ++i) {
         if (!FilterGallery_renderSampled(gpu,i,&gallery.images[i * 2]) ||
             (smoke && !FilterGallery_render(gpu,i,&gallery.oracles[i]))) {
             Frame_destroy(frame);
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
             Frame_destroy(frame);
             return 1;
         }
-        static const int anchors[] = {PART_TOP_LEFT, PART_TOP_CENTER, PART_TOP_RIGHT};
+        static const i32 anchors[] = {PART_TOP_LEFT, PART_TOP_CENTER, PART_TOP_RIGHT};
         Panel_setAnchor(card, anchors[i]);
         Panel_setPivot(card, anchors[i]);
         Panel_setOffset(card, i == 0 ? 10 : i == 1 ? 0 : -10, 14);
@@ -151,8 +151,8 @@ int main(int argc, char **argv) {
             return 1;
         }
         gallery.cards[i] = card;
-        for (unsigned j = 0; j < 2; ++j) {
-            unsigned index = i * 2 + j;
+        for (u32 j = 0; j < 2; ++j) {
+            u32 index = i * 2 + j;
             Picture *picture = Picture(gallery.images[index]);
             if (!picture) {
                 Frame_destroy(frame);
@@ -172,11 +172,11 @@ int main(int argc, char **argv) {
         Surface_setClock(Frame_surface(frame), galleryFrozenClock, nullptr);
     Frame_render(frame);
     if (smoke) {
-        static const int widths[] = {1160, 1400, 1240, 1632};
-        for (unsigned step = 0; step < sizeof widths / sizeof widths[0]; ++step) {
+        static const i32 widths[] = {1160, 1400, 1240, 1632};
+        for (u32 step = 0; step < sizeof widths / sizeof widths[0]; ++step) {
             u64 before = Surface_getPresentCount(Frame_surface(frame));
             if (step)
-                Window_setSize(Frame_window(frame), widths[step], 430 + (int) step * 20);
+                Window_setSize(Frame_window(frame), widths[step], 430 + (i32) step * 20);
             if (step && Surface_getPresentCount(Frame_surface(frame)) != before + 1) {
                 fprintf(stderr, "filter_gallery: geometry publication was deferred\n");
                 Frame_destroy(frame);
@@ -190,13 +190,13 @@ int main(int argc, char **argv) {
             }
             // The three cards sit top-left, top-center and top-right, so their
             // expected column follows the resized width.
-            for (unsigned i = 0; i < 3; ++i) {
-                unsigned expected = i == 0 ? 10u
-                                  : i == 1 ? (unsigned) ((widths[step] - 372) / 2)
-                                  : (unsigned) (widths[step] - 372 - 10);
+            for (u32 i = 0; i < 3; ++i) {
+                u32 expected = i == 0 ? 10u
+                                  : i == 1 ? (u32) ((widths[step] - 372) / 2)
+                                  : (u32) (widths[step] - 372 - 10);
                 if (!sampleMatches(capture, gallery.oracles[i], expected + 6, 116, 0, 20) ||
-                    !sampleMatches(capture, gallery.oracles[i], (unsigned) expected + 16, 116, 10, 20) ||
-                    !sampleMatches(capture, gallery.oracles[i], (unsigned) expected + 66, 226, 60, 130)) {
+                    !sampleMatches(capture, gallery.oracles[i], (u32) expected + 16, 116, 10, 20) ||
+                    !sampleMatches(capture, gallery.oracles[i], (u32) expected + 66, 226, 60, 130)) {
                     fprintf(stderr, "filter_gallery: resized anchor/Picture mismatch in case %u step %u\n", i + 1, step);
                     Image_destroy(capture);
                     Frame_destroy(frame);

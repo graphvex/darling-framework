@@ -34,11 +34,11 @@ enum {
 };
 
 // ── payloads (what a handler receives) ──────────────────────────────────────
-typedef struct Mouse { f32 x, y; int button; } Mouse;
+typedef struct Mouse { f32 x, y; i32 button; } Mouse;
 typedef struct Scroll { f32 x, y, dx, dy; } Scroll;
 typedef struct Zoom { f32 x, y, magnitude; } Zoom;
-typedef struct Key { int code; } Key;
-typedef struct Touch { f32 x, y; int id; } Touch;
+typedef struct Key { i32 code; } Key;
+typedef struct Touch { f32 x, y; i32 id; } Touch;
 typedef struct Document { const char *text; u32 start, end; } Document;
 
 // ── handler structs (the (discard)()s) ─────────────────────────────────────────────
@@ -108,16 +108,16 @@ Element *Element_addDocumentEvent(Element *element, DocumentEvent handlers);
 
 // ── dispatch ────────────────────────────────────────────────────────────────
 typedef struct Event {
-    int   kind;
+    i32   kind;
     f32 x, y;         // pointer (native px, top-left origin)
     f32 dx, dy;       // scroll / drag delta
     f32 magnitude;    // zoom scale (1.0 = none)
-    int   key;          // key code or drag button
+    i32   key;          // key code or drag button
     any native;       // borrowed OS event (nullable)
 } Event;
 
 bool Element_dispatchEvent(Element *root, const Event *event);
 fn Element_clearEvents(Element *root);
-int  Element_eventBindingCount();
+i32  Element_eventBindingCount();
 
 #endif // DARLING_C23_EVENT_INVOKE_H

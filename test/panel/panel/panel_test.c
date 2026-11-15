@@ -9,7 +9,7 @@
 #include "panel/panel.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -20,7 +20,7 @@ static int g_fail = 0;
 
 #include "test_application.h"
 // Verify Panel construction, placement, painting, tree queries, and cleanup.
-int main() {
+i32 main() {
     ElementDesc d = {0};
     d.width = 200; d.height = 80;
     d.anchor = PART_CENTER; d.pivot = PART_CENTER;

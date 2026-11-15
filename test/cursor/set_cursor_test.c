@@ -7,7 +7,7 @@
 
 // Headless lab: class-named setters, inheritance/overrides, masked hover hits,
 // shared-bound independence, null/invalid inputs and destruction. No OS window.
-static int failures;
+static i32 failures;
 #define CHECK(condition) do { if (!(condition)) { \
     printf("FAIL line %d: %s\n", __LINE__, #condition); failures++; \
 } } while (0)
@@ -23,7 +23,7 @@ IMPLEMENT_CURSOR(ExampleWidget)
 
 #include "test_application.h"
 // Tests cursor inheritance, overrides, masked hits, shared bounds, and teardown.
-int main() {
+i32 main() {
     Panel *parent = Panel(200, 100);
     Panel *child = Panel(50, 50);
     CHECK(parent && child);
@@ -74,7 +74,7 @@ int main() {
 
     // Repeated lifetimes do not retain registrations or stale cursor preferences.
     Panel_destroy(parent);
-    for (int i = 0; i < 100; i++) {
+    for (i32 i = 0; i < 100; i++) {
         Panel *fresh = Panel(10, 10);
         CHECK(Element_cursorPreference(Panel_graphics(fresh)) == CURSOR_INHERIT);
         Panel_setCursor(fresh, CURSOR_HIDDEN);

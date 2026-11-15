@@ -49,11 +49,11 @@ Panel *Panel_setSize_3(Panel *panel, f32 width, f32 height) {
 }
 
 // Resizes frame targets and immediately revalidates/presents the new pixel extent.
-fn Frame_setSize_3(Frame *frame, int widthPx, int heightPx) {
+fn Frame_setSize_3(Frame *frame, i32 widthPx, i32 heightPx) {
     if (!Frame_resizeTargets(frame, widthPx, heightPx))
         return;
     Surface *surface = Frame_surface(frame);
-    int fps = Surface_getFPSCap(surface);
+    i32 fps = Surface_getFPSCap(surface);
     Surface_setFPSCap(surface, -1);
     Frame_revalidate(frame);
     Surface_setFPSCap(surface, fps);

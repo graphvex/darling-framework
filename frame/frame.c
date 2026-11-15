@@ -52,22 +52,22 @@
  *   Color     background;    // paint clear color (not OS transparency)
  *   Element  *root;          // the content Element (owned)
  *   Panel   **panels;        // owned Panel wrappers, aligned with root children
- *   int       count, cap;    // panels array
+ *   i32       count, cap;    // panels array
  *   Surface  *surface;       // owned present seam
  *   Board    *contentBoard;  // content revalidate step + generation (owned)
  *   bool      paintReady;    // content produced a frame; present may publish
  *   any surfaces[2];   // borrowed IOSurfaces (Apple zero-copy, d64 buf)
- *   int       targets[2];    // graphvex surface slots for those IOSurfaces
- *   int       front;         // which surface the layer shows
+ *   i32       targets[2];    // graphvex surface slots for those IOSurfaces
+ *   i32       front;         // which surface the layer shows
  *   bool      gpu;           // zero-copy path is live
  *   Image    *shot;          // capture readback buffer (GPU path, lazy)
  *   DisplayList *dl;         // reused paint list
- *   int       lastW, lastH;  // the single size authority
+ *   i32       lastW, lastH;  // the single size authority
  *   struct Frame *owner;     // owning frame (nullable)
  *   struct Frame **children; // owned child frames
- *   int       childCount, childCap;
+ *   i32       childCount, childCap;
  *   bool      closed, dirty;
- *   FrameCloseFn *closeFns; any *closeUd; int closeCount, closeCap;
+ *   FrameCloseFn *closeFns; any *closeUd; i32 closeCount, closeCap;
  *
  * PRIVATE HELPERS:
  * ----------------------------------------------------------------------------
@@ -112,35 +112,35 @@ struct Frame {
     Color background;
     Element *root;       // the content element (the Frame's GraphicsPanel)
     Panel **panels;      // the Panel wrappers (interface), aligned with root's children
-    int count, cap;
+    i32 count, cap;
     Surface *surface;    // the present seam: capture target + host blit (fallback)
     Board *contentBoard; // content revalidator + generation; pixels stay on the present seam
     bool paintReady;     // only publish after the content callback produced a frame
     any surfaces[2];   // borrowed IOSurfaces (Apple zero-copy seam, d64 buffer)
-    int targets[2];      // graphvex surface slots for those IOSurfaces
-    int front;           // which surface the layer currently shows
+    i32 targets[2];      // graphvex surface slots for those IOSurfaces
+    i32 front;           // which surface the layer currently shows
     bool gpu;            // the zero-copy present path is live
     Image *shot;         // capture readback buffer (GPU path only, lazy)
     DisplayList *dl;     // reused paint list
-    int lastW, lastH;    // the single size authority
+    i32 lastW, lastH;    // the single size authority
 
     struct Frame *owner;
     struct Frame **children;
-    int childCount, childCap;
+    i32 childCount, childCap;
 
     bool closed;
     bool dirty;          // needs a repaint
 
     FrameCloseFn *closeFns;
     any *closeUd;
-    int closeCount, closeCap;
+    i32 closeCount, closeCap;
     Application *application; // borrowed; detach before either owner is freed
-    int fpsCap, fpsFocusGain, fpsFocusLost;
+    i32 fpsCap, fpsFocusGain, fpsFocusLost;
 };
 
 // ── the live-frame set (the runner + ownership) ─────────────────────────────
 static Frame **s_live = nullptr;
-static int s_liveCount = 0, s_liveCap = 0;
+static i32 s_liveCount = 0, s_liveCap = 0;
 static Frame *s_active = nullptr;   // most recently created (CAPTURE)
 static fn frame_pollApplication(Application *application, any userdata);
 
@@ -155,7 +155,7 @@ static fn live_add(Frame *f) {
 
 // Removes a Frame from the live runner registry if present.
 static fn live_remove(Frame *f) {
-    for (int i = 0; i < s_liveCount; i++) {
+    for (i32 i = 0; i < s_liveCount; i++) {
         if (s_live[i] != f) continue;
         memmove(&s_live[i], &s_live[i + 1], (bytes)(s_liveCount - i - 1) * sizeof *s_live);
         s_liveCount--;
@@ -174,7 +174,7 @@ static fn child_add(Frame *owner, Frame *child) {
 
 // Removes a child Frame from its owner's close-order list.
 static fn child_remove(Frame *owner, Frame *child) {
-    for (int i = 0; i < (*owner).childCount; i++) {
+    for (i32 i = 0; i < (*owner).childCount; i++) {
         if ((*owner).children[i] != child) continue;
         memmove(&(*owner).children[i], &(*owner).children[i + 1],
                 (bytes)((*owner).childCount - i - 1) * sizeof *(*owner).children);
@@ -185,7 +185,7 @@ static fn child_remove(Frame *owner, Frame *child) {
 
 // Runs registered close callbacks once, then clears the callback count.
 static fn fire_close_hooks(Frame *f) {
-    for (int i = 0; i < (*f).closeCount; i++) (*f).closeFns[i](f, (*f).closeUd[i]);
+    for (i32 i = 0; i < (*f).closeCount; i++) (*f).closeFns[i](f, (*f).closeUd[i]);
     (*f).closeCount = 0;
 }
 
@@ -219,7 +219,7 @@ static bool frame_on_present(Surface *surface, any userdata) {
     Image *img = Surface_presentImage(surface);
     if (!img) return false;
     Window_presentRGBA((*f).window, Image_pixels(img), Image_stride(img),
-                       (int) Image_width(img), (int) Image_height(img));
+                       (i32) Image_width(img), (i32) Image_height(img));
     return true;
 }
 
@@ -227,11 +227,11 @@ static bool frame_on_present(Surface *surface, any userdata) {
 // is rendered into, published to the layer, then swapped. Fails (returns false)
 // off-Apple, when VK_EXT_metal_objects is absent, or on OOM — the Frame then
 // falls back to the RGBA path.
-static bool frame_gpu_open(Frame *f, int wpx, int hpx) {
-    for (int i = 0; i < 2; i++)
+static bool frame_gpu_open(Frame *f, i32 wpx, i32 hpx) {
+    for (i32 i = 0; i < 2; i++)
         (*f).surfaces[i] = Window_createPresentSurface((*f).window, wpx, hpx);
     if (!(*f).surfaces[0] || !(*f).surfaces[1]) return false;
-    for (int i = 0; i < 2; i++) {
+    for (i32 i = 0; i < 2; i++) {
         (*f).targets[i] = VulkanBackend_addSurface((*f).surfaces[i], (u32)wpx, (u32)hpx);
         if ((*f).targets[i] < 0) return false;
     }
@@ -242,7 +242,7 @@ static bool frame_gpu_open(Frame *f, int wpx, int hpx) {
 
 // Tear the GPU seam down (idempotent; safe to call after a partial open).
 static fn frame_gpu_close(Frame *f) {
-    for (int i = 0; i < 2; i++) {
+    for (i32 i = 0; i < 2; i++) {
         if ((*f).targets[i] >= 0) VulkanBackend_removeSurface((*f).targets[i]);
         (*f).targets[i] = -1;
         if ((*f).surfaces[i]) Window_destroyPresentSurface((*f).window, (*f).surfaces[i]);
@@ -252,7 +252,7 @@ static fn frame_gpu_close(Frame *f) {
 }
 
 // Resize = an IOSurface cannot grow, so rebuild both at the new extent.
-static fn frame_gpu_reopen(Frame *f, int wpx, int hpx) {
+static fn frame_gpu_reopen(Frame *f, i32 wpx, i32 hpx) {
     frame_gpu_close(f);
     if (!frame_gpu_open(f, wpx, hpx))
         frame_gpu_close(f);   // leave gpu false; the RGBA fallback carries on
@@ -264,12 +264,12 @@ Frame *Frame_0() { return Frame_3("darling", 800, 600); }
 Frame *Frame_1(const char *title) { return Frame_3(title, 800, 600); }
 
 // Creates a window-backed Frame, preferring the GPU surface seam with RGBA fallback.
-Frame *Frame_3(const char *title, int widthPx, int heightPx) {
+Frame *Frame_3(const char *title, i32 widthPx, i32 heightPx) {
     Graphics_register(VulkanBackend_row());
     Graphics_use(BACKEND_VULKAN);
 
-    int wpx = widthPx > 0 ? widthPx : 800;
-    int hpx = heightPx > 0 ? heightPx : 600;
+    i32 wpx = widthPx > 0 ? widthPx : 800;
+    i32 hpx = heightPx > 0 ? heightPx : 600;
     Frame *f = calloc(1, sizeof *f);
     if (!f) return nullptr;
     (*f).targets[0] = (*f).targets[1] = -1;
@@ -386,7 +386,7 @@ bool Frame_macOS_getLiquidGlass(const Frame *frame, FrameLiquidGlassDesc *out) {
 fn Frame_onClose(Frame *frame, FrameCloseFn fn, any userdata) {
     if (!frame || !fn) return;
     if ((*frame).closeCount == (*frame).closeCap) {
-        int ncap = (*frame).closeCap ? (*frame).closeCap * 2 : 4;
+        i32 ncap = (*frame).closeCap ? (*frame).closeCap * 2 : 4;
         FrameCloseFn *gf = realloc((*frame).closeFns, (bytes)ncap * sizeof *gf);
         any *gu = realloc((*frame).closeUd, (bytes)ncap * sizeof *gu);
         if (!gf || !gu) return;
@@ -435,9 +435,9 @@ Element *Frame_element(const Frame *frame) { return frame ? (*frame).root : null
 // The ownership seam properties/add.c and properties/remove.c call. Frames own
 // their panels directly (there is no Frame-as-Panel), so this is the only place
 // the private panels array is touched.
-bool Frame_ownPanel(Frame *frame, Panel *panel, int index) {
+bool Frame_ownPanel(Frame *frame, Panel *panel, i32 index) {
     if (!frame || !(*frame).root || !panel) return false;
-    int at = index < 0 ? (*frame).count : index;
+    i32 at = index < 0 ? (*frame).count : index;
     if (at > (*frame).count) at = (*frame).count;
     Panel **grown = realloc((*frame).panels, (bytes)((*frame).count + 1) * sizeof *grown);
     if (!grown) return false;
@@ -453,7 +453,7 @@ bool Frame_ownPanel(Frame *frame, Panel *panel, int index) {
 // Detaches and destroys all panels currently owned by the frame.
 fn Frame_clearPanels(Frame *frame) {
     if (!frame) return;
-    for (int i = 0; i < (*frame).count; i++) {
+    for (i32 i = 0; i < (*frame).count; i++) {
         Element *g = Panel_graphics((*frame).panels[i]);
         if (g) Element_remove(g);        // unlink from the tree before freeing it
         Panel_destroy((*frame).panels[i]);
@@ -462,10 +462,10 @@ fn Frame_clearPanels(Frame *frame) {
 }
 
 // Returns the number of panels owned by the frame.
-int Frame_count(const Frame *frame) { return frame ? (*frame).count : 0; }
+i32 Frame_count(const Frame *frame) { return frame ? (*frame).count : 0; }
 
 // Returns the panel at index, or nullptr when the frame/index is invalid.
-Panel *Frame_panel(const Frame *frame, int index) {
+Panel *Frame_panel(const Frame *frame, i32 index) {
     if (!frame || index < 0 || index >= (*frame).count) return nullptr;
     return (*frame).panels[index];
 }
@@ -475,7 +475,7 @@ Rect Frame_root(const Frame *frame) {
     if (!frame) return (Rect){0, 0, 0, 0};
     // the layout root IS the window (native px); before the first render, fall
     // back to the live window size so layout/hit-testing works immediately.
-    int w = (*frame).lastW, h = (*frame).lastH;
+    i32 w = (*frame).lastW, h = (*frame).lastH;
     if ((w <= 0 || h <= 0) && (*frame).window) {
         w = Window_width((*frame).window);
         h = Window_height((*frame).window);
@@ -490,7 +490,7 @@ fn Frame_paint(const Frame *frame, DisplayList *dl) {
 }
 
 // ── the one resize surface ──────────────────────────────────────────────────
-bool Frame_resizeTargets(Frame *frame, int widthPx, int heightPx) {
+bool Frame_resizeTargets(Frame *frame, i32 widthPx, i32 heightPx) {
     if (!frame || (*frame).closed || widthPx <= 0 || heightPx <= 0) return false;
     if (widthPx == (*frame).lastW && heightPx == (*frame).lastH) return false;
     (*frame).lastW = widthPx;
@@ -521,27 +521,27 @@ bool Frame_prepareRevalidate(Frame *frame) {
 fn Frame_render(Frame *frame) { Frame_revalidate(frame); }
 
 // Returns the configured fallback FPS cap.
-int Frame_getFPSCap(const Frame *f) { return f ? (*f).fpsCap : 0; }
+i32 Frame_getFPSCap(const Frame *f) { return f ? (*f).fpsCap : 0; }
 // Returns the optional FPS cap used while the window is focused.
-int Frame_getFPSCapWhenFocusGain(const Frame *f) { return f ? (*f).fpsFocusGain : 0; }
+i32 Frame_getFPSCapWhenFocusGain(const Frame *f) { return f ? (*f).fpsFocusGain : 0; }
 // Returns the optional FPS cap used while the window is unfocused.
-int Frame_getFPSCapWhenFocusLost(const Frame *f) { return f ? (*f).fpsFocusLost : 0; }
+i32 Frame_getFPSCapWhenFocusLost(const Frame *f) { return f ? (*f).fpsFocusLost : 0; }
 // Selects the focus-specific cap when set, otherwise the configured fallback.
-int Frame_getEffectiveFPSCap(const Frame *f) {
+i32 Frame_getEffectiveFPSCap(const Frame *f) {
     if (!f) return 0;
-    int override = Window_isFocused((*f).window) ? (*f).fpsFocusGain : (*f).fpsFocusLost;
+    i32 override = Window_isFocused((*f).window) ? (*f).fpsFocusGain : (*f).fpsFocusLost;
     return override ? override : (*f).fpsCap;
 }
 // Sets the fallback cap for positive rates, or -1 for uncapped operation.
-fn Frame_setFPSCap(Frame *f, int fps) {
+fn Frame_setFPSCap(Frame *f, i32 fps) {
     if (f && (fps == -1 || fps > 0)) { (*f).fpsCap = fps; Surface_setFPSCap((*f).surface, Frame_getEffectiveFPSCap(f)); }
 }
 // Sets the focused cap override; zero uses the fallback cap.
-fn Frame_setFPSCapWhenFocusGain(Frame *f, int fps) {
+fn Frame_setFPSCapWhenFocusGain(Frame *f, i32 fps) {
     if (f && fps >= -1) { (*f).fpsFocusGain = fps; Surface_setFPSCap((*f).surface, Frame_getEffectiveFPSCap(f)); }
 }
 // Sets the unfocused cap override; zero uses the fallback cap.
-fn Frame_setFPSCapWhenFocusLost(Frame *f, int fps) {
+fn Frame_setFPSCapWhenFocusLost(Frame *f, i32 fps) {
     if (f && fps >= -1) { (*f).fpsFocusLost = fps; Surface_setFPSCap((*f).surface, Frame_getEffectiveFPSCap(f)); }
 }
 
@@ -550,7 +550,7 @@ static fn frame_pollApplication(Application *application, any userdata) {
     (discard)application;
     Frame *f = userdata;
     if (Window_shouldClose((*f).window)) {
-        for (int i = 0; i < (*f).childCount; i++)
+        for (i32 i = 0; i < (*f).childCount; i++)
             Window_close((*(*f).children[i]).window);
         return;
     }
@@ -576,7 +576,7 @@ bool Frame_attachApplication(Frame *f, Application *application) {
 Application *Frame_application(const Frame *f) { return f ? (*f).application : nullptr; }
 // Destroys every live frame attached to the specified Application.
 fn Frame_destroyApplicationFrames(Application *application) {
-    for (int i = 0; i < s_liveCount; ) {
+    for (i32 i = 0; i < s_liveCount; ) {
         if ((*s_live[i]).application == application) Frame_destroy(s_live[i]);
         else i++;
     }
@@ -588,7 +588,7 @@ static fn frame_renderContent(Frame *frame) {
     (*frame).paintReady = false;
     if ((*frame).gpu) {
         // zero-copy: render into the back IOSurface, publish it, swap front/back
-        int back = 1 - (*frame).front;
+        i32 back = 1 - (*frame).front;
         VulkanBackend_useSurface((*frame).targets[back]);
         if (!Graphics_begin()) return;
         Graphics_clear((*frame).background);
@@ -619,7 +619,7 @@ fn Frame_invalidate(Frame *frame) { if (frame) (*frame).dirty = true; }
 // the input layer works in ELEMENTS; this is how it reaches the owning Frame
 fn Frame_invalidateElement(Element *root) {
     if (!root) return;
-    for (int i = 0; i < s_liveCount; i++)
+    for (i32 i = 0; i < s_liveCount; i++)
         if ((*s_live[i]).root == root) { (*s_live[i]).dirty = true; return; }
 }
 
@@ -632,14 +632,14 @@ fn Frame_runAll(Frame *root) {
     Application *app = Application("darling");
     if (!app) return;
     bool attached = true;
-    for (int i = 0; i < s_liveCount; i++)
+    for (i32 i = 0; i < s_liveCount; i++)
         if (!(*s_live[i]).application && !Frame_attachApplication(s_live[i], app)) {
             attached = false; break;
         }
     if (attached) Application_start(app);
     // The caller retains Frames, just as it retains root. Detach the temporary
     // Application before freeing its borrowed callback/window registries.
-    for (int i = 0; i < s_liveCount; i++) {
+    for (i32 i = 0; i < s_liveCount; i++) {
         Frame *f = s_live[i];
         if ((*f).application != app) continue;
         Application_removePollEvent(app, frame_pollApplication, f);
@@ -678,5 +678,5 @@ bool Frame_savePNG(Frame *frame, const char *path) {
     Image *img = Frame_capture(frame);
     if (!img || !path) return false;
     return Window_writePNG(Image_pixels(img), Image_stride(img),
-                           (int)Image_width(img), (int)Image_height(img), path);
+                           (i32)Image_width(img), (i32)Image_height(img), path);
 }

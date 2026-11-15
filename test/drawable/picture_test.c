@@ -86,7 +86,7 @@ static fn invalid() {
     FILE *capture = tmpfile();
     assert(capture);
     fflush(stderr);
-    int saved = dup(STDERR_FILENO);
+    i32 saved = dup(STDERR_FILENO);
     assert(saved >= 0 && dup2(fileno(capture), STDERR_FILENO) >= 0);
     Picture_setSize(picture, -1, 4);
     Picture_setSize(picture, NAN, 4);
@@ -107,7 +107,7 @@ static fn invalid() {
     close(saved);
     rewind(capture);
     char line[256];
-    unsigned count = 0;
+    u32 count = 0;
     while (fgets(line, sizeof line, capture)) {
         assert(strstr(line, "[vex] ") && strstr(line, "Picture "));
         ++count;
@@ -124,7 +124,7 @@ static fn invalid() {
     Image_destroy(bgra);
 }
 
-static unsigned textureReferences;
+static u32 textureReferences;
 // Records a successful retained reference to the fake GPU texture.
 static bool retainTexture(any texture) {
     assert(texture == &textureReferences);
@@ -155,7 +155,7 @@ static fn gpuOnlyAdmission() {
 }
 
 // Runs the normal widget, invalid-input, and GPU-only admission scenarios.
-int main() {
+i32 main() {
     widget();
     invalid();
     gpuOnlyAdmission();

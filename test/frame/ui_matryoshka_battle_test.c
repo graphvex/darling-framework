@@ -19,20 +19,20 @@ static fn captureEvidence(const Image *image) {
     const char *name = strrchr(__FILE__, '/');
     name = name ? name + 1 : __FILE__;
     char path[1024];
-    int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
+    i32 n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
     if (n > 0 && (bytes) n < sizeof path &&
-        Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
+        Window_writePNG(Image_pixels(image), Image_stride(image), (i32) Image_width(image), (i32) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline fn pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, i32 x, i32 y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
-    int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
-    for (int i = 0; i < 4; ++i) {
-        if (abs((int) p[i] - want[i]) > 2) {
+    i32 want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
+    for (i32 i = 0; i < 4; ++i) {
+        if (abs((i32) p[i] - want[i]) > 2) {
             fprintf(stderr, "FAIL pixel (%d,%d) channel %d: got %d expected %d\n", x, y, i, p[i], want[i]);
             captureEvidence(image);
             exit(1);
@@ -44,12 +44,12 @@ static inline fn pixel(const Image *image, int x, int y, Color expected) {
 #define DEPTH 96
 #define EXTENT (DEPTH * 4 + 16)
 // Alternates the two colors used to identify adjacent nested panel rings.
-static Color layerColor(int i) { return i % 2 ? COLOR_RGBA(40, 180, 80, 255) : COLOR_RGBA(180, 40, 80, 255); }
+static Color layerColor(i32 i) { return i % 2 ? COLOR_RGBA(40, 180, 80, 255) : COLOR_RGBA(180, 40, 80, 255); }
 #define DARLING_TEST_HAS_FRAMES
 #define DARLING_TEST_WITH_ARGS
 #include "test_application.h"
 // Exercises a 96-panel nested tree, mutation, resize, synthetic drag, and cleanup.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     bool interactive = argc == 2 && strcmp(argv[1], "--interactive") == 0;
     if (argc > 1 && !interactive) {
         fprintf(stderr, "usage: %s [--interactive]\n", argv[0]);
@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
     Frame *frame = Frame("matryoshka battle", EXTENT, EXTENT);
     CHECK(frame);
     Panel *layers[DEPTH];
-    for (int i = 0; i < DEPTH; ++i) {
+    for (i32 i = 0; i < DEPTH; ++i) {
         layers[i] = Panel(EXTENT - i * 4, EXTENT - i * 4);
         CHECK(layers[i]);
         Panel_setBackground(layers[i], layerColor(i));
@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     }
     Frame_show(frame);
     Image *shot = Frame_capture(frame);
-    for (int i = 0; i < DEPTH; ++i) {
+    for (i32 i = 0; i < DEPTH; ++i) {
         pixel(shot, i * 2 + 1, EXTENT / 2, layerColor(i));
         CHECK(Panel_childCount(layers[i]) == (i == DEPTH - 1 ? 0 : 1));
     }
@@ -87,11 +87,11 @@ int main(int argc, char **argv) {
     CHECK(Image_width(shot) == EXTENT + 17 && Image_height(shot) == EXTENT + 11);
     pixel(shot, EXTENT / 2, EXTENT / 2, COLOR_WHITE);
     FrameDragLab drag = { .frame = frame, .panels = layers, .count = DEPTH };
-    for (int i = 1; i < DEPTH; ++i) drag.x[i] = drag.y[i] = 2;
+    for (i32 i = 1; i < DEPTH; ++i) drag.x[i] = drag.y[i] = 2;
     frameDragAttach(&drag);
     // Deterministic press/drag/release through the SAME dispatcher as OS input.
     // Move layer 40 and its entire subtree; release outside that selected layer.
-    const int selected = 40;
+    const i32 selected = 40;
     Event event = { .kind = EV_MOUSE_DOWN, .x = selected * 2 + 1, .y = EXTENT / 2 };
     CHECK(Element_dispatchEvent(Frame_element(frame), &event));
     CHECK(drag.selected == selected);
@@ -106,7 +106,7 @@ int main(int argc, char **argv) {
     // Restore the symmetric nested stack before offering it to the user.
     drag.x[selected] = 2;
     Panel_setOffset(layers[selected], 2, 2);
-    for (int i = 0; i < DEPTH; ++i) Panel_setBackground(layers[i], layerColor(i));
+    for (i32 i = 0; i < DEPTH; ++i) Panel_setBackground(layers[i], layerColor(i));
     Frame_setTitle(frame, "matryoshka: drag a ring (moves its subtree)");
     if (interactive) {
         puts("Drag any ring or the center; its nested children move with it. Close the native window to exit.");

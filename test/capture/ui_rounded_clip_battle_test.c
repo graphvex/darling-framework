@@ -18,20 +18,20 @@ static fn captureEvidence(const Image *image) {
     const char *name = strrchr(__FILE__, '/');
     name = name ? name + 1 : __FILE__;
     char path[1024];
-    int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
+    i32 n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
     if (n > 0 && (bytes) n < sizeof path &&
-        Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
+        Window_writePNG(Image_pixels(image), Image_stride(image), (i32) Image_width(image), (i32) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline fn pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, i32 x, i32 y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
-    int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
-    for (int i = 0; i < 4; ++i) {
-        if (abs((int) p[i] - want[i]) > 2) {
+    i32 want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
+    for (i32 i = 0; i < 4; ++i) {
+        if (abs((i32) p[i] - want[i]) > 2) {
             fprintf(stderr, "FAIL pixel (%d,%d) channel %d: got %d expected %d\n", x, y, i, p[i], want[i]);
             captureEvidence(image);
             exit(1);
@@ -40,7 +40,7 @@ static inline fn pixel(const Image *image, int x, int y, Color expected) {
 }
 
 // Paints an element tree with Raster and returns its captured pixels.
-static inline Image *rasterCapture(Element *root, int width, int height) {
+static inline Image *rasterCapture(Element *root, i32 width, i32 height) {
     CHECK(Graphics_use(BACKEND_RASTER));
     CHECK(Graphics_resize((u32) width, (u32) height));
     DisplayList *dl = DisplayList_0();
@@ -59,8 +59,8 @@ static inline Image *rasterCapture(Element *root, int width, int height) {
 #define EXTENT 128
 // Checks captured pixels against the rounded-parent interior oracle.
 static fn verify(Image *shot) {
-    for (int y = 0; y < EXTENT; ++y) {
-        for (int x = 0; x < EXTENT; ++x) {
+    for (i32 y = 0; y < EXTENT; ++y) {
+        for (i32 x = 0; x < EXTENT; ++x) {
             f32 dx = fmaxf(fabsf((f32) x + 0.5f - 64) - 24, 0);
             f32 dy = fmaxf(fabsf((f32) y + 0.5f - 64) - 24, 0);
             f32 distance = sqrtf(dx * dx + dy * dy) - 24;
@@ -72,7 +72,7 @@ static fn verify(Image *shot) {
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Verifies an oversized child stays within its rounded parent on both backends.
-int main() {
+i32 main() {
     Frame *frame = Frame("rounded clipping battle", EXTENT, EXTENT);
     CHECK(frame);
     Frame_setBackground(frame, COLOR_BLACK);

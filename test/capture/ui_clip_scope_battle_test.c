@@ -18,20 +18,20 @@ static fn captureEvidence(const Image *image) {
     const char *name = strrchr(__FILE__, '/');
     name = name ? name + 1 : __FILE__;
     char path[1024];
-    int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
+    i32 n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
     if (n > 0 && (bytes) n < sizeof path &&
-        Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
+        Window_writePNG(Image_pixels(image), Image_stride(image), (i32) Image_width(image), (i32) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline fn pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, i32 x, i32 y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
-    int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
-    for (int i = 0; i < 4; ++i) {
-        if (abs((int) p[i] - want[i]) > 2) {
+    i32 want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
+    for (i32 i = 0; i < 4; ++i) {
+        if (abs((i32) p[i] - want[i]) > 2) {
             fprintf(stderr, "FAIL pixel (%d,%d) channel %d: got %d expected %d\n", x, y, i, p[i], want[i]);
             captureEvidence(image);
             exit(1);
@@ -43,7 +43,7 @@ static inline fn pixel(const Image *image, int x, int y, Color expected) {
 
 #include "test_application.h"
 // Exercises caller clip scope across nested lists, malformed lists, and reuse.
-int main() {
+i32 main() {
     CHECK(Graphics_use(BACKEND_RASTER) && Graphics_resize(64, 64));
     Rect outer = {16, 16, 32, 32};
     Rect huge = {0, 0, 64, 64};
@@ -51,7 +51,7 @@ int main() {
     DisplayList *dl = DisplayList_0(); Image *shot = Image_0();
     CHECK(dl && shot);
     CHECK(Graphics_clip(&outer));
-    for (int iteration = 0; iteration < 20; ++iteration) {
+    for (i32 iteration = 0; iteration < 20; ++iteration) {
         DisplayList_clear(dl);
         DisplayList_clipRounded(dl, huge, 8);
         DisplayList_rect(dl, huge, &white);

@@ -4,13 +4,13 @@
 #include "frame/frame.h"
 #include "test_support.h"
 
-static _Atomic int failures;
+static _Atomic i32 failures;
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %d: %s\n", __LINE__, #c); failures++; } } while (0)
 typedef struct State {
     Frame *first, *second;
     pthread_t owner;
     _Atomic bool returned;
-    int stage;
+    i32 stage;
     u32 polls;
 } State;
 
@@ -70,7 +70,7 @@ static fn invokeThenClose(Application *app, any userdata) {
 }
 
 // Exercises worker startup, window-count lifetime, close-all, and owner invocation.
-int main() {
+i32 main() {
     Application *app = Application("multiwindow lifetime test");
     State state = { .owner = pthread_self() };
     state.first = Frame("first window", 120, 80);

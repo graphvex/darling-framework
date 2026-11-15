@@ -30,13 +30,13 @@ static bool chromeContent(Frame *frame, Color color) {
         Image_height(image) != (u32)Frame_root(frame).h) return false;
     const u8 *p = Image_pixels(image) + (Image_height(image) / 2) * Image_stride(image)
                        + (Image_width(image) / 2) * 4;
-    int want[] = {Color_red(color), Color_green(color), Color_blue(color), Color_alpha(color)};
-    for (int i = 0; i < 4; ++i) if (abs((int)p[i] - want[i]) > 2) return false;
+    i32 want[] = {Color_red(color), Color_green(color), Color_blue(color), Color_alpha(color)};
+    for (i32 i = 0; i < 4; ++i) if (abs((i32)p[i] - want[i]) > 2) return false;
     return true;
 }
 
 // Runs shared Frame decoration, content, transparency, resize, and chrome checks.
-static int frameChromeLab(int argc, char **argv, const char *title, int mode, bool lights) {
+static i32 frameChromeLab(i32 argc, char **argv, const char *title, i32 mode, bool lights) {
     bool interactive = argc == 2 && strcmp(argv[1], "--interactive") == 0;
     if (argc > 1 && !interactive) {
         fprintf(stderr, "usage: %s [--interactive]\n", argv[0]);
@@ -79,11 +79,11 @@ static int frameChromeLab(int argc, char **argv, const char *title, int mode, bo
     CHROME_CHECK(!Window_isTransparent(window));
 #if defined(VEX_PLATFORM_APPLE)
     if (mode == WINDOW_UNDECORATED_NAKED) {
-        for (int i = 0; i < 3; ++i)
+        for (i32 i = 0; i < 3; ++i)
             CHROME_CHECK(Window_macOS_isTrafficLightButtonVisible(window, (WindowTrafficLight)i));
     }
     if (lights) {
-        for (int i = 0; i < 3; ++i) {
+        for (i32 i = 0; i < 3; ++i) {
             WindowTrafficLight light = (WindowTrafficLight)i;
             CHROME_CHECK(Window_macOS_isTrafficLightButtonVisible(window, light));
             Window_macOS_setTrafficLightButtonVisible(window, light, false);

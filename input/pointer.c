@@ -40,9 +40,9 @@
  * FILE-STATIC STATE:
  * ----------------------------------------------------------------------------
  *   Cursor  **s_cursors;   // one per root Element (press state + tracked bridge)
- *   int       s_curCount, s_curCap;
+ *   i32       s_curCount, s_curCap;
  *   Binding  *s_bindings;  // Panel click bindings keyed by the panel's Element
- *   int       s_bindCount, s_bindCap;
+ *   i32       s_bindCount, s_bindCap;
  *
  * PRIVATE TYPES:
  * ----------------------------------------------------------------------------
@@ -86,21 +86,21 @@ typedef struct {
 } Cursor;
 
 static Cursor **s_cursors = nullptr;
-static int s_curCount = 0, s_curCap = 0;
+static i32 s_curCount = 0, s_curCap = 0;
 
 static Binding *s_bindings = nullptr;
-static int s_bindCount = 0, s_bindCap = 0;
+static i32 s_bindCount = 0, s_bindCap = 0;
 
 // Finds the click binding associated with an Element, if registered.
 static Binding *find_binding(Element *graphics) {
-    for (int i = 0; i < s_bindCount; i++)
+    for (i32 i = 0; i < s_bindCount; i++)
         if (s_bindings[i].graphics == graphics) return &s_bindings[i];
     return nullptr;
 }
 
 // Finds the cursor state record for an Element root.
 static Cursor *cursor_for(Element *root) {
-    for (int i = 0; i < s_curCount; i++)
+    for (i32 i = 0; i < s_curCount; i++)
         if ((*s_cursors[i]).root == root) return s_cursors[i];
     return nullptr;
 }
@@ -132,7 +132,7 @@ static fn sleep_seconds(d64 s) {
     if (s <= 0.0) return;
     struct timespec ts;
     ts.tv_sec = (time_t)s;
-    ts.tv_nsec = (long)((s - (d64)ts.tv_sec) * 1e9);
+    ts.tv_nsec = (i64)((s - (d64)ts.tv_sec) * 1e9);
     while (nanosleep(&ts, &ts) == -1) { /* resume on signal */ }
 }
 
@@ -191,9 +191,9 @@ fn Pointer_hold(Element *root, f32 x, f32 y, d64 seconds) {
 // Synthesizes a press, interpolated movement, and release along a drag path.
 fn Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds) {
     if (!root) return;
-    const int steps = 30;
+    const i32 steps = 30;
     Pointer_press(root, x, y);
-    for (int i = 1; i <= steps; i++) {
+    for (i32 i = 1; i <= steps; i++) {
         f32 t = (f32)i / (f32)steps;
         sleep_seconds(seconds / steps);
         Pointer_move(root, x + (toX - x) * t, y + (toY - y) * t);
@@ -226,8 +226,8 @@ Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, an
 // Every OS event is BOTH the legacy pointer action (click bindings) and a
 // per-element event (Element_add<Kind>Event handlers), dispatched against the
 // cursor's root and bubbled.
-static fn track_dispatch(Cursor *c, int kind, f32 x, f32 y,
-                           f32 dx, f32 dy, f32 magnitude, int key) {
+static fn track_dispatch(Cursor *c, i32 kind, f32 x, f32 y,
+                           f32 dx, f32 dy, f32 magnitude, i32 key) {
     Event event = { .kind = kind, .x = x, .y = y, .dx = dx, .dy = dy,
                     .magnitude = magnitude, .key = key };
     Element_dispatchEvent((*c).root, &event);
@@ -242,7 +242,7 @@ static fn track_cursor(Cursor *c, f32 x, f32 y) {
 }
 
 // Bridges a native mouse-down into element events and the legacy press action.
-static fn track_down(any self, int mouseEvent, u64 nanos) {
+static fn track_down(any self, i32 mouseEvent, u64 nanos) {
     (discard)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
@@ -250,7 +250,7 @@ static fn track_down(any self, int mouseEvent, u64 nanos) {
     Pointer_press((*c).root, x, y);
 }
 // Bridges a native mouse-up into element events and the legacy release action.
-static fn track_up(any self, int mouseEvent, u64 nanos) {
+static fn track_up(any self, i32 mouseEvent, u64 nanos) {
     (discard)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
@@ -265,7 +265,7 @@ static fn track_move(any self, d64 x, d64 y) {
     track_cursor(c, (f32)x, (f32)y);
 }
 // Accepts repeat callbacks for the adapter interface; repeat events need no action.
-static fn track_none0(any self, int ev, u64 t) { (discard)self; (discard)ev; (discard)t; }
+static fn track_none0(any self, i32 ev, u64 t) { (discard)self; (discard)ev; (discard)t; }
 // Bridges native movement deltas to a mouse-move event at the current pointer.
 static fn track_mod(any self, d64 dx, d64 dy) {
     Cursor *c = self;
@@ -273,7 +273,7 @@ static fn track_mod(any self, d64 dx, d64 dy) {
                    (f32)dx, (f32)dy, 1.0f, 0);
 }
 // Bridges native drag motion to event dispatch and cursor tracking.
-static fn track_dragf(any self, int ev, d64 x, d64 y) {
+static fn track_dragf(any self, i32 ev, d64 x, d64 y) {
     Cursor *c = self;
     track_dispatch(c, EV_MOUSE_DRAG, (f32)x, (f32)y, 0, 0, 1.0f, Mouse_button(ev));
     track_cursor(c, (f32)x, (f32)y);
@@ -295,7 +295,7 @@ static fn track_zoom(any self, d64 magnification) {
 static fn cleanup_on_close(Frame *frame, any userdata) {
     (discard)userdata;
     Element *root = Frame_element(frame);
-    for (int i = 0; i < s_curCount; i++) {
+    for (i32 i = 0; i < s_curCount; i++) {
         if ((*s_cursors[i]).root != root) continue;
         free(s_cursors[i]);
         memmove(&s_cursors[i], &s_cursors[i + 1],
@@ -303,7 +303,7 @@ static fn cleanup_on_close(Frame *frame, any userdata) {
         s_curCount--;
         break;
     }
-    for (int i = 0; i < s_bindCount; ) {
+    for (i32 i = 0; i < s_bindCount; ) {
         Element *g = s_bindings[i].graphics;
         Element *r = g ? Element_root(g) : nullptr;
         if (r != root) { i++; continue; }

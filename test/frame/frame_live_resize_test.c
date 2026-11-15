@@ -21,7 +21,7 @@ static u64 frozenNow(any context) {
     fprintf(stderr, "FAIL %d: %s\n", __LINE__, #condition); return 1; } } while (0)
 
 // Verifies each native size change publishes immediately without extra repaint.
-int main() {
+i32 main() {
     Frame *frame = Frame("live resize publication", 240, 160);
     CHECK(frame);
     Window *window = Frame_window(frame);
@@ -36,13 +36,13 @@ int main() {
     CHECK(count == 1);
     Frame_render(frame);
     CHECK(Surface_getPresentCount(surface) == count); // ordinary demand still capped
-    for (unsigned i = 0; i < 6; ++i) {
+    for (u32 i = 0; i < 6; ++i) {
         // Even native extents avoid AppKit's fractional-point size rounding;
         // fractional backing geometry is not this publication regression's scope.
-        int width = 242 + (int) i * 8, height = 162 + (int) i * 4;
+        i32 width = 242 + (i32) i * 8, height = 162 + (i32) i * 4;
         Window_setSize(window, width, height);
         CHECK(Window_width(window) == width && Window_height(window) == height);
-        CHECK(Surface_width(surface) == (unsigned) width && Surface_height(surface) == (unsigned) height);
+        CHECK(Surface_width(surface) == (u32) width && Surface_height(surface) == (u32) height);
         CHECK(Surface_getPresentCount(surface) == ++count);
         CHECK(Surface_getFPSCap(surface) == 30);
         any published = Window_presentSurfaceContents(window);
@@ -51,8 +51,8 @@ int main() {
             fprintf(stderr, "SKIP: native IOSurface seam unavailable\n");
             return B_TEST_SKIP;
         }
-        Image *snapshot = Image_2((unsigned) width, (unsigned) height);
-        CHECK(snapshot && Image_ensureShadow(snapshot, (unsigned) width, (unsigned) height));
+        Image *snapshot = Image_2((u32) width, (u32) height);
+        CHECK(snapshot && Image_ensureShadow(snapshot, (u32) width, (u32) height));
         Image_fill(snapshot, COLOR_CLEAR);
         CHECK(Window_readPresentSurface(window, published,
                                         Image_pixels(snapshot), Image_stride(snapshot)));

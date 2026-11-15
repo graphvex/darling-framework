@@ -35,7 +35,7 @@ typedef struct Frame Frame;
 
 Frame *Frame_0();
 Frame *Frame_1(const char *title);
-Frame *Frame_3(const char *title, int widthPx, int heightPx);
+Frame *Frame_3(const char *title, i32 widthPx, i32 heightPx);
 // Public construction is `Frame(...)` — the arity chooser picks _0/_1/_3 by
 // argument count. The `_N` spellings are implementation, not call sites.
 #define FRAME_CHOOSER(_0, _1, _2, _3, NAME, ...) NAME
@@ -70,8 +70,8 @@ bool Frame_macOS_getLiquidGlass(const Frame *frame, FrameLiquidGlassDesc *out);
 // Attachment lives in properties/: Frame_add(frame, panel[, index]),
 // Frame_addPanel(frame, desc), and Frame_removePanels(frame).
 Element *Frame_element(const Frame *frame);
-int      Frame_count(const Frame *frame);
-Panel   *Frame_panel(const Frame *frame, int index);
+i32      Frame_count(const Frame *frame);
+Panel   *Frame_panel(const Frame *frame, i32 index);
 
 // The layout root in native px — what children anchor against. It IS the window:
 // panels reflow on resize, keeping their own size, and anything past the window
@@ -111,13 +111,13 @@ fn Frame_destroyApplicationFrames(Application *application);
 
 // Presentation ceilings: -1 uncapped, positive FPS. Focus overrides: 0 inherits.
 // Default base 60, focused inherits, unfocused 1. 120 is an explicit opt-in.
-fn Frame_setFPSCap(Frame *frame, int fps);
-fn Frame_setFPSCapWhenFocusGain(Frame *frame, int fps);
-fn Frame_setFPSCapWhenFocusLost(Frame *frame, int fps);
-int Frame_getFPSCap(const Frame *frame);
-int Frame_getFPSCapWhenFocusGain(const Frame *frame);
-int Frame_getFPSCapWhenFocusLost(const Frame *frame);
-int Frame_getEffectiveFPSCap(const Frame *frame);
+fn Frame_setFPSCap(Frame *frame, i32 fps);
+fn Frame_setFPSCapWhenFocusGain(Frame *frame, i32 fps);
+fn Frame_setFPSCapWhenFocusLost(Frame *frame, i32 fps);
+i32 Frame_getFPSCap(const Frame *frame);
+i32 Frame_getFPSCapWhenFocusGain(const Frame *frame);
+i32 Frame_getFPSCapWhenFocusLost(const Frame *frame);
+i32 Frame_getEffectiveFPSCap(const Frame *frame);
 
 fn Frame_paint(const Frame *frame, DisplayList *dl);
 // Surface revalidates its Boards; the content Board revalidates/paints the tree,

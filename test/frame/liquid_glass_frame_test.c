@@ -17,7 +17,7 @@
 #include "ui/element.h"
 #include "window/window.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -33,7 +33,7 @@ static int g_fail = 0;
 #define DARLING_TEST_WITH_ARGS
 #include "test_application.h"
 // Probes and round-trips Liquid Glass settings; interactive mode holds the window open.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     bool interactive = argc == 2 && strcmp(argv[1], "--interactive") == 0;
     if (argc > 1 && !interactive) { fprintf(stderr, "usage: %s [--interactive]\n", argv[0]); return 1; }
     printf("=== LiquidGlassFrame (visual) ===\n");

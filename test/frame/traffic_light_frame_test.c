@@ -5,6 +5,6 @@
 #include "frame_chrome_lab.h"
 
 // Runs the decorated Frame chrome lab, including traffic-light controls.
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     return frameChromeLab(argc, argv, "traffic light frame", WINDOW_DECORATED, true);
 }

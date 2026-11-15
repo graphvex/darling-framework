@@ -52,7 +52,7 @@ Panel *Panel_add_2(Panel *parent, Panel *child) {
 }
 
 // Inserts child at index, or appends for a negative index; returns the child on success.
-Panel *Panel_add_3(Panel *parent, Panel *child, int index) {
+Panel *Panel_add_3(Panel *parent, Panel *child, i32 index) {
     if (!parent || !child) return nullptr;
     Element *pg = Panel_graphics(parent);
     Element *cg = Panel_graphics(child);
@@ -70,7 +70,7 @@ Panel *Frame_add_2(Frame *frame, Panel *panel) {
 }
 
 // Inserts a Panel into the frame; destroys it if frame ownership cannot be recorded.
-Panel *Frame_add_3(Frame *frame, Panel *panel, int index) {
+Panel *Frame_add_3(Frame *frame, Panel *panel, i32 index) {
     if (!frame || !panel) return nullptr;
     if (!Frame_ownPanel(frame, panel, index)) { Panel_destroy(panel); return nullptr; }
     return panel;

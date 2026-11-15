@@ -11,7 +11,7 @@
 typedef struct FrameDragLab {
     Frame *frame;
     Panel **panels;
-    int count, selected;
+    i32 count, selected;
     f32 x[96], y[96], startX, startY, baseX, baseY;
 } FrameDragLab;
 
@@ -20,7 +20,7 @@ static fn frameDragDown(Element *element, const Mouse *mouse, any userdata) {
     FrameDragLab *drag = userdata;
     (*drag).selected = -1;
     Element *hit = Element_hit(element, (*mouse).x, (*mouse).y);
-    for (int i = 0; i < (*drag).count; ++i) {
+    for (i32 i = 0; i < (*drag).count; ++i) {
         if (Panel_graphics((*drag).panels[i]) != hit) continue;
         (*drag).selected = i;
         (*drag).startX = (*mouse).x;
@@ -35,7 +35,7 @@ static fn frameDragDown(Element *element, const Mouse *mouse, any userdata) {
 static fn frameDragMove(Element *element, const Mouse *mouse, any userdata) {
     (discard)element;
     FrameDragLab *drag = userdata;
-    int i = (*drag).selected;
+    i32 i = (*drag).selected;
     if (i < 0) return;
     (*drag).x[i] = (*drag).baseX + (*mouse).x - (*drag).startX;
     (*drag).y[i] = (*drag).baseY + (*mouse).y - (*drag).startY;

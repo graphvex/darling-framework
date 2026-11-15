@@ -11,7 +11,7 @@
 #include "c23/event_invoke.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -20,9 +20,9 @@ static int g_fail = 0;
         }                                                                  \
     } while (0)
 
-typedef struct Trace { int ids[32]; int count; f32 lastMag; } Trace;
+typedef struct Trace { i32 ids[32]; i32 count; f32 lastMag; } Trace;
 // Appends an event-kind identifier while the fixed trace has room.
-static fn push(Trace *t, int id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
+static fn push(Trace *t, i32 id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
 
 // Records mouse-down delivery.
 static fn m_down(Element *e, const Mouse *m, any ud)  { (discard)e; (discard)m; push(ud,  1); }
@@ -53,14 +53,14 @@ static fn k_down(Element *e, const Key *k, any ud)   { (discard)e; (discard)k; p
 static fn k_up(Element *e, const Key *k, any ud)     { (discard)e; (discard)k; push(ud, 11); }
 
 // Dispatches a test event with shared coordinates and deterministic payloads.
-static bool dispatch(Element *root, int kind, f32 x, f32 y) {
+static bool dispatch(Element *root, i32 kind, f32 x, f32 y) {
     Event ev = { .kind = kind, .x = x, .y = y, .magnitude = 2.5f, .key = 42 };
     return Element_dispatchEvent(root, &ev);
 }
 
 #include "test_application.h"
 // Verifies callback delivery for every mouse, zoom, touch, and key event kind.
-int main() {
+i32 main() {
     ElementDesc dd = {0};
     dd.width = 200; dd.height = 200;
     Element *root = Element(&dd);

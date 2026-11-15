@@ -35,6 +35,6 @@ typedef struct Hit {
 } Hit;
 
 // Resolve a window-space point. Returns true and fills out on a hit.
-bool Hit_resolve(const HitNode *nodes, int count, f32 winX, f32 winY, Hit *out);
+bool Hit_resolve(const HitNode *nodes, i32 count, f32 winX, f32 winY, Hit *out);
 
 #endif // DARLING_EVENT_HIT_H

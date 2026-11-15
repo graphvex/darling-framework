@@ -14,7 +14,7 @@
 // GalleryPhoto_decode owns temporary URL/source/image/context references,
 // releases them on every path, and writes only the caller's bounded shadow.
 // Source pixel safety bound: 16 Mi pixels; output bound matches GpuScope budget.
-bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
+bool GalleryPhoto_decode(const char *path, u32 width, u32 height,
                          u8 *dest, bytes stride) {
 #if !defined(VEX_PLATFORM_APPLE)
     (discard) path;
@@ -37,7 +37,7 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
     if (!source)
         return false;
     CFDictionaryRef properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nullptr);
-    int sourceWidth = 0, sourceHeight = 0;
+    i32 sourceWidth = 0, sourceHeight = 0;
     if (properties) {
         CFNumberRef w = CFDictionaryGetValue(properties, kCGImagePropertyPixelWidth);
         CFNumberRef h = CFDictionaryGetValue(properties, kCGImagePropertyPixelHeight);
@@ -75,10 +75,10 @@ bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
         (height - drawHeight) * 0.5, drawWidth, drawHeight), photograph);
     CGContextRelease(context);
     CGImageRelease(photograph);
-    for (unsigned y = 0; y < height; ++y)
-        for (unsigned x = 0; x < width; ++x) {
+    for (u32 y = 0; y < height; ++y)
+        for (u32 x = 0; x < width; ++x) {
             u8 *pixel = dest + (bytes) y * stride + (bytes) x * 4;
-            for (unsigned c = 0; c < 3; ++c)
+            for (u32 c = 0; c < 3; ++c)
                 pixel[c] = pixel[3] ? (u8) ((pixel[c] * 255u + pixel[3] / 2u) / pixel[3]) : 0;
         }
     return true;

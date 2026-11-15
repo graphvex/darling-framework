@@ -139,7 +139,7 @@ static fn format(const Picture *picture, bool structure, char *dest, bytes cap,
         THROW("Picture string destination is NULL");
         return;
     }
-    int length;
+    i32 length;
     if (!picture)
         length = snprintf(dest, cap, "nullptr");
     else if (structure)

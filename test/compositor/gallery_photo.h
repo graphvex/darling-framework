@@ -12,6 +12,6 @@ enum { GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT = 262144,
 // Dest must hold height rows at stride Bytes; false leaves it unchanged until
 // successful context construction. Success writes straight sRGB RGBA, top-left,
 // center-cropped without stretching. No production decoder support is claimed.
-bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
+bool GalleryPhoto_decode(const char *path, u32 width, u32 height,
                          u8 *dest, bytes stride);
 #endif

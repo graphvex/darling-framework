@@ -10,15 +10,15 @@
 #include "frame/frame.h"
 
 #ifdef DARLING_TEST_WITH_ARGS
-static int darling_test_body(int argc, char **argv);
+static i32 darling_test_body(i32 argc, char **argv);
 #else
-static int darling_test_body();
+static i32 darling_test_body();
 #endif
 
 typedef struct DarlingTestState {
-    int argc;
+    i32 argc;
     char **argv;
-    int result;
+    i32 result;
     bool keepOpen;
 } DarlingTestState;
 static DarlingTestState darling_test_state;
@@ -42,7 +42,7 @@ static fn darling_test_start(Application *application, any userdata) {
     if (!(*state).keepOpen || (*state).result != 0) Application_close(application);
 }
 
-int main(int argc, char **argv) {
+i32 main(i32 argc, char **argv) {
     Application *application = Application(argv[0]);
     if (!application) return 1;
     Window *starter = nullptr;

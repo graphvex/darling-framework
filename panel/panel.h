@@ -46,15 +46,15 @@ Element *Panel_graphics(const Panel *panel);   // the attached Element (borrowed
 
 // ── tree (Panels nest; the child is owned by its parent) ────────────────────
 // Attachment lives in properties/add.h; Panel_add(...) is overloaded by arity.
-int    Panel_childCount(const Panel *panel);
-Element *Panel_childElement(const Panel *panel, int index);
+i32    Panel_childCount(const Panel *panel);
+Element *Panel_childElement(const Panel *panel, i32 index);
 Panel *Panel_parent(const Panel *panel);
 
 // ── geometry (forwards to the Element) ──────────────────────────────────────
 // Panel_setSize lives in properties/set_size.h (overloaded by arity).
 fn Panel_setOffset(Panel *panel, f32 x, f32 y);
-fn Panel_setAnchor(Panel *panel, int anchor);     // PART_* on the parent
-fn Panel_setPivot(Panel *panel, int pivot);       // PART_* on the panel
+fn Panel_setAnchor(Panel *panel, i32 anchor);     // PART_* on the parent
+fn Panel_setPivot(Panel *panel, i32 pivot);       // PART_* on the panel
 fn Panel_setTag(Panel *panel, const char *tag);
 
 // ── visual ──────────────────────────────────────────────────────────────────
@@ -69,8 +69,8 @@ fn Panel_setVisible(Panel *panel, bool visible);
 f32 Panel_width(const Panel *panel);
 f32 Panel_height(const Panel *panel);
 f32 Panel_radius(const Panel *panel);
-int   Panel_anchor(const Panel *panel);
-int   Panel_pivot(const Panel *panel);
+i32   Panel_anchor(const Panel *panel);
+i32   Panel_pivot(const Panel *panel);
 const char *Panel_tag(const Panel *panel);
 bool  Panel_isVisible(const Panel *panel);
 

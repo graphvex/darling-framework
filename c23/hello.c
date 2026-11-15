@@ -4,6 +4,6 @@
 #include "drawable/object_3d.h"
 
 
-int main() {
+i32 main() {
     printf("hello world!");
 }

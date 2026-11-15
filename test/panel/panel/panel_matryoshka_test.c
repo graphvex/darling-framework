@@ -11,7 +11,7 @@
 #include "panel/panel.h"
 #include "ui/element.h"
 
-static int g_fail = 0;
+static i32 g_fail = 0;
 #define CHECK(cond)                                                        \
     do {                                                                   \
         if (!(cond)) {                                                     \
@@ -23,13 +23,13 @@ static int g_fail = 0;
 #define LAYERS 20
 
 // Alternate the nested-panel palette by depth.
-static Color layerColor(int i) {
+static Color layerColor(i32 i) {
     return (i % 2) ? COLOR_RGBA(120, 190, 220, 255) : COLOR_RGBA(230, 140, 160, 255);
 }
 
 #include "test_application.h"
 // Exercise layout, paint, and teardown for a deeply nested Panel chain.
-int main() {
+i32 main() {
     Panel *layers[LAYERS];
     f32 sizes[LAYERS];
 
@@ -39,7 +39,7 @@ int main() {
     Panel_setBackground(layers[0], COLOR_RGBA(20, 20, 30, 255));
     Panel_setRadius(layers[0], sizes[0] / 2);
 
-    for (int i = 1; i < LAYERS; i++) {
+    for (i32 i = 1; i < LAYERS; i++) {
         sizes[i] = sizes[i - 1] - 18.0f;
         Panel *child = Panel();
         Panel_setSize(child, sizes[i], sizes[i]);
@@ -52,7 +52,7 @@ int main() {
     }
 
     // the chain is exactly LAYERS deep, one child each
-    for (int i = 0; i < LAYERS - 1; i++) {
+    for (i32 i = 0; i < LAYERS - 1; i++) {
         CHECK(Panel_childCount(layers[i]) == 1);
         CHECK(Panel_childElement(layers[i], 0) == Panel_graphics(layers[i + 1]));
     }

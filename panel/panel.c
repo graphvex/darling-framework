@@ -41,8 +41,8 @@
  *   Element      *graphics;   // the attached Element (owned; freed on destroy)
  *   struct Panel *parent;     // owning wrapper, or NULL at a root
  *   struct Panel **owned;     // child wrappers (flat; Element tree is separate)
- *   int           ownedCount; // live child wrappers
- *   int           ownedCap;   // allocated slots in `owned`
+ *   i32           ownedCount; // live child wrappers
+ *   i32           ownedCap;   // allocated slots in `owned`
  *
  * PRIVATE HELPERS:
  * ----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ struct Panel {
     Element *graphics;      // the attached Element (owned)
     struct Panel *parent;   // the wrapper that owns this one (nullable at a root)
     struct Panel **owned;   // child wrappers this panel owns (flat, descendants included)
-    int ownedCount, ownedCap;
+    i32 ownedCount, ownedCap;
 };
 
 // Creates a Panel with a default Element descriptor.
@@ -102,7 +102,7 @@ Panel *Panel_2(f32 width, f32 height) {
 // A child wrapper is owned by its parent. Free wrappers recursively; the
 // Element tree is freed exactly once by the root's Panel_destroy.
 static fn panel_freeWrapper(Panel *panel) {
-    for (int i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
+    for (i32 i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
     free((*panel).owned);
     free(panel);
 }
@@ -111,7 +111,7 @@ static fn panel_freeWrapper(Panel *panel) {
 fn Panel_destroy(Panel *panel) {
     if (!panel) return;
     if ((*panel).parent) Panel_disownChild((*panel).parent, panel);   // never leave a dangling slot
-    for (int i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
+    for (i32 i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
     free((*panel).owned);
     Element_destroy((*panel).graphics);   // the Element tree, once
     free(panel);
@@ -126,7 +126,7 @@ Element *Panel_graphics(const Panel *panel) {
 fn Panel_ownChild(Panel *parent, Panel *child) {
     if (!parent || !child) return;
     if ((*parent).ownedCount == (*parent).ownedCap) {
-        int cap = (*parent).ownedCap ? (*parent).ownedCap * 2 : 4;
+        i32 cap = (*parent).ownedCap ? (*parent).ownedCap * 2 : 4;
         struct Panel **grown = realloc((*parent).owned, (bytes)cap * sizeof *grown);
         if (!grown) return;
         (*parent).owned = grown;
@@ -139,7 +139,7 @@ fn Panel_ownChild(Panel *parent, Panel *child) {
 // Detaches child from parent without destroying either wrapper.
 bool Panel_disownChild(Panel *parent, Panel *child) {
     if (!parent || !child) return false;
-    for (int i = 0; i < (*parent).ownedCount; i++) {
+    for (i32 i = 0; i < (*parent).ownedCount; i++) {
         if ((*parent).owned[i] != child) continue;
         memmove(&(*parent).owned[i], &(*parent).owned[i + 1],
                 (bytes)((*parent).ownedCount - i - 1) * sizeof *(*parent).owned);
@@ -151,12 +151,12 @@ bool Panel_disownChild(Panel *parent, Panel *child) {
 }
 
 // Returns the attached Element child count, or zero for a null wrapper.
-int Panel_childCount(const Panel *panel) {
+i32 Panel_childCount(const Panel *panel) {
     return panel ? Element_count((*panel).graphics) : 0;
 }
 
 // Returns the indexed child Element, or nullptr when the wrapper/index is invalid.
-Element *Panel_childElement(const Panel *panel, int index) {
+Element *Panel_childElement(const Panel *panel, i32 index) {
     return panel ? Element_child((*panel).graphics, index) : nullptr;
 }
 
@@ -167,11 +167,11 @@ fn Panel_setOffset(Panel *panel, f32 x, f32 y) {
     if (panel) Element_setOffset((*panel).graphics, x, y);
 }
 // Sets the Element's anchor mode.
-fn Panel_setAnchor(Panel *panel, int anchor) {
+fn Panel_setAnchor(Panel *panel, i32 anchor) {
     if (panel) Element_setAnchor((*panel).graphics, anchor);
 }
 // Sets the Element's pivot mode.
-fn Panel_setPivot(Panel *panel, int pivot) {
+fn Panel_setPivot(Panel *panel, i32 pivot) {
     if (panel) Element_setPivot((*panel).graphics, pivot);
 }
 // Assigns the Element's tag.
@@ -213,9 +213,9 @@ f32 Panel_height(const Panel *panel) { return panel ? Element_height((*panel).gr
 // Returns the corner radius, or zero for a null wrapper.
 f32 Panel_radius(const Panel *panel) { return panel ? Element_radius((*panel).graphics) : 0.0f; }
 // Returns the anchor mode, or zero for a null wrapper.
-int Panel_anchor(const Panel *panel) { return panel ? Element_anchor((*panel).graphics) : 0; }
+i32 Panel_anchor(const Panel *panel) { return panel ? Element_anchor((*panel).graphics) : 0; }
 // Returns the pivot mode, or zero for a null wrapper.
-int Panel_pivot(const Panel *panel) { return panel ? Element_pivot((*panel).graphics) : 0; }
+i32 Panel_pivot(const Panel *panel) { return panel ? Element_pivot((*panel).graphics) : 0; }
 // Returns the Element tag, or nullptr when the wrapper is absent.
 const char *Panel_tag(const Panel *panel) { return panel ? Element_tag((*panel).graphics) : nullptr; }
 // Returns the Element's visibility state.

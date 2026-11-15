@@ -12,7 +12,7 @@
 //
 //   // ops/add.h
 //   Panel *Panel_add_2(Panel *parent, Panel *child);
-//   Panel *Panel_add_3(Panel *parent, Panel *child, int index);
+//   Panel *Panel_add_3(Panel *parent, Panel *child, i32 index);
 //   #define Panel_add(...) OVERLOAD_DISPATCH(Panel_add, __VA_ARGS__)
 //
 //   Panel_add(root, child);        // -> Panel_add_2(root, child)

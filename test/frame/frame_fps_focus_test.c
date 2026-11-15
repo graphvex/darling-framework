@@ -5,17 +5,17 @@
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 
-static int failures;
+static i32 failures;
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %d: %s\n", __LINE__, #c); failures++; } } while (0)
 static u64 now;
 // Returns the test-controlled time used by the Surface cadence checks.
 static u64 clockNow(any userdata) { (discard)userdata; return now; }
-static int presentations;
-static _Atomic unsigned sceneSteps;
+static i32 presentations;
+static _Atomic u32 sceneSteps;
 // Advances a separate scene counter to prove render demand does not own scene work.
 static any sceneWorker(any userdata) {
     (discard)userdata;
-    for (unsigned i = 0; i < 1000; i++) atomic_fetch_add(&sceneSteps, 1);
+    for (u32 i = 0; i < 1000; i++) atomic_fetch_add(&sceneSteps, 1);
     return nullptr;
 }
 // Counts actual Surface presentation callbacks for cadence assertions.
@@ -24,7 +24,7 @@ static bool presented(Surface *surface, any userdata) {
 }
 
 // Checks focus-dependent frame caps and demand-driven presentation with a fake clock.
-int main() {
+i32 main() {
     Frame *frame = Frame("FPS focus policy", 120, 80);
     Frame *other = Frame("other focus target", 120, 80);
     if (!frame || !other) return B_TEST_SKIP;
@@ -49,7 +49,7 @@ int main() {
     CHECK(Window_isFocused(Frame_window(frame)));
     CHECK(Frame_getEffectiveFPSCap(frame) == -1);
     Application_poll(app);
-    int before = presentations;
+    i32 before = presentations;
     Frame_render(frame); Frame_render(frame); Frame_render(frame);
     CHECK(presentations == before + 3); // uncapped, even at the same clock time
 
@@ -59,9 +59,9 @@ int main() {
     Application_poll(app);
     before = presentations;
     pthread_t scene;
-    int sceneStarted = pthread_create(&scene, nullptr, sceneWorker, nullptr);
+    i32 sceneStarted = pthread_create(&scene, nullptr, sceneWorker, nullptr);
     CHECK(sceneStarted == 0);
-    for (int i = 0; i < 100; i++) Frame_render(frame); // demand storm, not keep-alive
+    for (i32 i = 0; i < 100; i++) Frame_render(frame); // demand storm, not keep-alive
     if (sceneStarted == 0) { pthread_join(scene, nullptr); CHECK(atomic_load(&sceneSteps) == 1000); }
     CHECK(presentations == before);
     now += 999999999ULL; Surface_poll(surface);

@@ -39,14 +39,14 @@
  * FILE-STATIC STATE:
  * ----------------------------------------------------------------------------
  *   Binding *s_bindings;  // growable table, one row per (element, group)
- *   int      s_count;     // live rows
- *   int      s_capacity;  // allocated rows
+ *   i32      s_count;     // live rows
+ *   i32      s_capacity;  // allocated rows
  *
  * PRIVATE TYPES:
  * ----------------------------------------------------------------------------
  *   Handlers : union of MouseEvent/ScrollEvent/ZoomEvent/KeyEvent/TouchEvent/
  *              DocumentEvent — one row stores whichever group it is tagged with
- *   Binding  : { Element *element; int group; Handlers h; }
+ *   Binding  : { Element *element; i32 group; Handlers h; }
  *   GRP_*    : mouse, scroll, zoom, key, touch, document group tags
  *
  * PRIVATE HELPERS:
@@ -80,7 +80,7 @@ typedef union Handlers {
 
 typedef struct Binding {
     Element *element;
-    int      group;
+    i32      group;
     Handlers h;
 } Binding;
 
@@ -94,20 +94,20 @@ enum {
 };
 
 static Binding *s_bindings = nullptr;
-static int s_count = 0;
-static int s_capacity = 0;
+static i32 s_count = 0;
+static i32 s_capacity = 0;
 
 // Stores one typed handler record for an Element and event group.
-static Element *bind(Element *element, int group, const_any handlers, bytes size) {
+static Element *bind(Element *element, i32 group, const_any handlers, bytes size) {
     if (!element) return nullptr;
-    for (int i = 0; i < s_count; i++) {
+    for (i32 i = 0; i < s_count; i++) {
         if (s_bindings[i].element == element && s_bindings[i].group == group) {
             memcpy(&s_bindings[i].h, handlers, size);
             return element;
         }
     }
     if (s_count == s_capacity) {
-        int next = s_capacity ? s_capacity * 2 : 16;
+        i32 next = s_capacity ? s_capacity * 2 : 16;
         Binding *grown = realloc(s_bindings, (bytes)next * sizeof *grown);
         if (!grown) return element;   // registration is best-effort
         s_bindings = grown;
@@ -134,8 +134,8 @@ Element *Element_addTouchEvent(Element *element, TouchEvent handlers)       { re
 Element *Element_addDocumentEvent(Element *element, DocumentEvent handlers) { return bind(element, GRP_DOCUMENT, &handlers, sizeof handlers); }
 
 // Finds the handler record for one Element and group without mutating bindings.
-static const Binding *find(const Element *element, int group) {
-    for (int i = 0; i < s_count; i++) {
+static const Binding *find(const Element *element, i32 group) {
+    for (i32 i = 0; i < s_count; i++) {
         if (s_bindings[i].element == element && s_bindings[i].group == group) {
             return &s_bindings[i];
         }
@@ -144,7 +144,7 @@ static const Binding *find(const Element *element, int group) {
 }
 
 // Maps each event kind to its handler-binding group, or -1 when unsupported.
-static int group_of(int kind) {
+static i32 group_of(i32 kind) {
     switch (kind) {
         case EV_MOUSE_DOWN: case EV_MOUSE_UP: case EV_MOUSE_MOVE:
         case EV_MOUSE_DRAG: case EV_MOUSE_ENTER: case EV_MOUSE_LEAVE:
@@ -224,7 +224,7 @@ static bool invoke(const Binding *b, const Event *event) {
 bool Element_dispatchEvent(Element *root, const Event *event) {
     if (!root || !event) return false;
     const Event ev = *event;
-    int group = group_of(ev.kind);
+    i32 group = group_of(ev.kind);
     if (group < 0) return false;
 
     // KEY/TOUCH/DOCUMENT are routed to the root (no pointer to hit-test); the
@@ -252,7 +252,7 @@ static bool under(Element *element, Element *root) {
 // Removes registered handlers attached anywhere in the given element subtree.
 fn Element_clearEvents(Element *root) {
     if (!root) return;
-    for (int i = 0; i < s_count;) {
+    for (i32 i = 0; i < s_count;) {
         if (under(s_bindings[i].element, root)) {
             s_bindings[i] = s_bindings[--s_count];
         } else {
@@ -262,6 +262,6 @@ fn Element_clearEvents(Element *root) {
 }
 
 // Returns the number of currently registered event bindings.
-int Element_eventBindingCount() {
+i32 Element_eventBindingCount() {
     return s_count;
 }

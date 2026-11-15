@@ -18,20 +18,20 @@ static fn captureEvidence(const Image *image) {
     const char *name = strrchr(__FILE__, '/');
     name = name ? name + 1 : __FILE__;
     char path[1024];
-    int n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
+    i32 n = snprintf(path, sizeof path, "%s/%s.png", dir, name);
     if (n > 0 && (bytes) n < sizeof path &&
-        Window_writePNG(Image_pixels(image), Image_stride(image), (int) Image_width(image), (int) Image_height(image), path))
+        Window_writePNG(Image_pixels(image), Image_stride(image), (i32) Image_width(image), (i32) Image_height(image), path))
         fprintf(stderr, "capture: %s\n", path);
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline fn pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, i32 x, i32 y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
-    int want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
-    for (int i = 0; i < 4; ++i) {
-        if (abs((int) p[i] - want[i]) > 2) {
+    i32 want[4] = {Color_red(expected), Color_green(expected), Color_blue(expected), Color_alpha(expected)};
+    for (i32 i = 0; i < 4; ++i) {
+        if (abs((i32) p[i] - want[i]) > 2) {
             fprintf(stderr, "FAIL pixel (%d,%d) channel %d: got %d expected %d\n", x, y, i, p[i], want[i]);
             captureEvidence(image);
             exit(1);
@@ -40,7 +40,7 @@ static inline fn pixel(const Image *image, int x, int y, Color expected) {
 }
 
 // Paints an element tree with Raster and returns its captured pixels.
-static inline Image *rasterCapture(Element *root, int width, int height) {
+static inline Image *rasterCapture(Element *root, i32 width, i32 height) {
     CHECK(Graphics_use(BACKEND_RASTER));
     CHECK(Graphics_resize((u32) width, (u32) height));
     DisplayList *dl = DisplayList_0();
@@ -59,7 +59,7 @@ static inline Image *rasterCapture(Element *root, int width, int height) {
 
 #include "test_application.h"
 // Checks shared-property min/max clamping in dimensions, pixels, hit bounds, and teardown.
-int main() {
+i32 main() {
     u32 baseline = PropertyPool_live(PropertyPool_default());
     ElementDesc rd = {.width = 192, .height = 128};
     ElementDesc ad = {.width = 80, .height = 90, .offsetX = 16, .offsetY = 16, .background = COLOR_WHITE};
@@ -68,8 +68,8 @@ int main() {
     CHECK(root && a && b);
     CHECK(Element_setProperty(b, Element_property(a)) == b);
     Element_add(root, a); Element_add(root, b);
-    const int expected[][2] = {{40, 32}, {24, 20}, {64, 48}};
-    for (int state = 0; state < 3; ++state) {
+    const i32 expected[][2] = {{40, 32}, {24, 20}, {64, 48}};
+    for (i32 state = 0; state < 3; ++state) {
         if (state == 0) {
             CHECK(Element_setMinimumSize(a, 24, 20) == a);
             CHECK(Element_setMaximumSize(a, 40, 32) == a);
@@ -78,13 +78,13 @@ int main() {
         } else {
             Element_setMaximumSize(b, 64, 48); Element_setSize(b, 80, 90);
         }
-        int w = expected[state][0], h = expected[state][1];
+        i32 w = expected[state][0], h = expected[state][1];
         CHECK(Element_width(a) == w && Element_width(b) == w);
         CHECK(Element_height(a) == h && Element_height(b) == h);
         CHECK(Element_resolve(a, (Rect){0, 0, 192, 128}).w == w);
         Image *shot = rasterCapture(root, 192, 128);
-        for (int y = 0; y < 128; ++y) {
-            for (int x = 0; x < 192; ++x) {
+        for (i32 y = 0; y < 128; ++y) {
+            for (i32 x = 0; x < 192; ++x) {
                 bool inA = x >= 16 && x < 16 + w && y >= 16 && y < 16 + h;
                 bool inB = x >= 112 && x < 112 + w && y >= 16 && y < 16 + h;
                 pixel(shot, x, y, inA || inB ? COLOR_WHITE : COLOR_BLACK);
