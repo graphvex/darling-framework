@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_FOCUS_H
 #define DARLING_PROPERTIES_SET_FOCUS_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_focus. No runtime API or storage is implemented.
 // Future focus-state operation over the event/focus coordinator and retained tree.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_SPATIAL_SPATIAL_CANVAS_H
 #define DARLING_SPATIAL_SPATIAL_CANVAS_H
 
+#include "vex.h"
+
 // DRAFT ONLY: SpatialCanvas. No runtime API or storage is implemented.
 // Retained pan/zoom content-canvas policy with guides, minimap and borrowed driver transforms; no separate render loop.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

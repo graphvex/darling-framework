@@ -1,6 +1,8 @@
 #ifndef DARLING_COMPOSITOR_COMPOSITOR_H
 #define DARLING_COMPOSITOR_COMPOSITOR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Compositor. No runtime API or storage is implemented.
 // Order borrowed scene/content/overlay Boards into the single Frame presentation seam, with no second OS window or duplicate rendering loop.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

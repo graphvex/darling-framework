@@ -5,6 +5,7 @@
 // tree (no leaks, no d64 free) — including a grandchild added after the
 // child was adopted.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "graphics/graphics.h"

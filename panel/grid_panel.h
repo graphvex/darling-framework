@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_GRID_PANEL_H
 #define DARLING_PANEL_GRID_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: GridPanel. No runtime API or storage is implemented.
 // Panel composition with rows, columns, independent gaps, cell placement and future spanning policies.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

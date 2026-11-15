@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_SPLIT_PANEL_H
 #define DARLING_PANEL_SPLIT_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: SplitPanel. No runtime API or storage is implemented.
 // Panel composition with pane ratios, divider interaction and min/max pane constraints; child ownership follows Panel.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

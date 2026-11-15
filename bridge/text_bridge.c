@@ -1,6 +1,6 @@
+#include "vex.h"
 #include "bridge/text_bridge.h"
 
-#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

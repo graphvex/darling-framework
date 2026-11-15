@@ -1,13 +1,13 @@
 #ifndef DARLING_FRAME_H
 #define DARLING_FRAME_H
 
-#include <stdbool.h>
+#include "vex.h"
 #include "properties/set_cursor.h"
 
 #include "graphics/graphics.h"   // graphvex R3: Rect, Color, DisplayList
 #include "panel/panel.h"         // darling: Panel (wrapper over a GraphicsPanel)
 #include "ui/element.h"          // graphvex R3: Element (the GraphicsPanel)
-#include "graphvex/lang/image.h"               // graphvex R3: Image (CAPTURE returns one)
+#include "lang/image.h"               // graphvex R3: Image (CAPTURE returns one)
 #include "vulkan/surface.h"      // graphvex R3: the present seam (Surface)
 #include "window/window.h"       // hotcwap R1: the OS window
 #include "properties/add.h"        // Frame_add(...), Frame_addPanel(...)

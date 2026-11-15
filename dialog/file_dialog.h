@@ -1,6 +1,8 @@
 #ifndef DARLING_DIALOG_FILE_DIALOG_H
 #define DARLING_DIALOG_FILE_DIALOG_H
 
+#include "vex.h"
+
 // DRAFT ONLY: FileDialog. No runtime API or storage is implemented.
 // Dialog composition for path/filter/entry selection; file access is borrowed from vexspoke, never a new filesystem backend.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_TEXT_TEXT_CORE_H
 #define DARLING_TEXT_TEXT_CORE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: TextCore. No runtime API or storage is implemented.
 // UI-side styled-run, text-layout and selection model; native glyph shaping/rasterization is a borrowed driver capability.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

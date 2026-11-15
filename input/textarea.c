@@ -1,6 +1,6 @@
+#include "vex.h"
 #include "input/textarea.h"
 
-#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

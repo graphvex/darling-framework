@@ -1,6 +1,6 @@
+#include "vex.h"
 #include "input/pointer.h"
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -9,7 +9,6 @@
 #include "c23/event_invoke.h"   // Element_dispatchEvent + the Event carrier
 #include "properties/set_cursor.h"
 
-#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

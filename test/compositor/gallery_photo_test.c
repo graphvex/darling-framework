@@ -1,7 +1,8 @@
 // Gallery photograph bridge owner: decode the tracked photo reproducibly,
 // preserve destination on rejection, and resolve an app-bundled copy without
 // source-tree access. No window/appearance or production decoder claim.
-#include "lifetime/platform.h"
+
+#include "vex.h"
 #include "gallery_photo.h"
 #include <assert.h>
 #include <stdio.h>

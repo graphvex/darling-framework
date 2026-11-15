@@ -1,4 +1,6 @@
 // Regression: an opaque 4px border must appear in the captured image.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

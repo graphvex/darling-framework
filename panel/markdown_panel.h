@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_MARKDOWN_PANEL_H
 #define DARLING_PANEL_MARKDOWN_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: MarkdownPanel. No runtime API or storage is implemented.
 // Markdown block/inline parsing into retained text children, with selection, links and future code/table composition.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

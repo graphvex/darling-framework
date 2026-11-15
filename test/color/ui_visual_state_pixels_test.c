@@ -1,5 +1,7 @@
 // Pixel oracles for RGBA order, alpha blending, pressed overlay,
 // visibility, rectangular clipping, shadow and blur versus layout bounds.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

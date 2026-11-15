@@ -1,6 +1,8 @@
 #ifndef DARLING_EVENT_KEY_H
 #define DARLING_EVENT_KEY_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Key events. No runtime API or storage is implemented.
 // Focused-target keyboard delivery policy over shared event carriers; no Key struct duplication or blanket widget opt-ins.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

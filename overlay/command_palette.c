@@ -1,6 +1,6 @@
+#include "vex.h"
 #include "overlay/command_palette.h"
 
-#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

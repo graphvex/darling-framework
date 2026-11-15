@@ -1,5 +1,7 @@
 // All 81 placements, at two parent sizes, with nonzero offsets. Independent
 // row/column arithmetic predicts every pixel (not Part_point vs itself).
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

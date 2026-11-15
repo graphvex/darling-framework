@@ -1,6 +1,8 @@
 #ifndef DARLING_C23_OVERLOAD_H
 #define DARLING_C23_OVERLOAD_H
 
+#include "vex.h"
+
 // darling R4 — c23/overload.h
 //
 // Arity overloading for C23 — the OPERATION half of the constructor pattern.

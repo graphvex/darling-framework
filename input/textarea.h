@@ -1,6 +1,8 @@
 #ifndef DARLING_INPUT_TEXTAREA_H
 #define DARLING_INPUT_TEXTAREA_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Textarea. No runtime API or storage is implemented.
 // Multiline text-entry widget with document mutations, wrapping, line navigation and viewport/caret synchronization.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -6,6 +6,7 @@
 //
 //   ./tools/b.sh run hello_window
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "frame/frame.h"

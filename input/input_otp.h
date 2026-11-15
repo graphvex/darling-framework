@@ -1,6 +1,8 @@
 #ifndef DARLING_INPUT_INPUT_OTP_H
 #define DARLING_INPUT_INPUT_OTP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: InputOTP. No runtime API or storage is implemented.
 // Passcode-entry Panel with digit slots, focus advance, paste splitting and bounded code storage.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

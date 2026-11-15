@@ -3,6 +3,8 @@
 // deadlines; native IOSurface snapshots do not call Frame_capture/repaint.
 // Window_setSize exercises the same native geometry callback as tracking;
 // actual mouse drag, CA display timing and live-flag branches remain unproved.
+
+#include "vex.h"
 #include <stdio.h>
 #include "frame/frame.h"
 

@@ -7,6 +7,7 @@
 // It is a MANUAL visual test: on macOS < 26 (or a non-Mac build) the probe is
 // false, the chrome falls back to Frame_setBlur, and the test still passes.
 
+#include "vex.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

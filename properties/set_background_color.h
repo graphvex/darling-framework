@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_BACKGROUND_COLOR_H
 #define DARLING_PROPERTIES_SET_BACKGROUND_COLOR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_background_color. No runtime API or storage is implemented.
 // Background paint routing; eventually migrate current setters while preserving explicit window-transparency independence.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

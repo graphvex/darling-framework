@@ -1,6 +1,8 @@
 #ifndef DARLING_PICKER_COLOR_SWATCH_H
 #define DARLING_PICKER_COLOR_SWATCH_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ColorSwatch. No runtime API or storage is implemented.
 // Selectable color-chip Panel with selection/change notifications and shared Color representation.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

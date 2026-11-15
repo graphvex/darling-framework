@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_FLEX_PANEL_H
 #define DARLING_PANEL_FLEX_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: FlexPanel. No runtime API or storage is implemented.
 // Panel composition with row/column flow, wrapping, gap, justification, alignment and hug/fill/fixed sizing policies.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

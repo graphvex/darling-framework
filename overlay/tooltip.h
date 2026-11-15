@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_TOOLTIP_H
 #define DARLING_OVERLAY_TOOLTIP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Tooltip. No runtime API or storage is implemented.
 // Hover-hint overlay with placement/arrow intent and bounded lifetime; timers are borrowed from the owner loop.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

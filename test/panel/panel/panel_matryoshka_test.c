@@ -4,6 +4,7 @@
 // smaller, each a rounded rect (the innermost is a circle). Proves deep nesting
 // lays out, paints every layer, and tears down as one owned chain.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "graphics/graphics.h"

@@ -1,9 +1,7 @@
 #ifndef DARLING_EVENT_HIT_H
 #define DARLING_EVENT_HIT_H
 
-#include <stdbool.h>
-#include <stdint.h>
-
+#include "vex.h"
 #include "graphics/graphics.h"   // R4 borrows the R3 Rect shape (no driver handles)
 
 // darling R4 — event/hit.h

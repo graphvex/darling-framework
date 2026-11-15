@@ -1,6 +1,8 @@
 #ifndef DARLING_FEEDBACK_PROGRESS_BAR_H
 #define DARLING_FEEDBACK_PROGRESS_BAR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ProgressBar. No runtime API or storage is implemented.
 // Determinate/indeterminate progress Panel with normalized value, fill and owner-driven animation.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_DIALOG_BOX_H
 #define DARLING_GAME_DIALOG_BOX_H
 
+#include "vex.h"
+
 // DRAFT ONLY: DialogBox. No runtime API or storage is implemented.
 // NPC-dialogue Panel composition with portrait, text reveal and action choices.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

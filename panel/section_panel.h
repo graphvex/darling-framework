@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_SECTION_PANEL_H
 #define DARLING_PANEL_SECTION_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: SectionPanel. No runtime API or storage is implemented.
 // Compound titled header/body Panel with collapsible content and future animated height.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

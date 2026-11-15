@@ -1,6 +1,8 @@
 #ifndef DARLING_EXPORT_HTML_EXPORTER_H
 #define DARLING_EXPORT_HTML_EXPORTER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: HtmlExporter. No runtime API or storage is implemented.
 // UI-tree-to-HTML serialization policy; source tree is borrowed and output ownership/escaping must be defined before implementation.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

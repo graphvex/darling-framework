@@ -1,5 +1,7 @@
 // The concurrently added min/max Element APIs must clamp BOTH geometry
 // and captured pixels, including a second Element sharing the same Property.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

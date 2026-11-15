@@ -1,5 +1,7 @@
 // Naked Frame: transparent titlebar, no title, native traffic lights retained.
 // Automated state/content/resize checks; --interactive allows native dragging.
+
+#include "vex.h"
 #include "frame_chrome_lab.h"
 
 // Runs the shared chrome lab for a naked Frame with native traffic lights.

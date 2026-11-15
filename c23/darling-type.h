@@ -1,6 +1,8 @@
 #ifndef DARLING_C23_DARLING_TYPE_H
 #define DARLING_C23_DARLING_TYPE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Darling type registry. No runtime API or storage is implemented.
 // Future single Darling class registry; allocate no identities for unimplemented drafts and never duplicate lower-level registry IDs.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

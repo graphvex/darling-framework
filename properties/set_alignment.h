@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_ALIGNMENT_H
 #define DARLING_PROPERTIES_SET_ALIGNMENT_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_alignment. No runtime API or storage is implemented.
 // Future content/cross-axis alignment operation; do not conflate it with anchor/pivot.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

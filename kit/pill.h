@@ -1,6 +1,8 @@
 #ifndef DARLING_KIT_PILL_H
 #define DARLING_KIT_PILL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Pill. No runtime API or storage is implemented.
 // Compact pill-shaped status/tag Panel, sharing Badge/theme conventions without duplicating layout machinery.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

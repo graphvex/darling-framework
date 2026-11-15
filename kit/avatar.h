@@ -1,6 +1,8 @@
 #ifndef DARLING_KIT_AVATAR_H
 #define DARLING_KIT_AVATAR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Avatar. No runtime API or storage is implemented.
 // Photo/initials Panel composition with optional presence badge and image fallback policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

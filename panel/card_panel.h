@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_CARD_PANEL_H
 #define DARLING_PANEL_CARD_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: CardPanel. No runtime API or storage is implemented.
 // Compound Panel with header, title, description, body and footer roles; elevation and spacing are properties.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

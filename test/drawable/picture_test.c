@@ -4,6 +4,8 @@
 // Headless pixel/Element-parent teardown proof, NOT real Frame/GPU/visual proof.
 // Coordinator gallery supplies one-Frame integration. Gaps: allocation-failure
 // injection, concurrent mutation and unsupported fit/crop/automatic filters.
+
+#include "vex.h"
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>

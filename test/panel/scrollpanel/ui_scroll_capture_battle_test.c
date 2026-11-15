@@ -1,5 +1,7 @@
 // Real window: colored document bands must scroll into the viewport without
 // bleeding outside it; shrinking content reclamps and updates captured pixels.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

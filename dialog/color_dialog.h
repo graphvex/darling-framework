@@ -1,6 +1,8 @@
 #ifndef DARLING_DIALOG_COLOR_DIALOG_H
 #define DARLING_DIALOG_COLOR_DIALOG_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ColorDialog. No runtime API or storage is implemented.
 // Dialog composition for a ColorPicker and live color-change/result notifications.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

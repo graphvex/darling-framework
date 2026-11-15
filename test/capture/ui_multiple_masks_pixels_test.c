@@ -1,5 +1,7 @@
 // Differently sized/offset rounded ancestors: image must equal the
 // intersection of BOTH original shapes, not a rounded intersection bounding box.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

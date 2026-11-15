@@ -1,6 +1,8 @@
 #ifndef DARLING_CODE_CODE_FIELD_H
 #define DARLING_CODE_CODE_FIELD_H
 
+#include "vex.h"
+
 // DRAFT ONLY: CodeField. No runtime API or storage is implemented.
 // Editable code-text widget with language tokens, line-number gutter, caret/selection and future folding/multicaret policies.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

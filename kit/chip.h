@@ -1,6 +1,8 @@
 #ifndef DARLING_KIT_CHIP_H
 #define DARLING_KIT_CHIP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Chip. No runtime API or storage is implemented.
 // Interactive tag Panel with dismiss action, optional avatar and selection/enabled policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

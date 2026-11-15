@@ -6,6 +6,7 @@
 // bubbles deepest-first, and that a ScrollPanel wired to its own scroll handler
 // actually scrolls.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "c23/event_invoke.h"

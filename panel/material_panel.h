@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_MATERIAL_PANEL_H
 #define DARLING_PANEL_MATERIAL_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: MaterialPanel. No runtime API or storage is implemented.
 // Panel facade for borrowed graphvex material-rendered content; no material shader or GPU ownership belongs here.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

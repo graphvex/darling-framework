@@ -5,6 +5,7 @@
 // Translate UI selection/copy/paste intent into existing vexspoke io/clipboard.h; do not redeclare or duplicate Clipboard_* native functions.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.
 
+#include "vex.h"
 #include "../../re/clipboard/clipboard.h"
 
 #endif // DARLING_BRIDGE_CLIPBOARD_H

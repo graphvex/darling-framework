@@ -1,6 +1,8 @@
 #ifndef DARLING_FEEDBACK_FOCUS_RING_H
 #define DARLING_FEEDBACK_FOCUS_RING_H
 
+#include "vex.h"
+
 // DRAFT ONLY: FocusRing. No runtime API or storage is implemented.
 // Keyboard-focus indicator Panel tied to focus-visible policy, theme color and explicit offset.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

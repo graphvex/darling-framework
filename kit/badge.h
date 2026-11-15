@@ -1,6 +1,8 @@
 #ifndef DARLING_KIT_BADGE_H
 #define DARLING_KIT_BADGE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Badge. No runtime API or storage is implemented.
 // Status-badge Panel with semantic tone, size and text/icon slots.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

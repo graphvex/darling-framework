@@ -1,5 +1,7 @@
 // An explicitly installed clip surrounds submissions, survives nested pops
 // and malformed lists, and does not leak stack state into the next frame.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

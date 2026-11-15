@@ -1,7 +1,7 @@
 #ifndef DARLING_SCROLL_PANEL_H
 #define DARLING_SCROLL_PANEL_H
 
-#include <stdbool.h>
+#include "vex.h"
 #include "properties/set_cursor.h"
 
 #include "ui/element.h"

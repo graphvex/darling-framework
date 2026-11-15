@@ -1,10 +1,10 @@
+#include "vex.h"
 #include "properties/set_size.h"
 
 #include "panel/panel.h"
 #include "frame/frame_internal.h"
 #include "ui/element.h"
 
-#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

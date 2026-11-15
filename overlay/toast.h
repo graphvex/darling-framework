@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_TOAST_H
 #define DARLING_OVERLAY_TOAST_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Toast. No runtime API or storage is implemented.
 // Nonmodal notification Panel with message/action composition and owner-driven dismissal.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

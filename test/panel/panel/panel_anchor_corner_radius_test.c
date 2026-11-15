@@ -7,6 +7,7 @@
 // (Split from the old "gallery" so this test proves exactly two things at once:
 // anchoring and corner radius.)
 
+#include "vex.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

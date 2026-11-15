@@ -1,6 +1,8 @@
 #ifndef DARLING_KIT_BREADCRUMB_H
 #define DARLING_KIT_BREADCRUMB_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Breadcrumb. No runtime API or storage is implemented.
 // Hierarchical navigation-path Panel with separators, current item and action intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

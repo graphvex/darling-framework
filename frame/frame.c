@@ -1,15 +1,15 @@
+#include "vex.h"
 #include "frame/frame.h"
 #include "frame/frame_internal.h"   // the seam properties/ calls back into
 
 #include <stdlib.h>
 #include <string.h>
 
-#include "graphvex/lang/image.h"                   // graphvex R3
+#include "lang/image.h"                   // graphvex R3
 #include "vulkan/surface.h"          // graphvex R3: the present seam
 #include "vulkan/vulkan_backend.h"   // graphvex R3: the GPU backend
 #include "input/pointer.h"           // automatic per-window hover bridge
 
-#include "annotation/annotation.h"
 
 ;;INTENTION("Application owns the keep-alive lifetime. Frame focus selects a "
             "Surface presentation ceiling, never a scene update rate. Default "

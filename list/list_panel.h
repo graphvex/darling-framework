@@ -1,6 +1,8 @@
 #ifndef DARLING_LIST_LIST_PANEL_H
 #define DARLING_LIST_LIST_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ListPanel. No runtime API or storage is implemented.
 // Panel composition with indexed horizontal/vertical stacking, gaps, cross-axis alignment and content sizing.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

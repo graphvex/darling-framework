@@ -1,6 +1,8 @@
 #ifndef DARLING_INPUT_SCROLL_BAR_H
 #define DARLING_INPUT_SCROLL_BAR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ScrollBar. No runtime API or storage is implemented.
 // Track/thumb Panel composition driven by viewport/content ratios, seek/drag intent and horizontal/vertical orientation.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

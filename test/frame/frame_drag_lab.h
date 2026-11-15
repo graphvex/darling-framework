@@ -1,6 +1,7 @@
 #ifndef DARLING_TEST_FRAME_DRAG_LAB_H
 #define DARLING_TEST_FRAME_DRAG_LAB_H
 
+#include "vex.h"
 #include "frame/frame.h"
 #include "c23/event_invoke.h"
 

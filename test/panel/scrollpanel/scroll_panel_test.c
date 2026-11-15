@@ -3,6 +3,7 @@
 // A viewport over oversized content: the offset is end-clamped per axis and
 // reflected into the tree as the content's (-x,-y) placement.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "panel/scroll_panel.h"

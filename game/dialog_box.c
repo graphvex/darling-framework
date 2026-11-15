@@ -1,6 +1,6 @@
+#include "vex.h"
 #include "game/dialog_box.h"
 
-#include "util/annotation.h"
 
 ;;DRAFT
 ;;INCOMPLETE

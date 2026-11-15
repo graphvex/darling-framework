@@ -1,6 +1,8 @@
 #ifndef DARLING_DIALOG_DIALOG_H
 #define DARLING_DIALOG_DIALOG_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Dialog. No runtime API or storage is implemented.
 // Modal UI wrapper over an owned/borrowed Frame contract; modal focus/close policies must use the R1 host window seam.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

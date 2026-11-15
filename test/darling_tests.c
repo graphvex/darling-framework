@@ -6,6 +6,7 @@
 // window, OWNED by the main window — so closing the main window closes them all.
 // Everything is an Element; the pointer is registered in input/ (accessibility).
 
+#include "vex.h"
 #include "frame/frame.h"
 #include "ui/element.h"
 #include "input/pointer.h"

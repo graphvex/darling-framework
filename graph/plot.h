@@ -1,6 +1,8 @@
 #ifndef DARLING_GRAPH_PLOT_H
 #define DARLING_GRAPH_PLOT_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Plot. No runtime API or storage is implemented.
 // Retained data-chart widget with borrowed data spans, line/bar/scatter modes, axes and data hit/tooltip intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,7 +1,7 @@
 #ifndef GALLERY_PHOTO_H
 #define GALLERY_PHOTO_H
-#include <stddef.h>
-#include <stdint.h>
+
+#include "vex.h"
 
 // Explicit fixture decoder safety limits, not dynamic entity capacities.
 enum { GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT = 262144,

@@ -1,6 +1,8 @@
 #ifndef DARLING_COMBO_SELECT_H
 #define DARLING_COMBO_SELECT_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Select. No runtime API or storage is implemented.
 // Compound selection widget with trigger/value/content/item roles, keyboard selection and overlay popup/filter policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

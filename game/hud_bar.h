@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_HUD_BAR_H
 #define DARLING_GAME_HUD_BAR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: HudBar. No runtime API or storage is implemented.
 // HUD value-bar Panel with primary fill, delayed ghost drain and damage-feedback intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

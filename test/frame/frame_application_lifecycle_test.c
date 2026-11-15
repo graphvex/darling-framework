@@ -1,5 +1,5 @@
+#include "vex.h"
 #include <stdio.h>
-#include <stdatomic.h>
 #include <pthread.h>
 #include "frame/frame.h"
 #include "test_support.h"

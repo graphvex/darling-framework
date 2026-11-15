@@ -1,6 +1,8 @@
 #ifndef DARLING_EVENT_VALUE_H
 #define DARLING_EVENT_VALUE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Value events. No runtime API or storage is implemented.
 // Value-change notification policy for controls, with explicit delivery/reentrancy contracts to be defined.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

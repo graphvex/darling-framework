@@ -4,6 +4,7 @@
 // (Element_bounds) without ever moving the layout/hit rect, and paint emits a
 // shadow quad before the body quad.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "graphics/graphics.h"

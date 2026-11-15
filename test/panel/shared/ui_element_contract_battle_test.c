@@ -1,5 +1,7 @@
 // Exercise every public Element operation, including borrowed/private bounds,
 // dirty branches, tree ordering, paint command state, nulls and pool lifetimes.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

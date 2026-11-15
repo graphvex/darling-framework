@@ -3,8 +3,8 @@
 // The Frame: a real window. Lifecycle, the ownership tree, the one resize
 // surface, background/transparency/blur, panels, and capture.
 
+#include "vex.h"
 #include <stdio.h>
-#include "lifetime/platform.h"
 
 #include "frame/frame.h"
 #include "panel/panel.h"

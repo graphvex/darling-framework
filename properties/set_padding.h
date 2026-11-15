@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_PADDING_H
 #define DARLING_PROPERTIES_SET_PADDING_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_padding. No runtime API or storage is implemented.
 // Future inner-spacing operation; layout contribution and interaction with child sizing must be specified before implementation.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

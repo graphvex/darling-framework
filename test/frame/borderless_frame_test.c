@@ -1,5 +1,7 @@
 // Borderless Frame: neither titlebar nor native traffic lights.
 // --interactive: move by background; the red square is an explicit exit.
+
+#include "vex.h"
 #include "frame_chrome_lab.h"
 
 // Runs the shared chrome lab for an undecorated, borderless Frame.

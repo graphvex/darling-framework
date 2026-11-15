@@ -1,9 +1,9 @@
+#include "vex.h"
 #include "properties/set_corner_radius.h"
 
 #include "panel/panel.h"
 #include "ui/element.h"
 
-#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

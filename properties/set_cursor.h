@@ -1,6 +1,7 @@
 #ifndef DARLING_PROPERTIES_SET_CURSOR_H
 #define DARLING_PROPERTIES_SET_CURSOR_H
 
+#include "vex.h"
 #include "ui/element.h"
 #include "window/window.h"
 

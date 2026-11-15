@@ -1,6 +1,8 @@
 #ifndef DARLING_DIALOG_INPUT_DIALOG_H
 #define DARLING_DIALOG_INPUT_DIALOG_H
 
+#include "vex.h"
+
 // DRAFT ONLY: InputDialog. No runtime API or storage is implemented.
 // Dialog composition for a text prompt, bounded input, submit/cancel results and focus return.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

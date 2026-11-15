@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_COMMAND_PALETTE_H
 #define DARLING_OVERLAY_COMMAND_PALETTE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: CommandPalette. No runtime API or storage is implemented.
 // Quick-action overlay with query/filter results, command selection and focus restoration.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

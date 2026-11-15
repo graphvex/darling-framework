@@ -1,6 +1,8 @@
 #ifndef DARLING_INPUT_KNOB_H
 #define DARLING_INPUT_KNOB_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Knob. No runtime API or storage is implemented.
 // Rotary range-control Panel with angle math, detents, fine adjustment and value readout.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_CURSOR_CURSOR_H
 #define DARLING_CURSOR_CURSOR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Cursor. No runtime API or storage is implemented.
 // UI cursor-selection facade; native cursor handles and application remain with the R1 host.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_PICKER_COLOR_PICKER_H
 #define DARLING_PICKER_COLOR_PICKER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ColorPicker. No runtime API or storage is implemented.
 // Color-selection widget with HSV/hex editing, hue/saturation/value controls and borrowed sample intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

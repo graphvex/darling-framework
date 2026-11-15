@@ -1,6 +1,8 @@
 #ifndef DARLING_BUTTON_CHECKBOX_H
 #define DARLING_BUTTON_CHECKBOX_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Checkbox. No runtime API or storage is implemented.
 // Checked/indeterminate Panel with label hit region, value notifications and keyboard activation intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_LABEL_KBD_H
 #define DARLING_LABEL_KBD_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Kbd. No runtime API or storage is implemented.
 // Keycap text badge with monospaced typography, key-symbol presentation and theme spacing.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,5 +1,7 @@
 // Rendering and hit-testing must agree: clipped descendants cannot receive
 // clicks through their parent's rounded corners or outside its bounds.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

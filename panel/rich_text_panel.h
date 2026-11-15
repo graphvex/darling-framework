@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_RICH_TEXT_PANEL_H
 #define DARLING_PANEL_RICH_TEXT_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: RichTextPanel. No runtime API or storage is implemented.
 // Retained rich-text document Panel with styled runs, wrapping and document-wide selection.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

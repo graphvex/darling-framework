@@ -1,9 +1,9 @@
+#include "vex.h"
 #include "properties/set_cursor.h"
 
 #include "frame/frame.h"
 #include "panel/panel.h"
 #include "panel/scroll_panel.h"
-#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

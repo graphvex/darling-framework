@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_GAMEPAD_NAV_H
 #define DARLING_GAME_GAMEPAD_NAV_H
 
+#include "vex.h"
+
 // DRAFT ONLY: GamepadNav. No runtime API or storage is implemented.
 // Spatial focus-navigation policy for D-pad directions, bumper tabs and device glyph requests.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

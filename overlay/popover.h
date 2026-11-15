@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_POPOVER_H
 #define DARLING_OVERLAY_POPOVER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Popover. No runtime API or storage is implemented.
 // Click-anchored overlay card with light-dismiss, focus return and clipping escape policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

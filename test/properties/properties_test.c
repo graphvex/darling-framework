@@ -5,6 +5,7 @@
 // act on the widget's Element through the ownership seam, and that detaching is
 // non-destructive.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "panel/panel.h"

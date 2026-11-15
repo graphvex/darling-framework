@@ -1,6 +1,7 @@
 #ifndef DARLING_PROPERTIES_REMOVE_H
 #define DARLING_PROPERTIES_REMOVE_H
 
+#include "vex.h"
 #include "c23/overload.h"
 
 // darling R4 — properties/remove.h

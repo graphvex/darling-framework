@@ -1,6 +1,7 @@
 #ifndef DARLING_PANEL_INTERNAL_H
 #define DARLING_PANEL_INTERNAL_H
 
+#include "vex.h"
 #include "panel/panel.h"
 
 // darling R4 — panel/panel_internal.h

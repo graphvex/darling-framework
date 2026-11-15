@@ -1,6 +1,8 @@
 #ifndef DARLING_PICKER_DATE_PICKER_H
 #define DARLING_PICKER_DATE_PICKER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: DatePicker. No runtime API or storage is implemented.
 // Date-selection widget with calendar model, month navigation and future popup/month-grid composition.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

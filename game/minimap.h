@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_MINIMAP_H
 #define DARLING_GAME_MINIMAP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Minimap. No runtime API or storage is implemented.
 // Scene/Panel composition for map/radar content, player direction, pings and fog-mask intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

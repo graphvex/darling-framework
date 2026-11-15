@@ -1,5 +1,7 @@
 // Prove the new Frame->Surface->Board->tree cascade without letting capture
 // repaint the scene and conceal a missing revalidation step.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

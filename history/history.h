@@ -1,6 +1,8 @@
 #ifndef DARLING_HISTORY_HISTORY_H
 #define DARLING_HISTORY_HISTORY_H
 
+#include "vex.h"
+
 // DRAFT ONLY: History. No runtime API or storage is implemented.
 // UI command-history model with undo/redo and explicit borrowed command/payload lifetime contracts.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_TAB_PANEL_H
 #define DARLING_PANEL_TAB_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: TabPanel. No runtime API or storage is implemented.
 // Panel composition with tab strip, active content, close/reorder policies and focus transfer.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

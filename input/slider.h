@@ -1,6 +1,8 @@
 #ifndef DARLING_INPUT_SLIDER_H
 #define DARLING_INPUT_SLIDER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Slider. No runtime API or storage is implemented.
 // Range-selection Panel with normalization, step snapping, orientation, track/thumb composition and keyboard nudging.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

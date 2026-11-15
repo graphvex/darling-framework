@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_DAMAGE_NUMBERS_H
 #define DARLING_GAME_DAMAGE_NUMBERS_H
 
+#include "vex.h"
+
 // DRAFT ONLY: DamageNumbers. No runtime API or storage is implemented.
 // Pooled f32ing-text Panel coordinator with bounded combat-text lifetime and owner-driven motion.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

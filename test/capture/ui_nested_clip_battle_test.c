@@ -1,5 +1,7 @@
 // Clip push/pop must intersect ancestors and restore the enclosing mask.
 // Two distinct adversaries: an oversized grandchild and a later sibling.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

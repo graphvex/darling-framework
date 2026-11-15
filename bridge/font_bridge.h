@@ -1,6 +1,8 @@
 #ifndef DARLING_BRIDGE_FONT_BRIDGE_H
 #define DARLING_BRIDGE_FONT_BRIDGE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Font bake bridge. No runtime API or storage is implemented.
 // UI font request/cache binding over borrowed graphvex font resources; no new font baker.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

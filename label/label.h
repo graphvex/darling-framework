@@ -1,6 +1,8 @@
 #ifndef DARLING_LABEL_LABEL_H
 #define DARLING_LABEL_LABEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Label. No runtime API or storage is implemented.
 // Text widget with owned/borrowed text contracts, font requests, glyph-position hit testing, selection and clipboard intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

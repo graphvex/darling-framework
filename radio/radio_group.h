@@ -1,6 +1,8 @@
 #ifndef DARLING_RADIO_RADIO_GROUP_H
 #define DARLING_RADIO_RADIO_GROUP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: RadioGroup. No runtime API or storage is implemented.
 // Exclusive option-list Panel with selection, disabled-option policy and eventual arrow-key traversal.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -4,10 +4,11 @@
 // CIRCLE, and a Panel nested inside another keeps its own radius. Pixels prove
 // it — a corner outside the circle is transparent, the centre is filled.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "graphics/graphics.h"
-#include "graphvex/lang/image.h"
+#include "lang/image.h"
 #include "panel/panel.h"
 #include "ui/element.h"
 

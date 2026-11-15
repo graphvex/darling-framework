@@ -1,6 +1,8 @@
 #ifndef DARLING_BRIDGE_PANEL_BRIDGE_H
 #define DARLING_BRIDGE_PANEL_BRIDGE_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Panel Cocoa bridge. No runtime API or storage is implemented.
 // UI Panel/Board attachment and lifecycle glue over the existing single Frame presentation seam.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

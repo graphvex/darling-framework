@@ -1,6 +1,7 @@
 #ifndef DARLING_FRAME_INTERNAL_H
 #define DARLING_FRAME_INTERNAL_H
 
+#include "vex.h"
 #include "frame/frame.h"
 
 // darling R4 — frame/frame_internal.h

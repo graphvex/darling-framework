@@ -1,6 +1,8 @@
 #ifndef DARLING_THEME_THEME_H
 #define DARLING_THEME_THEME_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Theme. No runtime API or storage is implemented.
 // UI design tokens for color ramps, spacing, typography and elevation; styles reuse graphvex Color/Property rather than redefining them.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

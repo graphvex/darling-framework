@@ -1,6 +1,8 @@
 #ifndef DARLING_DIALOG_ALERT_DIALOG_H
 #define DARLING_DIALOG_ALERT_DIALOG_H
 
+#include "vex.h"
+
 // DRAFT ONLY: AlertDialog. No runtime API or storage is implemented.
 // Dialog composition for title, body and confirmation actions, preserving modal close/cancel policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

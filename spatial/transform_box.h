@@ -1,6 +1,8 @@
 #ifndef DARLING_SPATIAL_TRANSFORM_BOX_H
 #define DARLING_SPATIAL_TRANSFORM_BOX_H
 
+#include "vex.h"
+
 // DRAFT ONLY: TransformBox. No runtime API or storage is implemented.
 // Interactive bounding-handle Panel with translation/scale/rotation intent, aspect locking and geometry constraints.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

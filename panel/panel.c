@@ -1,3 +1,4 @@
+#include "vex.h"
 #include "panel/panel.h"
 
 #include <stdlib.h>
@@ -5,7 +6,6 @@
 
 #include "panel/panel_internal.h"   // the ownership seam the properties layer uses
 
-#include "annotation/annotation.h"
 
 ;;DEFINITION
 /**

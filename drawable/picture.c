@@ -1,10 +1,9 @@
+#include "vex.h"
 #include "drawable/picture.h"
 
-#include "annotation/annotation.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "exception/throw.h"
 
 ;;DEFINITION
 /**

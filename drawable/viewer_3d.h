@@ -1,6 +1,8 @@
 #ifndef DARLING_DRAWABLE_VIEWER_3D_H
 #define DARLING_DRAWABLE_VIEWER_3D_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Viewer3D. No runtime API or storage is implemented.
 // Scene3D viewer composition with orbit camera, lighting controls and Object3D content.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

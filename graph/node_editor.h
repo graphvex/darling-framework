@@ -1,6 +1,8 @@
 #ifndef DARLING_GRAPH_NODE_EDITOR_H
 #define DARLING_GRAPH_NODE_EDITOR_H
 
+#include "vex.h"
+
 // DRAFT ONLY: NodeEditor. No runtime API or storage is implemented.
 // Retained graph-canvas widget with node/pin/socket models, connection curves and edit/selection intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

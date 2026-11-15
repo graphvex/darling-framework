@@ -1,6 +1,7 @@
 #ifndef DARLING_PROPERTIES_SET_MINIMUM_SIZE_H
 #define DARLING_PROPERTIES_SET_MINIMUM_SIZE_H
 
+#include "vex.h"
 #include "c23/overload.h"
 
 // darling R4 — properties/set_minimum_size.h

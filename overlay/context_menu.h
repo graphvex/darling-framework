@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_CONTEXT_MENU_H
 #define DARLING_OVERLAY_CONTEXT_MENU_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ContextMenu. No runtime API or storage is implemented.
 // Context-triggered Menu composition with point anchoring, action routing and dismissal/focus return.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

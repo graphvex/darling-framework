@@ -1,5 +1,7 @@
 // 50,000 visible children: real window/GPU capture, ordering, hit targets,
 // mutation, detach/reinsert, and complete pooled-property reclamation.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

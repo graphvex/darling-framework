@@ -1,6 +1,8 @@
 #ifndef DARLING_EVENT_FOCUS_H
 #define DARLING_EVENT_FOCUS_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Focus events. No runtime API or storage is implemented.
 // Focus acquisition/release, traversal, focus-visible and modal trapping policy over the retained tree.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

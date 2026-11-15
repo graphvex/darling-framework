@@ -1,3 +1,4 @@
+#include "vex.h"
 #include <stdio.h>
 #include "frame/frame.h"
 #include "input/focus.h"

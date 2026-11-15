@@ -1,5 +1,5 @@
+#include "vex.h"
 #include "gallery_photo.h"
-#include "lifetime/platform.h"
 #include <string.h>
 
 #if defined(VEX_PLATFORM_APPLE)

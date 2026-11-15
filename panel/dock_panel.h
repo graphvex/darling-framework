@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_DOCK_PANEL_H
 #define DARLING_PANEL_DOCK_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: DockPanel. No runtime API or storage is implemented.
 // Panel composition with named dock regions and splitters, borrowing Frame geometry rather than owning native windows.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

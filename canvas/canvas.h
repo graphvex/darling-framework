@@ -1,6 +1,8 @@
 #ifndef DARLING_CANVAS_CANVAS_H
 #define DARLING_CANVAS_CANVAS_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Canvas. No runtime API or storage is implemented.
 // Coordinate a root content tree and borrowed Surface/Boards; fan dirty branches and keep multiwindow presentation independent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

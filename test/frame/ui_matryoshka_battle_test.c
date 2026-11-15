@@ -1,5 +1,7 @@
 // 96 nested panels: verify every visible ring, deepest hit, visibility,
 // repaint after mutation, resize retention, and recursive ownership teardown.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

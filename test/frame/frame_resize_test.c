@@ -5,8 +5,8 @@
 // aligned — and render each. A Metal stride-validation abort here means the
 // IOSurface stride is wrong; this is the zoom/live-resize crash in the shell.
 
+#include "vex.h"
 #include <stdio.h>
-#include "lifetime/platform.h"
 
 #include "frame/frame.h"
 #include "window/window.h"

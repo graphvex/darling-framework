@@ -1,6 +1,7 @@
 #ifndef DARLING_POINTER_H
 #define DARLING_POINTER_H
 
+#include "vex.h"
 #include "frame/frame.h"   // Frame (the OS bridge) + the content Element
 #include "panel/panel.h"   // Panel (the interactable wrapper)
 

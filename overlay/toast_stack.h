@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_TOAST_STACK_H
 #define DARLING_OVERLAY_TOAST_STACK_H
 
+#include "vex.h"
+
 // DRAFT ONLY: ToastStack. No runtime API or storage is implemented.
 // Retained queue/layout coordinator for Toast children, deadlines and removal without owning a timer thread.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

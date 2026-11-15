@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_SCROLL_OFFSET_H
 #define DARLING_PROPERTIES_SET_SCROLL_OFFSET_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_scroll_offset. No runtime API or storage is implemented.
 // Future shared scroll-offset operation preserving ScrollPanel clamp/revalidation semantics.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_OVERLAY_ROOT_H
 #define DARLING_OVERLAY_OVERLAY_ROOT_H
 
+#include "vex.h"
+
 // DRAFT ONLY: OverlayRoot. No runtime API or storage is implemented.
 // Explicit top-level overlay tree that escapes content clips while retaining modal input isolation and one Frame presentation seam.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_WEB_PANEL_H
 #define DARLING_PANEL_WEB_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: WebPanel. No runtime API or storage is implemented.
 // Capability-gated native-web-content Panel facade; platform handles are borrowed through a host bridge, not an embedded browser runtime.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

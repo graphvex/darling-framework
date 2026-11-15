@@ -1,6 +1,8 @@
 #ifndef DARLING_PROPERTIES_SET_GAP_H
 #define DARLING_PROPERTIES_SET_GAP_H
 
+#include "vex.h"
+
 // DRAFT ONLY: set_gap. No runtime API or storage is implemented.
 // Future flow/grid child-gap operation with layout revalidation policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

@@ -1,3 +1,4 @@
+#include "vex.h"
 #include <stdio.h>
 
 #include "properties/set_cursor.h"

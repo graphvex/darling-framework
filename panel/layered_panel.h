@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_LAYERED_PANEL_H
 #define DARLING_PANEL_LAYERED_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: LayeredPanel. No runtime API or storage is implemented.
 // Overlapping child Panels with explicit ordering and topmost visible hit routing.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

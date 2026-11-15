@@ -1,6 +1,8 @@
 #ifndef DARLING_LABEL_RICH_LABEL_H
 #define DARLING_LABEL_RICH_LABEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: RichLabel. No runtime API or storage is implemented.
 // Text widget with multiple styled runs, shared selection coordinates and plain-text copy across markup.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

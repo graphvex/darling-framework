@@ -3,6 +3,7 @@
 // The Panel wrapper: it owns a graphvex GraphicsPanel (an Element) and is the
 // handle the app/input talk to.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "panel/panel.h"

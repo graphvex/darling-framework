@@ -1,5 +1,7 @@
 // Oversized child must not escape a rounded parent. CPU and real window/GPU
 // captures are judged against an independent analytic rounded-rectangle oracle.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

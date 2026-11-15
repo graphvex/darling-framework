@@ -1,6 +1,8 @@
 #ifndef DARLING_OVERLAY_MENU_H
 #define DARLING_OVERLAY_MENU_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Menu. No runtime API or storage is implemented.
 // Hierarchical action-menu overlay with shortcuts, item selection and keyboard traversal policy.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

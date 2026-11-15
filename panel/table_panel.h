@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_TABLE_PANEL_H
 #define DARLING_PANEL_TABLE_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: TablePanel. No runtime API or storage is implemented.
 // Multi-column data-grid Panel with sorting, headers, resize and paginated or virtualized rows.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

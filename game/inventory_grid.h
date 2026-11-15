@@ -1,6 +1,8 @@
 #ifndef DARLING_GAME_INVENTORY_GRID_H
 #define DARLING_GAME_INVENTORY_GRID_H
 
+#include "vex.h"
+
 // DRAFT ONLY: InventoryGrid. No runtime API or storage is implemented.
 // GridPanel composition for item slots, stack counts, tier styles, locks and drag/drop intent.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

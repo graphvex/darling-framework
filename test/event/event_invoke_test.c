@@ -5,6 +5,7 @@
 // deepest-first. This proves the registry (replace-not-leak), the hit + bubble
 // order, non-pointer routing, and clear.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "c23/event_invoke.h"

@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_ACCORDION_H
 #define DARLING_PANEL_ACCORDION_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Accordion. No runtime API or storage is implemented.
 // Disclosure-group Panel composition with single/multiple expansion policies and eventual animated layout.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

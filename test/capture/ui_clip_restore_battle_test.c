@@ -1,4 +1,6 @@
 // Regression: leaving a nested clip must restore the rounded parent mask.
+
+#include "vex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_SVG_PANEL_H
 #define DARLING_PANEL_SVG_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: SvgPanel. No runtime API or storage is implemented.
 // Retained SVG display Panel with path/layout interpretation and borrowed driver rendering resources.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

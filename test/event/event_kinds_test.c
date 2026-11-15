@@ -5,6 +5,7 @@
 // key up. Also asserts the binding table is clearable before teardown, so a
 // freed element leaves no dangling key.
 
+#include "vex.h"
 #include <stdio.h>
 
 #include "c23/event_invoke.h"

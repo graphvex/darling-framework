@@ -1,6 +1,8 @@
 #ifndef DARLING_LAYOUT_CONTAINER_H
 #define DARLING_LAYOUT_CONTAINER_H
 
+#include "vex.h"
+
 // DRAFT ONLY: Container. No runtime API or storage is implemented.
 // Layout policy adapter over the existing graphvex Element; anchors, pivots, padding and sizing policies must not introduce a second geometry authority.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.

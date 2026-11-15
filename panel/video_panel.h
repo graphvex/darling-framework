@@ -1,6 +1,8 @@
 #ifndef DARLING_PANEL_VIDEO_PANEL_H
 #define DARLING_PANEL_VIDEO_PANEL_H
 
+#include "vex.h"
+
 // DRAFT ONLY: VideoPanel. No runtime API or storage is implemented.
 // Panel facade for decoded media frames; decoder/process supervision and image upload remain with their lower-level owners.
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.
