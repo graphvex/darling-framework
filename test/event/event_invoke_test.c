@@ -35,34 +35,34 @@ static fn push(Trace *t, int id) {
 
 // Records the first child scroll handler and its vertical delta.
 static fn on_scroll_child(Element *e, const Scroll *s, any ud) {
-    (fn)e;
+    (discard)e;
     Trace *t = ud;
     push(t, 1);
     (*t).last_dy = (*s).dy;   // stash the delta we were handed
 }
 // Records the replaceable child scroll handler in the trace.
 static fn on_scroll_child2(Element *e, const Scroll *s, any ud) {
-    (fn)e; (fn)s;
+    (discard)e; (discard)s;
     push((Trace*) ud, 2);
 }
 // Records the root scroll callback for bubbling-order assertions.
 static fn on_scroll_root(Element *e, const Scroll *s, any ud) {
-    (fn)e; (fn)s;
+    (discard)e; (discard)s;
     push((Trace*) ud, 3);
 }
 // Records delivery of a hit-tested mouse-down callback.
 static fn on_mouse_down(Element *e, const Mouse *m, any ud) {
-    (fn)e; (fn)m;
+    (discard)e; (discard)m;
     push((Trace*) ud, 4);
 }
 // Records root-routed key-down delivery.
 static fn on_key_down(Element *e, const Key *k, any ud) {
-    (fn)e; (fn)k;
+    (discard)e; (discard)k;
     push((Trace*) ud, 5);
 }
 // Records root-routed document-change delivery.
 static fn on_document_changed(Element *e, const Document *d, any ud) {
-    (fn)e; (fn)d;
+    (discard)e; (discard)d;
     push((Trace*) ud, 6);
 }
 

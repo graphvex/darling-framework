@@ -201,7 +201,7 @@ static fn frame_renderContent(Frame *frame);
 
 // Revalidates the frame's element tree and renders after its Board changes.
 static fn frame_on_revalidate(Board *board, any userdata) {
-    (fn) board;
+    (discard) board;
     Frame *frame = userdata;
     Element_revalidate((*frame).root);
     frame_renderContent(frame);
@@ -547,7 +547,7 @@ fn Frame_setFPSCapWhenFocusLost(Frame *f, int fps) {
 
 // Polls one attached frame, rendering dirty content and servicing its Surface.
 static fn frame_pollApplication(Application *application, any userdata) {
-    (fn)application;
+    (discard)application;
     Frame *f = userdata;
     if (Window_shouldClose((*f).window)) {
         for (int i = 0; i < (*f).childCount; i++)

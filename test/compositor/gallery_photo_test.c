@@ -40,8 +40,8 @@ static const char *galleryPhotoPath() {
 // Tests bounded photo decoding, bundled lookup, orientation, and rejection recovery.
 int main(int argc, char **argv) {
 #if !defined(VEX_PLATFORM_APPLE)
-    (fn) argc;
-    (fn) argv;
+    (discard) argc;
+    (discard) argv;
     puts("gallery_photo_test: skipped on non-Apple platform");
     return 0;
 #else

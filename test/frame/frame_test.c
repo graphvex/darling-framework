@@ -21,7 +21,7 @@ static int g_fail = 0;
 
 // Counts invocation of a child Frame's close callback.
 static fn onClosed(Frame *frame, any ud) {
-    (fn)frame;
+    (discard)frame;
     *(int*) ud += 1;
 }
 

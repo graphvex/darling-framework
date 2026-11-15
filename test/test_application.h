@@ -27,7 +27,7 @@ static DarlingTestState darling_test_state;
 static inline fn Darling_testKeepOpen() { darling_test_state.keepOpen = true; }
 
 static fn darling_test_owner(Application *application, any userdata) {
-    (fn)application;
+    (discard)application;
     DarlingTestState *state = userdata;
 #ifdef DARLING_TEST_WITH_ARGS
     (*state).result = darling_test_body((*state).argc, (*state).argv);

@@ -25,7 +25,7 @@ typedef struct {
 // Every test opens the same shape of window for now; the point is the WINDOW
 // TREE + the pointer, not the test content yet.
 static fn open_test(Panel *panel, any ud) {
-    (fn)panel;
+    (discard)panel;
     TestCase *t = ud;
     Frame *w = Frame((*t).names, 560, 400);
     Frame_setOwner(w, (*t).owner);

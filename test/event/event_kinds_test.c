@@ -25,32 +25,32 @@ typedef struct Trace { int ids[32]; int count; f32 lastMag; } Trace;
 static fn push(Trace *t, int id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
 
 // Records mouse-down delivery.
-static fn m_down(Element *e, const Mouse *m, any ud)  { (fn)e; (fn)m; push(ud,  1); }
+static fn m_down(Element *e, const Mouse *m, any ud)  { (discard)e; (discard)m; push(ud,  1); }
 // Records mouse-up delivery.
-static fn m_up(Element *e, const Mouse *m, any ud)    { (fn)e; (fn)m; push(ud,  2); }
+static fn m_up(Element *e, const Mouse *m, any ud)    { (discard)e; (discard)m; push(ud,  2); }
 // Records mouse-move delivery.
-static fn m_move(Element *e, const Mouse *m, any ud)  { (fn)e; (fn)m; push(ud,  3); }
+static fn m_move(Element *e, const Mouse *m, any ud)  { (discard)e; (discard)m; push(ud,  3); }
 // Records mouse-enter delivery.
-static fn m_enter(Element *e, const Mouse *m, any ud) { (fn)e; (fn)m; push(ud,  4); }
+static fn m_enter(Element *e, const Mouse *m, any ud) { (discard)e; (discard)m; push(ud,  4); }
 // Records mouse-leave delivery.
-static fn m_leave(Element *e, const Mouse *m, any ud) { (fn)e; (fn)m; push(ud,  5); }
+static fn m_leave(Element *e, const Mouse *m, any ud) { (discard)e; (discard)m; push(ud,  5); }
 // Records zoom delivery and saves its magnitude for the assertion.
 static fn z_zoom(Element *e, const Zoom *z, any ud) {
-    (fn)e;
+    (discard)e;
     Trace *t = ud;
     push(t, 6);
     (*t).lastMag = (*z).magnitude;
 }
 // Records touch-down delivery.
-static fn t_down(Element *e, const Touch *t, any ud) { (fn)e; (fn)t; push(ud, 7); }
+static fn t_down(Element *e, const Touch *t, any ud) { (discard)e; (discard)t; push(ud, 7); }
 // Records touch-move delivery.
-static fn t_move(Element *e, const Touch *t, any ud) { (fn)e; (fn)t; push(ud, 8); }
+static fn t_move(Element *e, const Touch *t, any ud) { (discard)e; (discard)t; push(ud, 8); }
 // Records touch-up delivery.
-static fn t_up(Element *e, const Touch *t, any ud)   { (fn)e; (fn)t; push(ud, 9); }
+static fn t_up(Element *e, const Touch *t, any ud)   { (discard)e; (discard)t; push(ud, 9); }
 // Records key-down delivery.
-static fn k_down(Element *e, const Key *k, any ud)   { (fn)e; (fn)k; push(ud, 10); }
+static fn k_down(Element *e, const Key *k, any ud)   { (discard)e; (discard)k; push(ud, 10); }
 // Records key-up delivery.
-static fn k_up(Element *e, const Key *k, any ud)     { (fn)e; (fn)k; push(ud, 11); }
+static fn k_up(Element *e, const Key *k, any ud)     { (discard)e; (discard)k; push(ud, 11); }
 
 // Dispatches a test event with shared coordinates and deterministic payloads.
 static bool dispatch(Element *root, int kind, f32 x, f32 y) {

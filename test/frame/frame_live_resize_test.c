@@ -13,7 +13,7 @@
 
 // Supplies a fixed Surface clock for deterministic native resize publication.
 static u64 frozenNow(any context) {
-    (fn) context;
+    (discard) context;
     return 1000000000ULL;
 }
 

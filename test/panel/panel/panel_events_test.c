@@ -31,13 +31,13 @@ typedef struct Trace { int ids[8]; int count; } Trace;
 static fn push(Trace *t, int id) { if ((*t).count < 8) (*t).ids[(*t).count++] = id; }
 
 // Record that the child received a scroll event.
-static fn on_scroll_child(Element *e, const Scroll *s, any ud)  { (fn)e; (fn)s; push(ud, 1); }
+static fn on_scroll_child(Element *e, const Scroll *s, any ud)  { (discard)e; (discard)s; push(ud, 1); }
 // Record that the parent received a bubbled scroll event.
-static fn on_scroll_parent(Element *e, const Scroll *s, any ud) { (fn)e; (fn)s; push(ud, 2); }
+static fn on_scroll_parent(Element *e, const Scroll *s, any ud) { (discard)e; (discard)s; push(ud, 2); }
 
 // Apply wheel deltas to the registered ScrollPanel viewport.
 static fn on_wheel(Element *e, const Scroll *s, any ud) {
-    (fn)e;
+    (discard)e;
     ScrollPanel_scrollBy(ud, (*s).dx, (*s).dy);
 }
 

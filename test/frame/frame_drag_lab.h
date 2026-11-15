@@ -33,7 +33,7 @@ static fn frameDragDown(Element *element, const Mouse *mouse, any userdata) {
 
 // Moves the selected panel subtree by the pointer delta and invalidates its Frame.
 static fn frameDragMove(Element *element, const Mouse *mouse, any userdata) {
-    (fn)element;
+    (discard)element;
     FrameDragLab *drag = userdata;
     int i = (*drag).selected;
     if (i < 0) return;
@@ -45,7 +45,7 @@ static fn frameDragMove(Element *element, const Mouse *mouse, any userdata) {
 
 // Clears the active panel selection when the drag ends.
 static fn frameDragUp(Element *element, const Mouse *mouse, any userdata) {
-    (fn)element; (fn)mouse;
+    (discard)element; (discard)mouse;
     FrameDragLab *drag = userdata;
     (*drag).selected = -1;
 }

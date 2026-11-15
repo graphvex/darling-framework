@@ -57,7 +57,7 @@ static Image *snapshot(Frame *frame) {
 }
 // Asserts the Frame element was cleared before the observer Board revalidates.
 static fn observe(Board *board, any userdata) {
-    (fn) board;
+    (discard) board;
     Frame *frame = userdata;
     CHECK(!Element_isDirty(Frame_element(frame))); // content board must run first
 }

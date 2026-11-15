@@ -171,7 +171,7 @@ fn Pointer_release(Element *root, f32 x, f32 y) {
 
 // Invalidates the root after pointer movement so hover state can be repainted.
 fn Pointer_move(Element *root, f32 x, f32 y) {
-    (fn)x; (fn)y;
+    (discard)x; (discard)y;
     if (root) Frame_invalidateElement(Element_root(root));
 }
 
@@ -243,7 +243,7 @@ static fn track_cursor(Cursor *c, f32 x, f32 y) {
 
 // Bridges a native mouse-down into element events and the legacy press action.
 static fn track_down(any self, int mouseEvent, u64 nanos) {
-    (fn)nanos;
+    (discard)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_DOWN, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
@@ -251,7 +251,7 @@ static fn track_down(any self, int mouseEvent, u64 nanos) {
 }
 // Bridges a native mouse-up into element events and the legacy release action.
 static fn track_up(any self, int mouseEvent, u64 nanos) {
-    (fn)nanos;
+    (discard)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_UP, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
@@ -265,7 +265,7 @@ static fn track_move(any self, d64 x, d64 y) {
     track_cursor(c, (f32)x, (f32)y);
 }
 // Accepts repeat callbacks for the adapter interface; repeat events need no action.
-static fn track_none0(any self, int ev, u64 t) { (fn)self; (fn)ev; (fn)t; }
+static fn track_none0(any self, int ev, u64 t) { (discard)self; (discard)ev; (discard)t; }
 // Bridges native movement deltas to a mouse-move event at the current pointer.
 static fn track_mod(any self, d64 dx, d64 dy) {
     Cursor *c = self;
@@ -293,7 +293,7 @@ static fn track_zoom(any self, d64 magnification) {
 
 // Releases cursor and click-binding records belonging to a closing frame root.
 static fn cleanup_on_close(Frame *frame, any userdata) {
-    (fn)userdata;
+    (discard)userdata;
     Element *root = Frame_element(frame);
     for (int i = 0; i < s_curCount; i++) {
         if ((*s_cursors[i]).root != root) continue;

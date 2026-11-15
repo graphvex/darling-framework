@@ -17,7 +17,7 @@
 
 // Requests native closure when the interactive chrome sample's exit panel is clicked.
 static fn chromeClose(Element *element, const Mouse *mouse, any userdata) {
-    (fn)element; (fn)mouse;
+    (discard)element; (discard)mouse;
     Window_setShouldClose(Frame_window(userdata), true);
 }
 

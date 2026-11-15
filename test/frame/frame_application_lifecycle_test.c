@@ -17,7 +17,7 @@ typedef struct State {
 // Marks that the worker start callback returned without closing the app.
 static fn startup(Application *app, any userdata) {
     State *state = userdata;
-    (fn)app;
+    (discard)app;
     CHECK(!pthread_equal((*state).owner, pthread_self()));
     atomic_store(&(*state).returned, true);
     // Returning from startup MUST NOT close either window or stop the app.

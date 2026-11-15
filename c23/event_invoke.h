@@ -7,7 +7,7 @@
 // darling R4 — c23/event_invoke.h
 //
 // THE EVENT INVOKER. Every element is an event target. Each event KIND has a
-// handler struct (its (fn)()s); each class opts in with IMPLEMENT_<KIND>_EVENT,
+// handler struct (its (discard)()s); each class opts in with IMPLEMENT_<KIND>_EVENT,
 // which generates <Class>_add<Kind>Event from the class name — the `##` IS the
 // class:
 //
@@ -41,7 +41,7 @@ typedef struct Key { int code; } Key;
 typedef struct Touch { f32 x, y; int id; } Touch;
 typedef struct Document { const char *text; u32 start, end; } Document;
 
-// ── handler structs (the (fn)()s) ─────────────────────────────────────────────
+// ── handler structs (the (discard)()s) ─────────────────────────────────────────────
 typedef struct MouseEvent {
     fn (*onDown)(Element *element, const Mouse *mouse, any userdata);
     fn (*onUp)(Element *element, const Mouse *mouse, any userdata);

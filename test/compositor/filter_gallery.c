@@ -26,7 +26,7 @@ static FilterGalleryState gallery;
 
 // Releases gallery-owned widgets and images after outstanding GPU work retires.
 static fn galleryClosed(Frame *frame, any userdata) {
-    (fn) frame;
+    (discard) frame;
     FilterGalleryState *state = userdata;
     if (GpuScope_destroy((*state).gpu)) {
         (*state).gpu=nullptr;
@@ -59,7 +59,7 @@ static bool sampleMatches(const Image *capture, const Image *source,
 
 // Supplies a fixed time source so the smoke checks have deterministic pacing.
 static u64 galleryFrozenClock(any userdata) {
-    (fn) userdata;
+    (discard) userdata;
     return 1000000000ULL;
 }
 
@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
     // Boot bottom-up: the device is R3 and the frame is R4, so the GPU exists
     // before any window does. MoltenVK brings itself up in ~60 ms, and a frame
     // constructed against a live device never pays that cost itself.
-    (fn) VulkanBackend_device();
+    (discard) VulkanBackend_device();
     Frame *frame = Frame("Graphvex filters | Backdrop / Foreground / Element", 1160, 430);
     if (!frame)
         return 1;
