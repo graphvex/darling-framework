@@ -47,7 +47,7 @@ worker, not the native UI/event thread. Callback completion is not application
 completion, and presentation pacing is not a scene-update clock.")
 
 - `Application_addStartEvent(app, callback, userdata)` takes a typed
-  `void callback(Application *, void *)`, not non-C lambda syntax.
+  `fn callback(Application *, any )`, not non-C lambda syntax.
 - Up to 16 start events run in registration order on one supervised worker.
   Register before starting; null/full/active registrations fail. A concurrent
   start is refused. A completed app can be armed again, but closed windows are
@@ -66,13 +66,13 @@ completion, and presentation pacing is not a scene-update clock.")
 Minimal starter (no caller-written keep-alive loop):
 
 ```c
-static void onStart(Application *app, void *userdata) {
-    (void)app; (void)userdata;
+static fn onStart(Application *app, any userdata) {
+    ()app; ()userdata;
     // Worker work here. Use Application_invoke for native/UI work.
     // Return normally to keep windows alive; Application_close(app) to quit all.
 }
 
-int main(void) {
+int main() {
     Application *app = Application("example");
     Frame *frame = Frame("example", 800, 600);
     if (!app || !frame || !Frame_attachApplication(frame, app) ||
