@@ -19,7 +19,7 @@ static int g_fail = 0;
 
 #include "test_application.h"
 // Verify Panel construction, placement, painting, tree queries, and cleanup.
-int main(void) {
+int main() {
     ElementDesc d = {0};
     d.width = 200; d.height = 80;
     d.anchor = PART_CENTER; d.pivot = PART_CENTER;

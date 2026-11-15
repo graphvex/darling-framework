@@ -1,15 +1,13 @@
 #ifndef DARLING_C23_EVENT_INVOKE_H
 #define DARLING_C23_EVENT_INVOKE_H
 
-#include <stdbool.h>
-#include <stdint.h>
-
+#include "vex.h"
 #include "ui/element.h"
 
 // darling R4 — c23/event_invoke.h
 //
 // THE EVENT INVOKER. Every element is an event target. Each event KIND has a
-// handler struct (its ()()s); each class opts in with IMPLEMENT_<KIND>_EVENT,
+// handler struct (its (fn)()s); each class opts in with IMPLEMENT_<KIND>_EVENT,
 // which generates <Class>_add<Kind>Event from the class name — the `##` IS the
 // class:
 //
@@ -43,39 +41,39 @@ typedef struct Key { int code; } Key;
 typedef struct Touch { f32 x, y; int id; } Touch;
 typedef struct Document { const char *text; u32 start, end; } Document;
 
-// ── handler structs (the ()()s) ─────────────────────────────────────────────
+// ── handler structs (the (fn)()s) ─────────────────────────────────────────────
 typedef struct MouseEvent {
-    void (*onDown)(Element *element, const Mouse *mouse, void *userdata);
-    void (*onUp)(Element *element, const Mouse *mouse, void *userdata);
-    void (*onMove)(Element *element, const Mouse *mouse, void *userdata);
-    void (*onDrag)(Element *element, const Mouse *mouse, void *userdata);
-    void (*onEnter)(Element *element, const Mouse *mouse, void *userdata);
-    void (*onLeave)(Element *element, const Mouse *mouse, void *userdata);
-    void *userdata;
+    fn (*onDown)(Element *element, const Mouse *mouse, any userdata);
+    fn (*onUp)(Element *element, const Mouse *mouse, any userdata);
+    fn (*onMove)(Element *element, const Mouse *mouse, any userdata);
+    fn (*onDrag)(Element *element, const Mouse *mouse, any userdata);
+    fn (*onEnter)(Element *element, const Mouse *mouse, any userdata);
+    fn (*onLeave)(Element *element, const Mouse *mouse, any userdata);
+    any userdata;
 } MouseEvent;
 typedef struct ScrollEvent {
-    void (*onScroll)(Element *element, const Scroll *scroll, void *userdata);
-    void *userdata;
+    fn (*onScroll)(Element *element, const Scroll *scroll, any userdata);
+    any userdata;
 } ScrollEvent;
 typedef struct ZoomEvent {
-    void (*onZoom)(Element *element, const Zoom *zoom, void *userdata);
-    void *userdata;
+    fn (*onZoom)(Element *element, const Zoom *zoom, any userdata);
+    any userdata;
 } ZoomEvent;
 typedef struct KeyEvent {
-    void (*onDown)(Element *element, const Key *key, void *userdata);
-    void (*onUp)(Element *element, const Key *key, void *userdata);
-    void *userdata;
+    fn (*onDown)(Element *element, const Key *key, any userdata);
+    fn (*onUp)(Element *element, const Key *key, any userdata);
+    any userdata;
 } KeyEvent;
 typedef struct TouchEvent {
-    void (*onDown)(Element *element, const Touch *touch, void *userdata);
-    void (*onMove)(Element *element, const Touch *touch, void *userdata);
-    void (*onUp)(Element *element, const Touch *touch, void *userdata);
-    void *userdata;
+    fn (*onDown)(Element *element, const Touch *touch, any userdata);
+    fn (*onMove)(Element *element, const Touch *touch, any userdata);
+    fn (*onUp)(Element *element, const Touch *touch, any userdata);
+    any userdata;
 } TouchEvent;
 typedef struct DocumentEvent {
-    void (*onChanged)(Element *element, const Document *document, void *userdata);
-    void (*onSelected)(Element *element, const Document *document, void *userdata);
-    void *userdata;
+    fn (*onChanged)(Element *element, const Document *document, any userdata);
+    fn (*onSelected)(Element *element, const Document *document, any userdata);
+    any userdata;
 } DocumentEvent;
 
 // ── the base register (Element is itself a target) ──────────────────────────
@@ -115,11 +113,11 @@ typedef struct Event {
     f32 dx, dy;       // scroll / drag delta
     f32 magnitude;    // zoom scale (1.0 = none)
     int   key;          // key code or drag button
-    void *native;       // borrowed OS event (nullable)
+    any native;       // borrowed OS event (nullable)
 } Event;
 
 bool Element_dispatchEvent(Element *root, const Event *event);
-void Element_clearEvents(Element *root);
-int  Element_eventBindingCount(void);
+fn Element_clearEvents(Element *root);
+int  Element_eventBindingCount();
 
 #endif // DARLING_C23_EVENT_INVOKE_H

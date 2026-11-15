@@ -16,8 +16,8 @@
 #define CHROME_CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); Frame_destroy(frame); return 1; } } while (0)
 
 // Requests native closure when the interactive chrome sample's exit panel is clicked.
-static void chromeClose(Element *element, const Mouse *mouse, void *userdata) {
-    (void)element; (void)mouse;
+static fn chromeClose(Element *element, const Mouse *mouse, any userdata) {
+    (fn)element; (fn)mouse;
     Window_setShouldClose(Frame_window(userdata), true);
 }
 

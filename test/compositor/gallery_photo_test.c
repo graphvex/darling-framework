@@ -19,7 +19,7 @@
 // from this file's own compiled path so the test does not depend on the
 // directory it happens to be launched from, and honour an explicit
 // FILTER_GALLERY_SOURCE_RESOURCE when the build supplies one.
-static const char *galleryPhotoPath(void) {
+static const char *galleryPhotoPath() {
     static char resolved[4096];
     if (resolved[0] != '\0')
         return resolved;
@@ -39,8 +39,8 @@ static const char *galleryPhotoPath(void) {
 // Tests bounded photo decoding, bundled lookup, orientation, and rejection recovery.
 int main(int argc, char **argv) {
 #if !defined(VEX_PLATFORM_APPLE)
-    (void) argc;
-    (void) argv;
+    (fn) argc;
+    (fn) argv;
     puts("gallery_photo_test: skipped on non-Apple platform");
     return 0;
 #else

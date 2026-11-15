@@ -10,8 +10,8 @@
 #include "test_application.h"
 
 // Supplies a fixed Surface clock for deterministic native resize publication.
-static u64 frozenNow(void *context) {
-    (void) context;
+static u64 frozenNow(any context) {
+    (fn) context;
     return 1000000000ULL;
 }
 
@@ -19,7 +19,7 @@ static u64 frozenNow(void *context) {
     fprintf(stderr, "FAIL %d: %s\n", __LINE__, #condition); return 1; } } while (0)
 
 // Verifies each native size change publishes immediately without extra repaint.
-int main(void) {
+int main() {
     Frame *frame = Frame("live resize publication", 240, 160);
     CHECK(frame);
     Window *window = Frame_window(frame);
@@ -43,7 +43,7 @@ int main(void) {
         CHECK(Surface_width(surface) == (unsigned) width && Surface_height(surface) == (unsigned) height);
         CHECK(Surface_getPresentCount(surface) == ++count);
         CHECK(Surface_getFPSCap(surface) == 30);
-        void *published = Window_presentSurfaceContents(window);
+        any published = Window_presentSurfaceContents(window);
         if (!published) {
             Frame_destroy(frame);
             fprintf(stderr, "SKIP: native IOSurface seam unavailable\n");

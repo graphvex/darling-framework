@@ -33,25 +33,25 @@
 
 typedef struct Frame Frame;
 
-Frame *Frame_0(void);
+Frame *Frame_0();
 Frame *Frame_1(const char *title);
 Frame *Frame_3(const char *title, int widthPx, int heightPx);
 // Public construction is `Frame(...)` — the arity chooser picks _0/_1/_3 by
 // argument count. The `_N` spellings are implementation, not call sites.
 #define FRAME_CHOOSER(_0, _1, _2, _3, NAME, ...) NAME
 #define Frame(...) FRAME_CHOOSER(dummy __VA_OPT__(,) __VA_ARGS__, Frame_3, Frame_3, Frame_1, Frame_0)(__VA_ARGS__)
-void Frame_destroy(Frame *frame);
+fn Frame_destroy(Frame *frame);
 
 Window *Frame_window(const Frame *frame);
 Surface *Frame_surface(const Frame *frame);   // the owned present seam
 Board *Frame_contentBoard(const Frame *frame); // borrowed content callback/generation board
-void Frame_setTitle(Frame *frame, const char *title);
+fn Frame_setTitle(Frame *frame, const char *title);
 // Paint color only: alpha never changes OS window transparency.
-void Frame_setBackground(Frame *frame, Color color);
-void Frame_setBackgroundColor(Frame *frame, Color color);   // alias
+fn Frame_setBackground(Frame *frame, Color color);
+fn Frame_setBackgroundColor(Frame *frame, Color color);   // alias
 Color Frame_background(const Frame *frame);
-void Frame_setTransparent(Frame *frame, bool transparent);  // OS window see-through
-void Frame_setBlur(Frame *frame, f32 radius);             // frosted backdrop blur (0 = none)
+fn Frame_setTransparent(Frame *frame, bool transparent);  // OS window see-through
+fn Frame_setBlur(Frame *frame, f32 radius);             // frosted backdrop blur (0 = none)
 
 // ── Liquid Glass (macOS-exclusive, capability-gated) ─────────────────────────
 // Liquid Glass has no cross-platform equivalent, so it is a platform-exclusive
@@ -61,8 +61,8 @@ void Frame_setBlur(Frame *frame, f32 radius);             // frosted backdrop bl
 typedef WindowLiquidGlassDesc FrameLiquidGlassDesc;
 #define FRAME_LIQUID_GLASS_STYLE_REGULAR WINDOW_LIQUID_GLASS_STYLE_REGULAR
 #define FRAME_LIQUID_GLASS_STYLE_CLEAR   WINDOW_LIQUID_GLASS_STYLE_CLEAR
-bool Frame_macOS_hasLiquidGlass(void);
-void Frame_macOS_setLiquidGlass(Frame *frame, const FrameLiquidGlassDesc *desc);
+bool Frame_macOS_hasLiquidGlass();
+fn Frame_macOS_setLiquidGlass(Frame *frame, const FrameLiquidGlassDesc *desc);
 bool Frame_macOS_getLiquidGlass(const Frame *frame, FrameLiquidGlassDesc *out);
 
 // Children. The Frame's content is ONE Element (Frame_element); Frame_addPanel
@@ -86,53 +86,53 @@ Rect Frame_root(const Frame *frame);
 // ── Windows ─────────────────────────────────────────────────────────────────
 // A Frame is a real window. Frames form an OWNERSHIP TREE: closing an owner
 // closes its children (and theirs). Frame_show/hide only toggle the OS window.
-void Frame_show(Frame *frame);
-void Frame_hide(Frame *frame);
-void Frame_close(Frame *frame);            // destroy this frame + its children
+fn Frame_show(Frame *frame);
+fn Frame_hide(Frame *frame);
+fn Frame_close(Frame *frame);            // destroy this frame + its children
 bool Frame_isClosed(const Frame *frame);
-void  Frame_setOwner(Frame *frame, Frame *owner);
+fn  Frame_setOwner(Frame *frame, Frame *owner);
 Frame *Frame_owner(const Frame *frame);
 
 // ── Lifecycle hook ──────────────────────────────────────────────────────────
 // Fired just before a frame is destroyed (on Frame_close). Generic: the input
 // layer uses it to drop its registrations, so frame.c never learns about input.
-typedef void (*FrameCloseFn)(Frame *frame, void *userdata);
-void Frame_onClose(Frame *frame, FrameCloseFn fn, void *userdata);
+typedef fn (*FrameCloseFn)(Frame *frame, any userdata);
+fn Frame_onClose(Frame *frame, FrameCloseFn fn, any userdata);
 
 // Compatibility Application starter: attach unattached live Frames, run until
 // ALL windows close, then detach. Caller retains/destroys the Frame handles.
 // Inside an active Application, return to Application_start instead of nesting.
-void Frame_runAll(Frame *frame);
+fn Frame_runAll(Frame *frame);
 // Attach borrowed Frame/window to an Application; destroy unregisters it.
 // Frames constructed from Application_invoke/poll auto-attach to that app.
 bool Frame_attachApplication(Frame *frame, Application *application);
 Application *Frame_application(const Frame *frame);
-void Frame_destroyApplicationFrames(Application *application);
+fn Frame_destroyApplicationFrames(Application *application);
 
 // Presentation ceilings: -1 uncapped, positive FPS. Focus overrides: 0 inherits.
 // Default base 60, focused inherits, unfocused 1. 120 is an explicit opt-in.
-void Frame_setFPSCap(Frame *frame, int fps);
-void Frame_setFPSCapWhenFocusGain(Frame *frame, int fps);
-void Frame_setFPSCapWhenFocusLost(Frame *frame, int fps);
+fn Frame_setFPSCap(Frame *frame, int fps);
+fn Frame_setFPSCapWhenFocusGain(Frame *frame, int fps);
+fn Frame_setFPSCapWhenFocusLost(Frame *frame, int fps);
 int Frame_getFPSCap(const Frame *frame);
 int Frame_getFPSCapWhenFocusGain(const Frame *frame);
 int Frame_getFPSCapWhenFocusLost(const Frame *frame);
 int Frame_getEffectiveFPSCap(const Frame *frame);
 
-void Frame_paint(const Frame *frame, DisplayList *dl);
+fn Frame_paint(const Frame *frame, DisplayList *dl);
 // Surface revalidates its Boards; the content Board revalidates/paints the tree,
 // publishes its generation, then Surface presents (GPU zero-copy or RGBA).
 // Frame_revalidate lives in properties/revalidate.h (overloaded by arity).
-void Frame_render(Frame *frame);        // compatibility entry to Frame_revalidate
-void Frame_invalidate(Frame *frame);    // mark for repaint; the runner paints it
-void Frame_invalidateElement(Element *root);   // invalidate the frame owning root
-void Frame_run(Frame *frame);           // show the window and loop until it closes
+fn Frame_render(Frame *frame);        // compatibility entry to Frame_revalidate
+fn Frame_invalidate(Frame *frame);    // mark for repaint; the runner paints it
+fn Frame_invalidateElement(Element *root);   // invalidate the frame owning root
+fn Frame_run(Frame *frame);           // show the window and loop until it closes
 
 // ── screenshots ─────────────────────────────────────────────────────────────
 // Grab what a frame actually drew. Frame_capture re-renders and returns the
 // Surface's present Image (0xRRGGBBAA) — the graphvex CAPTURE(&image) macro is
 // the backend-level equivalent. Frame_savePNG writes it to disk for tests/agents.
-Frame *Frame_active(void);
+Frame *Frame_active();
 Image *Frame_capture(Frame *frame);
 bool   Frame_savePNG(Frame *frame, const char *path);
 

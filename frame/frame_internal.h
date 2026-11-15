@@ -14,7 +14,7 @@
 bool Frame_ownPanel(Frame *frame, Panel *panel, int index);
 
 // Unlink and destroy every panel the frame owns (the wrappers + their Elements).
-void Frame_clearPanels(Frame *frame);
+fn Frame_clearPanels(Frame *frame);
 
 // The revalidate preamble: true when the frame is ready to revalidate. When the
 // frame has no size yet, this sizes it from the window (which repaints) and

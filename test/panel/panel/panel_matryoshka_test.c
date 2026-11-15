@@ -28,7 +28,7 @@ static Color layerColor(int i) {
 
 #include "test_application.h"
 // Exercise layout, paint, and teardown for a deeply nested Panel chain.
-int main(void) {
+int main() {
     Panel *layers[LAYERS];
     f32 sizes[LAYERS];
 

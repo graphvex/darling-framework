@@ -22,7 +22,7 @@ static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 #include "test_application.h"
 // Check clamping, content placement, resizing, painting, and ownership.
-int main(void) {
+int main() {
     ScrollPanel *sp = ScrollPanel(200, 150);
     CHECK(sp != nullptr);
     CHECK(ScrollPanel_graphics(sp) != nullptr);

@@ -65,7 +65,7 @@
  * Dispatch / lifecycle:
  *   - Element_dispatchEvent(root, event)
  *   - Element_clearEvents(root)
- *   - Element_eventBindingCount(void)
+ *   - Element_eventBindingCount()
  * ============================================================================
  */
 
@@ -98,7 +98,7 @@ static int s_count = 0;
 static int s_capacity = 0;
 
 // Stores one typed handler record for an Element and event group.
-static Element *bind(Element *element, int group, const void *handlers, bytes size) {
+static Element *bind(Element *element, int group, const_any handlers, bytes size) {
     if (!element) return nullptr;
     for (int i = 0; i < s_count; i++) {
         if (s_bindings[i].element == element && s_bindings[i].group == group) {
@@ -170,7 +170,7 @@ static bool invoke(const Binding *b, const Event *event) {
         case GRP_MOUSE: {
             const Mouse mouse = { ev.x, ev.y, ev.key };
             const MouseEvent *h = &binding.h.mouse;
-            void (*fn)(Element *, const Mouse *, void *) = nullptr;
+            fn (*fn)(Element *, const Mouse *, any ) = nullptr;
             switch (ev.kind) {
                 case EV_MOUSE_DOWN:  fn = (*h).onDown;  break;
                 case EV_MOUSE_UP:    fn = (*h).onUp;    break;
@@ -194,7 +194,7 @@ static bool invoke(const Binding *b, const Event *event) {
         case GRP_KEY: {
             const Key key = { ev.key };
             const KeyEvent *h = &binding.h.key;
-            void (*fn)(Element *, const Key *, void *) = nullptr;
+            fn (*fn)(Element *, const Key *, any ) = nullptr;
             if (ev.kind == EV_KEY_DOWN) fn = (*h).onDown;
             else if (ev.kind == EV_KEY_UP) fn = (*h).onUp;
             if (fn) { fn(element, &key, (*h).userdata); return true; }
@@ -202,7 +202,7 @@ static bool invoke(const Binding *b, const Event *event) {
         case GRP_TOUCH: {
             const Touch touch = { ev.x, ev.y, ev.key };
             const TouchEvent *h = &binding.h.touch;
-            void (*fn)(Element *, const Touch *, void *) = nullptr;
+            fn (*fn)(Element *, const Touch *, any ) = nullptr;
             if (ev.kind == EV_TOUCH_DOWN) fn = (*h).onDown;
             else if (ev.kind == EV_TOUCH_MOVE) fn = (*h).onMove;
             else if (ev.kind == EV_TOUCH_UP) fn = (*h).onUp;
@@ -211,7 +211,7 @@ static bool invoke(const Binding *b, const Event *event) {
         case GRP_DOCUMENT: {
             const Document document = { nullptr, 0u, 0u };
             const DocumentEvent *h = &binding.h.document;
-            void (*fn)(Element *, const Document *, void *) = nullptr;
+            fn (*fn)(Element *, const Document *, any ) = nullptr;
             if (ev.kind == EV_DOCUMENT_CHANGED) fn = (*h).onChanged;
             else if (ev.kind == EV_DOCUMENT_SELECTED) fn = (*h).onSelected;
             if (fn) { fn(element, &document, (*h).userdata); return true; }
@@ -250,7 +250,7 @@ static bool under(Element *element, Element *root) {
 }
 
 // Removes registered handlers attached anywhere in the given element subtree.
-void Element_clearEvents(Element *root) {
+fn Element_clearEvents(Element *root) {
     if (!root) return;
     for (int i = 0; i < s_count;) {
         if (under(s_bindings[i].element, root)) {
@@ -262,6 +262,6 @@ void Element_clearEvents(Element *root) {
 }
 
 // Returns the number of currently registered event bindings.
-int Element_eventBindingCount(void) {
+int Element_eventBindingCount() {
     return s_count;
 }

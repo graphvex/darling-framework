@@ -23,8 +23,8 @@ typedef struct {
 
 // Every test opens the same shape of window for now; the point is the WINDOW
 // TREE + the pointer, not the test content yet.
-static void open_test(Panel *panel, void *ud) {
-    (void)panel;
+static fn open_test(Panel *panel, any ud) {
+    (fn)panel;
     TestCase *t = ud;
     Frame *w = Frame((*t).names, 560, 400);
     Frame_setOwner(w, (*t).owner);
@@ -56,7 +56,7 @@ static TestCase kCases[sizeof kInfos / sizeof kInfos[0]];
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Builds the launcher window and attaches a button for each test entry.
-int main(void) {
+int main() {
     Frame *m = Frame("darling — tests", 460, 700);
 
     for (int i = 0; i < kCount; i++) {

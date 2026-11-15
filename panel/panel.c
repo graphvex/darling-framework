@@ -80,7 +80,7 @@ struct Panel {
 };
 
 // Creates a Panel with a default Element descriptor.
-Panel *Panel_0(void) { return Panel_1(nullptr); }
+Panel *Panel_0() { return Panel_1(nullptr); }
 
 // Creates a Panel from a borrowed Element descriptor.
 Panel *Panel_1(const ElementDesc *desc) {
@@ -101,14 +101,14 @@ Panel *Panel_2(f32 width, f32 height) {
 
 // A child wrapper is owned by its parent. Free wrappers recursively; the
 // Element tree is freed exactly once by the root's Panel_destroy.
-static void panel_freeWrapper(Panel *panel) {
+static fn panel_freeWrapper(Panel *panel) {
     for (int i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
     free((*panel).owned);
     free(panel);
 }
 
 // Destroys this wrapper subtree and its owned Element tree.
-void Panel_destroy(Panel *panel) {
+fn Panel_destroy(Panel *panel) {
     if (!panel) return;
     if ((*panel).parent) Panel_disownChild((*panel).parent, panel);   // never leave a dangling slot
     for (int i = 0; i < (*panel).ownedCount; i++) panel_freeWrapper((*panel).owned[i]);
@@ -123,7 +123,7 @@ Element *Panel_graphics(const Panel *panel) {
 }
 
 // ── the ownership seam (called by properties/add.c, properties/remove.c) ────
-void Panel_ownChild(Panel *parent, Panel *child) {
+fn Panel_ownChild(Panel *parent, Panel *child) {
     if (!parent || !child) return;
     if ((*parent).ownedCount == (*parent).ownedCap) {
         int cap = (*parent).ownedCap ? (*parent).ownedCap * 2 : 4;
@@ -163,45 +163,45 @@ Element *Panel_childElement(const Panel *panel, int index) {
 // ── geometry ────────────────────────────────────────────────────────────────
 // Panel_setSize is in properties/set_size.c (grouped by property).
 // Sets the Element's x/y offset.
-void Panel_setOffset(Panel *panel, f32 x, f32 y) {
+fn Panel_setOffset(Panel *panel, f32 x, f32 y) {
     if (panel) Element_setOffset((*panel).graphics, x, y);
 }
 // Sets the Element's anchor mode.
-void Panel_setAnchor(Panel *panel, int anchor) {
+fn Panel_setAnchor(Panel *panel, int anchor) {
     if (panel) Element_setAnchor((*panel).graphics, anchor);
 }
 // Sets the Element's pivot mode.
-void Panel_setPivot(Panel *panel, int pivot) {
+fn Panel_setPivot(Panel *panel, int pivot) {
     if (panel) Element_setPivot((*panel).graphics, pivot);
 }
 // Assigns the Element's tag.
-void Panel_setTag(Panel *panel, const char *tag) {
+fn Panel_setTag(Panel *panel, const char *tag) {
     if (panel) Element_setTag((*panel).graphics, tag);
 }
 
 // ── visual ──────────────────────────────────────────────────────────────────
 // Sets the Element's corner radius.
-void Panel_setRadius(Panel *panel, f32 radius) {
+fn Panel_setRadius(Panel *panel, f32 radius) {
     if (panel) Element_setRadius((*panel).graphics, radius);
 }
 // Sets the Element's background color.
-void Panel_setBackground(Panel *panel, Color color) {
+fn Panel_setBackground(Panel *panel, Color color) {
     if (panel) Element_setBackground((*panel).graphics, color);
 }
 // Sets the Element's border color and width.
-void Panel_setBorder(Panel *panel, Color color, f32 width) {
+fn Panel_setBorder(Panel *panel, Color color, f32 width) {
     if (panel) Element_setBorder((*panel).graphics, color, width);
 }
 // Sets the Element's shadow offset and blur.
-void Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur) {
+fn Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur) {
     if (panel) Element_setShadow((*panel).graphics, offsetX, offsetY, blur);
 }
 // Sets the Element's shadow color.
-void Panel_setShadowColor(Panel *panel, Color color) {
+fn Panel_setShadowColor(Panel *panel, Color color) {
     if (panel) Element_setShadowColor((*panel).graphics, color);
 }
 // Sets whether the Element is visible.
-void Panel_setVisible(Panel *panel, bool visible) {
+fn Panel_setVisible(Panel *panel, bool visible) {
     if (panel) Element_setVisible((*panel).graphics, visible);
 }
 

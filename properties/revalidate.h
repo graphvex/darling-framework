@@ -18,7 +18,7 @@
 
 typedef struct Frame Frame;
 
-void Frame_revalidate_1(Frame *frame);
+fn Frame_revalidate_1(Frame *frame);
 
 #define Frame_revalidate(...) OVERLOAD_DISPATCH(Frame_revalidate, __VA_ARGS__)
 

@@ -49,7 +49,7 @@ Panel *Panel_setSize_3(Panel *panel, f32 width, f32 height) {
 }
 
 // Resizes frame targets and immediately revalidates/presents the new pixel extent.
-void Frame_setSize_3(Frame *frame, int widthPx, int heightPx) {
+fn Frame_setSize_3(Frame *frame, int widthPx, int heightPx) {
     if (!Frame_resizeTargets(frame, widthPx, heightPx))
         return;
     Surface *surface = Frame_surface(frame);

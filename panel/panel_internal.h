@@ -10,7 +10,7 @@
 // these three calls, so panel.c remains a widget and ops never touch the struct.
 
 // Take `child` into `parent`'s owned set and record the parent link.
-void Panel_ownChild(Panel *parent, Panel *child);
+fn Panel_ownChild(Panel *parent, Panel *child);
 // Drop `child` from `parent`'s owned set (does NOT free it). True if it was held.
 bool Panel_disownChild(Panel *parent, Panel *child);
 

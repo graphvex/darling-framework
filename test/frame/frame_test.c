@@ -20,15 +20,15 @@ static int g_fail = 0;
     } while (0)
 
 // Counts invocation of a child Frame's close callback.
-static void onClosed(Frame *frame, void *ud) {
-    (void)frame;
+static fn onClosed(Frame *frame, any ud) {
+    (fn)frame;
     *(int*) ud += 1;
 }
 
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Checks Frame lifecycle, surface sizing, appearance state, panels, and ownership.
-int main(void) {
+int main() {
     Frame *f = Frame("frame test", 400, 300);
     CHECK(f != nullptr);
     CHECK(Frame_window(f) != nullptr);

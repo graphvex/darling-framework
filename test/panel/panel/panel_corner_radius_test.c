@@ -21,14 +21,14 @@ static int g_fail = 0;
     } while (0)
 
 // Read one RGBA pixel from the image using its row stride.
-static void px(const Image *img, int x, int y, int *r, int *g, int *b, int *a) {
+static fn px(const Image *img, int x, int y, int *r, int *g, int *b, int *a) {
     const u8 *p = Image_pixels(img) + (bytes)y * Image_stride(img) + (bytes)x * 4;
     *r = p[0]; *g = p[1]; *b = p[2]; *a = p[3];
 }
 
 #include "test_application.h"
 // Assert circle rasterization at pixel samples and preserve nested radii.
-int main(void) {
+int main() {
     CHECK(Graphics_use(BACKEND_RASTER));
     CHECK(Graphics_resize(64, 64));
 

@@ -47,7 +47,7 @@
  *
  * PRIVATE TYPES:
  * ----------------------------------------------------------------------------
- *   Binding : { Element *graphics; Panel *panel; PointerFn fn; void *userdata; }
+ *   Binding : { Element *graphics; Panel *panel; PointerFn fn; any userdata; }
  *   Cursor  : { Element *root; Element *pressed; Frame *frame;
  *               MouseHandler handler; bool tracked; }
  *
@@ -75,7 +75,7 @@ typedef struct {
     Element *graphics;   // the panel's GraphicsPanel (the hit target)
     Panel *panel;        // the interactable wrapper (handed back on click)
     PointerFn fn;
-    void *userdata;
+    any userdata;
 } Binding;
 
 typedef struct {
@@ -129,7 +129,7 @@ static Binding *bound_at(Element *root, f32 x, f32 y) {
 }
 
 // Pauses for a requested duration, resuming the remainder after an interrupt.
-static void sleep_seconds(d64 s) {
+static fn sleep_seconds(d64 s) {
     if (s <= 0.0) return;
     struct timespec ts;
     ts.tv_sec = (time_t)s;
@@ -146,7 +146,7 @@ Panel *Pointer_hover(Element *root, f32 x, f32 y) {
 }
 
 // Marks the bound panel under the point pressed and invalidates its root.
-void Pointer_press(Element *root, f32 x, f32 y) {
+fn Pointer_press(Element *root, f32 x, f32 y) {
     if (!root) return;
     root = Element_root(root);
     Cursor *c = cursor_open(root);
@@ -158,7 +158,7 @@ void Pointer_press(Element *root, f32 x, f32 y) {
 }
 
 // Clears pressed state and invokes the click callback when released on the same binding.
-void Pointer_release(Element *root, f32 x, f32 y) {
+fn Pointer_release(Element *root, f32 x, f32 y) {
     if (!root) return;
     root = Element_root(root);
     Cursor *c = cursor_open(root);
@@ -171,26 +171,26 @@ void Pointer_release(Element *root, f32 x, f32 y) {
 }
 
 // Invalidates the root after pointer movement so hover state can be repainted.
-void Pointer_move(Element *root, f32 x, f32 y) {
-    (void)x; (void)y;
+fn Pointer_move(Element *root, f32 x, f32 y) {
+    (fn)x; (fn)y;
     if (root) Frame_invalidateElement(Element_root(root));
 }
 
 // Synthesizes a press followed by a release at one point.
-void Pointer_click(Element *root, f32 x, f32 y) {
+fn Pointer_click(Element *root, f32 x, f32 y) {
     Pointer_press(root, x, y);
     Pointer_release(root, x, y);
 }
 
 // Holds the pointer pressed for the requested duration, then releases it.
-void Pointer_hold(Element *root, f32 x, f32 y, d64 seconds) {
+fn Pointer_hold(Element *root, f32 x, f32 y, d64 seconds) {
     Pointer_press(root, x, y);
     sleep_seconds(seconds);
     Pointer_release(root, x, y);
 }
 
 // Synthesizes a press, interpolated movement, and release along a drag path.
-void Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds) {
+fn Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds) {
     if (!root) return;
     const int steps = 30;
     Pointer_press(root, x, y);
@@ -204,7 +204,7 @@ void Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds) {
 
 // ── handlers ────────────────────────────────────────────────────────────────
 // Registers or replaces the click callback associated with a Panel's Element.
-void Pointer_onClick(Panel *panel, PointerFn fn, void *userdata) {
+fn Pointer_onClick(Panel *panel, PointerFn fn, any userdata) {
     Element *graphics = Panel_graphics(panel);
     if (!panel || !graphics) return;
     Binding *b = find_binding(graphics);
@@ -217,7 +217,7 @@ void Pointer_onClick(Panel *panel, PointerFn fn, void *userdata) {
 }
 
 // Adds a Panel to the frame and registers its click callback, returning the Panel.
-Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, void *userdata) {
+Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, any userdata) {
     Panel *p = Frame_addPanel(frame, desc);
     if (p) Pointer_onClick(p, fn, userdata);
     return p;
@@ -227,7 +227,7 @@ Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, vo
 // Every OS event is BOTH the legacy pointer action (click bindings) and a
 // per-element event (Element_add<Kind>Event handlers), dispatched against the
 // cursor's root and bubbled.
-static void track_dispatch(Cursor *c, int kind, f32 x, f32 y,
+static fn track_dispatch(Cursor *c, int kind, f32 x, f32 y,
                            f32 dx, f32 dy, f32 magnitude, int key) {
     Event event = { .kind = kind, .x = x, .y = y, .dx = dx, .dy = dy,
                     .magnitude = magnitude, .key = key };
@@ -235,7 +235,7 @@ static void track_dispatch(Cursor *c, int kind, f32 x, f32 y,
 }
 
 // Updates the native window cursor to match the element under the pointer.
-static void track_cursor(Cursor *c, f32 x, f32 y) {
+static fn track_cursor(Cursor *c, f32 x, f32 y) {
     Window *window = Frame_window((*c).frame);
     if (!window) return;
     WindowCursorType type = (WindowCursorType) Element_cursorAt((*c).root, x, y);
@@ -243,58 +243,58 @@ static void track_cursor(Cursor *c, f32 x, f32 y) {
 }
 
 // Bridges a native mouse-down into element events and the legacy press action.
-static void track_down(void *self, int mouseEvent, u64 nanos) {
-    (void)nanos;
+static fn track_down(any self, int mouseEvent, u64 nanos) {
+    (fn)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_DOWN, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
     Pointer_press((*c).root, x, y);
 }
 // Bridges a native mouse-up into element events and the legacy release action.
-static void track_up(void *self, int mouseEvent, u64 nanos) {
-    (void)nanos;
+static fn track_up(any self, int mouseEvent, u64 nanos) {
+    (fn)nanos;
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_UP, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
     Pointer_release((*c).root, x, y);
 }
 // Bridges native pointer motion to event dispatch, repaint, and cursor tracking.
-static void track_move(void *self, d64 x, d64 y) {
+static fn track_move(any self, d64 x, d64 y) {
     Cursor *c = self;
     track_dispatch(c, EV_MOUSE_MOVE, (f32)x, (f32)y, 0, 0, 1.0f, 0);
     Pointer_move((*c).root, (f32)x, (f32)y);
     track_cursor(c, (f32)x, (f32)y);
 }
 // Accepts repeat callbacks for the adapter interface; repeat events need no action.
-static void track_none0(void *self, int ev, u64 t) { (void)self; (void)ev; (void)t; }
+static fn track_none0(any self, int ev, u64 t) { (fn)self; (fn)ev; (fn)t; }
 // Bridges native movement deltas to a mouse-move event at the current pointer.
-static void track_mod(void *self, d64 dx, d64 dy) {
+static fn track_mod(any self, d64 dx, d64 dy) {
     Cursor *c = self;
     track_dispatch(c, EV_MOUSE_MOVE, (f32)Mouse_x(), (f32)Mouse_y(),
                    (f32)dx, (f32)dy, 1.0f, 0);
 }
 // Bridges native drag motion to event dispatch and cursor tracking.
-static void track_dragf(void *self, int ev, d64 x, d64 y) {
+static fn track_dragf(any self, int ev, d64 x, d64 y) {
     Cursor *c = self;
     track_dispatch(c, EV_MOUSE_DRAG, (f32)x, (f32)y, 0, 0, 1.0f, Mouse_button(ev));
     track_cursor(c, (f32)x, (f32)y);
 }
 // Bridges native scroll deltas to the element event dispatcher.
-static void track_scroll(void *self, d64 dx, d64 dy) {
+static fn track_scroll(any self, d64 dx, d64 dy) {
     Cursor *c = self;
     track_dispatch(c, EV_SCROLL, (f32)Mouse_x(), (f32)Mouse_y(),
                    (f32)dx, (f32)dy, 1.0f, 0);
 }
 // Bridges native magnification gestures to the element event dispatcher.
-static void track_zoom(void *self, d64 magnification) {
+static fn track_zoom(any self, d64 magnification) {
     Cursor *c = self;
     track_dispatch(c, EV_ZOOM, (f32)Mouse_x(), (f32)Mouse_y(),
                    0, 0, (f32)magnification, 0);
 }
 
 // Releases cursor and click-binding records belonging to a closing frame root.
-static void cleanup_on_close(Frame *frame, void *userdata) {
-    (void)userdata;
+static fn cleanup_on_close(Frame *frame, any userdata) {
+    (fn)userdata;
     Element *root = Frame_element(frame);
     for (int i = 0; i < s_curCount; i++) {
         if ((*s_cursors[i]).root != root) continue;
@@ -315,7 +315,7 @@ static void cleanup_on_close(Frame *frame, void *userdata) {
 }
 
 // Installs the native mouse adapter and close cleanup once for this frame.
-void Pointer_track(Frame *frame) {
+fn Pointer_track(Frame *frame) {
     if (!frame) return;
     Element *root = Frame_element(frame);
     Cursor *c = cursor_open(root);

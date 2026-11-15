@@ -22,7 +22,7 @@ IMPLEMENT_CURSOR(ExampleWidget)
 
 #include "test_application.h"
 // Tests cursor inheritance, overrides, masked hits, shared bounds, and teardown.
-int main(void) {
+int main() {
     Panel *parent = Panel(200, 100);
     Panel *child = Panel(50, 50);
     CHECK(parent && child);

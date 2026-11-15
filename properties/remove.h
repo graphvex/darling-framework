@@ -15,7 +15,7 @@ typedef struct Panel Panel;
 typedef struct Frame Frame;
 
 Panel *Panel_remove_1(Panel *child);
-void   Frame_removePanels_1(Frame *frame);
+fn   Frame_removePanels_1(Frame *frame);
 
 #define Panel_remove(...) OVERLOAD_DISPATCH(Panel_remove, __VA_ARGS__)
 #define Frame_removePanels(...) OVERLOAD_DISPATCH(Frame_removePanels, __VA_ARGS__)

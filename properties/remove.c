@@ -48,6 +48,6 @@ Panel *Panel_remove_1(Panel *child) {
 }
 
 // Detaches and destroys every panel currently owned by the frame.
-void Frame_removePanels_1(Frame *frame) {
+fn Frame_removePanels_1(Frame *frame) {
     Frame_clearPanels(frame);
 }

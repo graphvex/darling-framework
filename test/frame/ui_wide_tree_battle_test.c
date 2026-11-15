@@ -10,7 +10,7 @@
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); exit(1); } } while (0)
 
 // Writes a failing capture to the optional battle-artifact directory.
-static void captureEvidence(const Image *image) {
+static fn captureEvidence(const Image *image) {
     const char *dir = getenv("UI_BATTLE_ARTIFACT_DIR");
     if (!dir || !image || !Image_pixels(image)) return;
     const char *name = strrchr(__FILE__, '/');
@@ -23,7 +23,7 @@ static void captureEvidence(const Image *image) {
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline void pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, int x, int y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
@@ -44,7 +44,7 @@ static inline void pixel(const Image *image, int x, int y, Color expected) {
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Exercises all 50,000 child tiles, targeted hit/mutation, reordering, and reclamation.
-int main(void) {
+int main() {
     u32 baseline = PropertyPool_live(PropertyPool_default());
     Frame *frame = Frame("50k children battle", COLUMNS * TILE, CHILDREN / COLUMNS * TILE);
     CHECK(frame);

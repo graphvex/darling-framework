@@ -3,20 +3,21 @@
 
 // Bundled photograph and deterministic captions, not a production image loader.
 // All three views execute Graphvex's real Vulkan scoped scatter pass.
+
+#include "vex.h"
 #include "compositor/gpu_scope.h"
-#include "graphvex/lang/image.h"
+#include "lang/image.h"
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "compositor/gallery_photo.h"
-#include "exception/throw.h"
 
 enum { FILTER_GALLERY_WIDTH = 360, FILTER_GALLERY_HEIGHT = 300,
        FILTER_GALLERY_GPU_PIXEL_BUDGET = GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT }; // cold allocation/work safety budget
 
 // Writes one in-bounds RGBA pixel into the gallery's CPU fixture image.
-static inline void FilterGallery_pixel(Image *image, unsigned x, unsigned y, Color color) {
+static inline fn FilterGallery_pixel(Image *image, unsigned x, unsigned y, Color color) {
     if (x >= Image_width(image) || y >= Image_height(image))
         return;
     u8 *pixel = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
@@ -27,7 +28,7 @@ static inline void FilterGallery_pixel(Image *image, unsigned x, unsigned y, Col
 }
 
 // Small uppercase fixture font; readable labels do not claim Label/text support.
-static inline void FilterGallery_text(Image *image, unsigned x, unsigned y,
+static inline fn FilterGallery_text(Image *image, unsigned x, unsigned y,
                                       const char *text, unsigned scale, Color color) {
     static const u8 letters[26][7] = {
         {14,17,17,31,17,17,17}, {30,17,17,30,17,17,30}, {14,17,16,16,16,17,14},
@@ -76,7 +77,7 @@ static inline Image *FilterGallery_photoFromPath(const char *path, unsigned widt
 // The gallery photo is the shared sunflower in _resources/ at the workspace
 // root. Resolve it from this header's own compiled path, so the picture is
 // found whether the binary is launched from the repository or from a .app.
-static inline const char *FilterGallery_photoPath(void) {
+static inline const char *FilterGallery_photoPath() {
     static char resolved[4096];
     if (resolved[0] != '\0')
         return resolved;

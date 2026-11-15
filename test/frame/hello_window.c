@@ -13,7 +13,7 @@
 #include "test_application.h"
 
 // Opens the sample Frame and keeps its Application alive until window closure.
-int main(void) {
+int main() {
     Frame *frame = Frame("hello from b.sh", 900, 600);
     if (!frame) return B_TEST_SKIP;
     Darling_testKeepOpen();

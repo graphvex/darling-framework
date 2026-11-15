@@ -21,7 +21,7 @@ static int g_fail = 0;
 
 #include "test_application.h"
 // Check that shadow paint bounds expand without changing layout geometry.
-int main(void) {
+int main() {
     Panel *p = Panel();
     Panel_setSize(p, 100, 50);
     Panel_setBackground(p, COLOR_RGBA(200, 100, 100, 255));

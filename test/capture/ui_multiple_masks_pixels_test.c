@@ -10,7 +10,7 @@
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); exit(1); } } while (0)
 
 // Writes a failing capture to the optional battle-artifact directory.
-static void captureEvidence(const Image *image) {
+static fn captureEvidence(const Image *image) {
     const char *dir = getenv("UI_BATTLE_ARTIFACT_DIR");
     if (!dir || !image || !Image_pixels(image)) return;
     const char *name = strrchr(__FILE__, '/');
@@ -23,7 +23,7 @@ static void captureEvidence(const Image *image) {
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline void pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, int x, int y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
@@ -62,7 +62,7 @@ static f32 distance(f32 x, f32 y, f32 left, f32 top, f32 width, f32 height, f32 
     return fminf(fmaxf(qx, qy), 0) + hypotf(fmaxf(qx, 0), fmaxf(qy, 0)) - radius;
 }
 // Compares interior pixels against the intersection of both rounded shapes.
-static void verify(Image *shot) {
+static fn verify(Image *shot) {
     for (int y = 0; y < 128; ++y) {
         for (int x = 0; x < 128; ++x) {
             f32 outer = distance(x + 0.5f, y + 0.5f, 16, 16, 96, 96, 30);
@@ -75,7 +75,7 @@ static void verify(Image *shot) {
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Checks independently-oracled rounded-mask intersection on GPU and Raster.
-int main(void) {
+int main() {
     ElementDesc od = {.width = 96, .height = 96, .offsetX = 16, .offsetY = 16, .radius = 30};
     ElementDesc id = {.width = 88, .height = 88, .offsetX = 16, .offsetY = -8, .radius = 28};
     ElementDesc ld = {.width = 256, .height = 256, .offsetX = -64, .offsetY = -64, .background = COLOR_WHITE};

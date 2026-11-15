@@ -28,7 +28,7 @@ static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 #include "test_application.h"
 // Verify property operations, detachment ownership, location arities, and bounds.
-int main(void) {
+int main() {
     Panel *root = Panel(200, 200);
     Panel *a = Panel(50, 50);
     Panel *b = Panel(50, 50);

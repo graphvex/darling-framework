@@ -43,7 +43,7 @@
  */
 
 // Sums ancestor offsets for node i, stopping at an invalid link or bounded walk.
-static void node_origin(const HitNode *n, int count, int i, f32 *ox, f32 *oy) {
+static fn node_origin(const HitNode *n, int count, int i, f32 *ox, f32 *oy) {
     f32 x = 0.0f, y = 0.0f;
     int cur = i, guard = 0;
     while (cur >= 0 && cur < count && guard++ <= count) {

@@ -28,46 +28,46 @@ typedef struct Trace {
 } Trace;
 
 // Appends a handler identifier while the fixed trace has room.
-static void push(Trace *t, int id) {
+static fn push(Trace *t, int id) {
     if ((*t).count < 16) (*t).ids[(*t).count++] = id;
 }
 
 // Records the first child scroll handler and its vertical delta.
-static void on_scroll_child(Element *e, const Scroll *s, void *ud) {
-    (void)e;
+static fn on_scroll_child(Element *e, const Scroll *s, any ud) {
+    (fn)e;
     Trace *t = ud;
     push(t, 1);
     (*t).last_dy = (*s).dy;   // stash the delta we were handed
 }
 // Records the replaceable child scroll handler in the trace.
-static void on_scroll_child2(Element *e, const Scroll *s, void *ud) {
-    (void)e; (void)s;
+static fn on_scroll_child2(Element *e, const Scroll *s, any ud) {
+    (fn)e; (fn)s;
     push((Trace*) ud, 2);
 }
 // Records the root scroll callback for bubbling-order assertions.
-static void on_scroll_root(Element *e, const Scroll *s, void *ud) {
-    (void)e; (void)s;
+static fn on_scroll_root(Element *e, const Scroll *s, any ud) {
+    (fn)e; (fn)s;
     push((Trace*) ud, 3);
 }
 // Records delivery of a hit-tested mouse-down callback.
-static void on_mouse_down(Element *e, const Mouse *m, void *ud) {
-    (void)e; (void)m;
+static fn on_mouse_down(Element *e, const Mouse *m, any ud) {
+    (fn)e; (fn)m;
     push((Trace*) ud, 4);
 }
 // Records root-routed key-down delivery.
-static void on_key_down(Element *e, const Key *k, void *ud) {
-    (void)e; (void)k;
+static fn on_key_down(Element *e, const Key *k, any ud) {
+    (fn)e; (fn)k;
     push((Trace*) ud, 5);
 }
 // Records root-routed document-change delivery.
-static void on_document_changed(Element *e, const Document *d, void *ud) {
-    (void)e; (void)d;
+static fn on_document_changed(Element *e, const Document *d, any ud) {
+    (fn)e; (fn)d;
     push((Trace*) ud, 6);
 }
 
 #include "test_application.h"
 // Verifies event replacement, hit dispatch, bubbling order, and clearing.
-int main(void) {
+int main() {
     ElementDesc dd = {0};
     dd.width = 200; dd.height = 200;
     Element *root = Element(&dd);

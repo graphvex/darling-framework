@@ -12,7 +12,7 @@
 #include "drawable/picture.h"
 
 // Exercises Picture construction, painting, accessors, projection, and borrowing.
-static void widget(void) {
+static fn widget() {
     Image *image = Image_2(2, 1);
     Image_fill(image, COLOR_RGBA(10, 20, 30, 255));
     assert(image && Image_pixels(image));
@@ -76,7 +76,7 @@ static void widget(void) {
 }
 
 // Checks rejected dimensions/formats, diagnostics, and preservation of prior state.
-static void invalid(void) {
+static fn invalid() {
     Picture *picture = Picture();
     assert(picture);
     Picture_setSize(picture, 5, 7);
@@ -124,19 +124,19 @@ static void invalid(void) {
 
 static unsigned textureReferences;
 // Records a successful retained reference to the fake GPU texture.
-static bool retainTexture(void *texture) {
+static bool retainTexture(any texture) {
     assert(texture == &textureReferences);
     ++textureReferences;
     return true;
 }
 // Releases the fake texture reference acquired during Image binding.
-static bool releaseTexture(void *texture) {
+static bool releaseTexture(any texture) {
     assert(texture == &textureReferences && textureReferences);
     --textureReferences;
     return true;
 }
 // Proves Picture admits a GPU-only borrowed Image without CPU pixel storage.
-static void gpuOnlyAdmission(void) {
+static fn gpuOnlyAdmission() {
     // Headless widget admission only; actual texture pixels are proven by R3.
     Image *image = Image(8, 4);
     assert(Image_bindGpu(image, &textureReferences, image, image, retainTexture, releaseTexture));
@@ -153,7 +153,7 @@ static void gpuOnlyAdmission(void) {
 }
 
 // Runs the normal widget, invalid-input, and GPU-only admission scenarios.
-int main(void) {
+int main() {
     widget();
     invalid();
     gpuOnlyAdmission();

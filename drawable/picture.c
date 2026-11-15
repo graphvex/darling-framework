@@ -60,12 +60,12 @@ Picture *Picture_1(const Image *image) {
 }
 
 // Creates an empty Picture with no borrowed image.
-Picture *Picture_0(void) {
+Picture *Picture_0() {
     return Picture_1(nullptr);
 }
 
 // Detaches and destroys the Element wrapper; the borrowed Image remains owned by its caller.
-void Picture_destroy(Picture *picture) {
+fn Picture_destroy(Picture *picture) {
     if (!picture)
         return;
     Element *graphics = (*picture).graphics;
@@ -85,7 +85,7 @@ const Image *Picture_image(const Picture *picture) {
 }
 
 // Replaces the borrowed drawable RGBA8 image after validating its metadata.
-void Picture_setImage(Picture *picture, const Image *image) {
+fn Picture_setImage(Picture *picture, const Image *image) {
     if (!picture)
         return;
     if (image && (!Image_isValid(image) || Image_format(image) != IMAGE_FORMAT_RGBA8 ||
@@ -97,7 +97,7 @@ void Picture_setImage(Picture *picture, const Image *image) {
 }
 
 // Sets finite, nonnegative display dimensions; invalid dimensions are rejected.
-void Picture_setSize(Picture *picture, f32 width, f32 height) {
+fn Picture_setSize(Picture *picture, f32 width, f32 height) {
     if (!picture)
         return;
     if (!isfinite(width) || !isfinite(height) || width < 0 || height < 0) {
@@ -108,7 +108,7 @@ void Picture_setSize(Picture *picture, f32 width, f32 height) {
 }
 
 // Sets the element offset when both coordinates are finite.
-void Picture_setLocation(Picture *picture, f32 x, f32 y) {
+fn Picture_setLocation(Picture *picture, f32 x, f32 y) {
     if (!picture)
         return;
     if (!isfinite(x) || !isfinite(y)) {
@@ -132,7 +132,7 @@ Point Picture_location(const Picture *picture) {
     return (Point){rect.x, rect.y};
 }
 
-static void format(const Picture *picture, bool structure, char *dest, bytes cap,
+static fn format(const Picture *picture, bool structure, char *dest, bytes cap,
                    bool *outTruncated) {
     if (!dest && cap) {
         if (outTruncated)
@@ -157,10 +157,10 @@ static void format(const Picture *picture, bool structure, char *dest, bytes cap
 }
 
 // Writes a bounded value summary and reports whether it was truncated.
-void Picture_toString(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
+fn Picture_toString(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
     format(picture, false, dest, cap, outTruncated);
 }
 // Writes a bounded one-level field projection and reports truncation.
-void Picture_toStringStruct(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
+fn Picture_toStringStruct(const Picture *picture, char *dest, bytes cap, bool *outTruncated) {
     format(picture, true, dest, cap, outTruncated);
 }

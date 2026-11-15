@@ -36,12 +36,12 @@
 
 typedef struct Panel Panel;
 
-Panel *Panel_0(void);
+Panel *Panel_0();
 Panel *Panel_1(const ElementDesc *desc);
 Panel *Panel_2(f32 width, f32 height);
 #define PANEL_CHOOSER(_0, _1, _2, NAME, ...) NAME
 #define Panel(...) PANEL_CHOOSER(dummy __VA_OPT__(,) __VA_ARGS__, Panel_2, Panel_1, Panel_0)(__VA_ARGS__)
-void   Panel_destroy(Panel *panel);            // frees the attached Element
+fn   Panel_destroy(Panel *panel);            // frees the attached Element
 Element *Panel_graphics(const Panel *panel);   // the attached Element (borrowed)
 
 // ── tree (Panels nest; the child is owned by its parent) ────────────────────
@@ -52,18 +52,18 @@ Panel *Panel_parent(const Panel *panel);
 
 // ── geometry (forwards to the Element) ──────────────────────────────────────
 // Panel_setSize lives in properties/set_size.h (overloaded by arity).
-void Panel_setOffset(Panel *panel, f32 x, f32 y);
-void Panel_setAnchor(Panel *panel, int anchor);     // PART_* on the parent
-void Panel_setPivot(Panel *panel, int pivot);       // PART_* on the panel
-void Panel_setTag(Panel *panel, const char *tag);
+fn Panel_setOffset(Panel *panel, f32 x, f32 y);
+fn Panel_setAnchor(Panel *panel, int anchor);     // PART_* on the parent
+fn Panel_setPivot(Panel *panel, int pivot);       // PART_* on the panel
+fn Panel_setTag(Panel *panel, const char *tag);
 
 // ── visual ──────────────────────────────────────────────────────────────────
-void Panel_setRadius(Panel *panel, f32 radius);
-void Panel_setBackground(Panel *panel, Color color);
-void Panel_setBorder(Panel *panel, Color color, f32 width);
-void Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur);
-void Panel_setShadowColor(Panel *panel, Color color);
-void Panel_setVisible(Panel *panel, bool visible);
+fn Panel_setRadius(Panel *panel, f32 radius);
+fn Panel_setBackground(Panel *panel, Color color);
+fn Panel_setBorder(Panel *panel, Color color, f32 width);
+fn Panel_setShadow(Panel *panel, f32 offsetX, f32 offsetY, f32 blur);
+fn Panel_setShadowColor(Panel *panel, Color color);
+fn Panel_setVisible(Panel *panel, bool visible);
 
 // ── queries (null-safe) ─────────────────────────────────────────────────────
 f32 Panel_width(const Panel *panel);

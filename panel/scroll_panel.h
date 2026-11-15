@@ -24,31 +24,31 @@
 
 typedef struct ScrollPanel ScrollPanel;
 
-ScrollPanel *ScrollPanel_0(void);
+ScrollPanel *ScrollPanel_0();
 ScrollPanel *ScrollPanel_1(f32 viewSize);              // square viewport
 ScrollPanel *ScrollPanel_2(f32 viewW, f32 viewH);
 #define SCROLL_PANEL_CHOOSER(_0, _1, _2, NAME, ...) NAME
 #define ScrollPanel(...) SCROLL_PANEL_CHOOSER(dummy __VA_OPT__(,) __VA_ARGS__, ScrollPanel_2, ScrollPanel_1, ScrollPanel_0)(__VA_ARGS__)
-void ScrollPanel_destroy(ScrollPanel *scroll);
+fn ScrollPanel_destroy(ScrollPanel *scroll);
 
 // The viewport Element (clipped) — add it to a Frame/tree; it owns the content.
 Element *ScrollPanel_graphics(const ScrollPanel *scroll);
 Element *ScrollPanel_content(const ScrollPanel *scroll);
-void ScrollPanel_setContent(ScrollPanel *scroll, Element *content);   // takes ownership
+fn ScrollPanel_setContent(ScrollPanel *scroll, Element *content);   // takes ownership
 
 // Viewport / content extents (native px).
-void ScrollPanel_setViewportSize(ScrollPanel *scroll, f32 w, f32 h);
-void ScrollPanel_setContentSize(ScrollPanel *scroll, f32 w, f32 h);
+fn ScrollPanel_setViewportSize(ScrollPanel *scroll, f32 w, f32 h);
+fn ScrollPanel_setContentSize(ScrollPanel *scroll, f32 w, f32 h);
 f32 ScrollPanel_viewportWidth(const ScrollPanel *scroll);
 f32 ScrollPanel_viewportHeight(const ScrollPanel *scroll);
 f32 ScrollPanel_contentWidth(const ScrollPanel *scroll);
 f32 ScrollPanel_contentHeight(const ScrollPanel *scroll);
 
 // The offset is end-clamped: [0, max(0, content - viewport)] per axis.
-void ScrollPanel_setOffset(ScrollPanel *scroll, f32 x, f32 y);
+fn ScrollPanel_setOffset(ScrollPanel *scroll, f32 x, f32 y);
 f32 ScrollPanel_getOffsetX(const ScrollPanel *scroll);
 f32 ScrollPanel_getOffsetY(const ScrollPanel *scroll);
-void ScrollPanel_scrollBy(ScrollPanel *scroll, f32 dx, f32 dy);
+fn ScrollPanel_scrollBy(ScrollPanel *scroll, f32 dx, f32 dy);
 f32 ScrollPanel_maxX(const ScrollPanel *scroll);
 f32 ScrollPanel_maxY(const ScrollPanel *scroll);
 bool ScrollPanel_canScrollY(const ScrollPanel *scroll);
@@ -56,7 +56,7 @@ bool ScrollPanel_canScrollX(const ScrollPanel *scroll);
 
 // Reflect the offset into the tree (the viewport + content). Called by every
 // setter; call it after editing the content size or the viewport directly.
-void ScrollPanel_revalidate(ScrollPanel *scroll);
+fn ScrollPanel_revalidate(ScrollPanel *scroll);
 
 // ── events (per-kind adders, generated from the class name) ─────────────────
 // ScrollPanel_addScrollEvent, ScrollPanel_addMouseEvent, … register on the

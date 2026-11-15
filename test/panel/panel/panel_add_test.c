@@ -22,7 +22,7 @@ static int g_fail = 0;
 
 #include "test_application.h"
 // Verify child ordering, lookup, late nesting, and recursive wrapper ownership.
-int main(void) {
+int main() {
     Panel *root = Panel();
     Panel_setSize(root, 400, 300);
     CHECK(Panel_childCount(root) == 0);

@@ -41,7 +41,7 @@
  * ============================================================================
  */
 
-void Frame_revalidate_1(Frame *frame) {
+fn Frame_revalidate_1(Frame *frame) {
     if (!Frame_prepareRevalidate(frame)) return;   // unsized: setSize repaints
     Surface_revalidate(Frame_surface(frame));      // boards, then present
 }

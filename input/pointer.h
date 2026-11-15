@@ -15,22 +15,22 @@
 // Coordinates are native pixels, top-left origin. Real OS input is optional:
 // Pointer_track routes it through these same actions.
 
-typedef void (*PointerFn)(Panel *panel, void *userdata);
+typedef fn (*PointerFn)(Panel *panel, any userdata);
 
 // ── actions (target the content element; hit-test runs from its root) ────────
-void Pointer_move(Element *root, f32 x, f32 y);
-void Pointer_press(Element *root, f32 x, f32 y);
-void Pointer_release(Element *root, f32 x, f32 y);
-void Pointer_click(Element *root, f32 x, f32 y);
-void Pointer_hold(Element *root, f32 x, f32 y, d64 seconds);
-void Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds);
+fn Pointer_move(Element *root, f32 x, f32 y);
+fn Pointer_press(Element *root, f32 x, f32 y);
+fn Pointer_release(Element *root, f32 x, f32 y);
+fn Pointer_click(Element *root, f32 x, f32 y);
+fn Pointer_hold(Element *root, f32 x, f32 y, d64 seconds);
+fn Pointer_drag(Element *root, f32 x, f32 y, f32 toX, f32 toY, d64 seconds);
 Panel *Pointer_hover(Element *root, f32 x, f32 y);   // the bound Panel under (x,y)
 
 // ── handlers ────────────────────────────────────────────────────────────────
-void   Pointer_onClick(Panel *panel, PointerFn fn, void *userdata);
-Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, void *userdata);
+fn   Pointer_onClick(Panel *panel, PointerFn fn, any userdata);
+Panel *Pointer_addButton(Frame *frame, const ElementDesc *desc, PointerFn fn, any userdata);
 
 // Optional: feed the REAL mouse in through the same actions.
-void Pointer_track(Frame *frame);
+fn Pointer_track(Frame *frame);
 
 #endif // DARLING_POINTER_H

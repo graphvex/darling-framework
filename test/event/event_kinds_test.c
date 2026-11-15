@@ -21,35 +21,35 @@ static int g_fail = 0;
 
 typedef struct Trace { int ids[32]; int count; f32 lastMag; } Trace;
 // Appends an event-kind identifier while the fixed trace has room.
-static void push(Trace *t, int id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
+static fn push(Trace *t, int id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
 
 // Records mouse-down delivery.
-static void m_down(Element *e, const Mouse *m, void *ud)  { (void)e; (void)m; push(ud,  1); }
+static fn m_down(Element *e, const Mouse *m, any ud)  { (fn)e; (fn)m; push(ud,  1); }
 // Records mouse-up delivery.
-static void m_up(Element *e, const Mouse *m, void *ud)    { (void)e; (void)m; push(ud,  2); }
+static fn m_up(Element *e, const Mouse *m, any ud)    { (fn)e; (fn)m; push(ud,  2); }
 // Records mouse-move delivery.
-static void m_move(Element *e, const Mouse *m, void *ud)  { (void)e; (void)m; push(ud,  3); }
+static fn m_move(Element *e, const Mouse *m, any ud)  { (fn)e; (fn)m; push(ud,  3); }
 // Records mouse-enter delivery.
-static void m_enter(Element *e, const Mouse *m, void *ud) { (void)e; (void)m; push(ud,  4); }
+static fn m_enter(Element *e, const Mouse *m, any ud) { (fn)e; (fn)m; push(ud,  4); }
 // Records mouse-leave delivery.
-static void m_leave(Element *e, const Mouse *m, void *ud) { (void)e; (void)m; push(ud,  5); }
+static fn m_leave(Element *e, const Mouse *m, any ud) { (fn)e; (fn)m; push(ud,  5); }
 // Records zoom delivery and saves its magnitude for the assertion.
-static void z_zoom(Element *e, const Zoom *z, void *ud) {
-    (void)e;
+static fn z_zoom(Element *e, const Zoom *z, any ud) {
+    (fn)e;
     Trace *t = ud;
     push(t, 6);
     (*t).lastMag = (*z).magnitude;
 }
 // Records touch-down delivery.
-static void t_down(Element *e, const Touch *t, void *ud) { (void)e; (void)t; push(ud, 7); }
+static fn t_down(Element *e, const Touch *t, any ud) { (fn)e; (fn)t; push(ud, 7); }
 // Records touch-move delivery.
-static void t_move(Element *e, const Touch *t, void *ud) { (void)e; (void)t; push(ud, 8); }
+static fn t_move(Element *e, const Touch *t, any ud) { (fn)e; (fn)t; push(ud, 8); }
 // Records touch-up delivery.
-static void t_up(Element *e, const Touch *t, void *ud)   { (void)e; (void)t; push(ud, 9); }
+static fn t_up(Element *e, const Touch *t, any ud)   { (fn)e; (fn)t; push(ud, 9); }
 // Records key-down delivery.
-static void k_down(Element *e, const Key *k, void *ud)   { (void)e; (void)k; push(ud, 10); }
+static fn k_down(Element *e, const Key *k, any ud)   { (fn)e; (fn)k; push(ud, 10); }
 // Records key-up delivery.
-static void k_up(Element *e, const Key *k, void *ud)     { (void)e; (void)k; push(ud, 11); }
+static fn k_up(Element *e, const Key *k, any ud)     { (fn)e; (fn)k; push(ud, 11); }
 
 // Dispatches a test event with shared coordinates and deterministic payloads.
 static bool dispatch(Element *root, int kind, f32 x, f32 y) {
@@ -59,7 +59,7 @@ static bool dispatch(Element *root, int kind, f32 x, f32 y) {
 
 #include "test_application.h"
 // Verifies callback delivery for every mouse, zoom, touch, and key event kind.
-int main(void) {
+int main() {
     ElementDesc dd = {0};
     dd.width = 200; dd.height = 200;
     Element *root = Element(&dd);

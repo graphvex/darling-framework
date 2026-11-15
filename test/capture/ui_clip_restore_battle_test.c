@@ -9,7 +9,7 @@
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL %s:%d: %s\n", __FILE__, __LINE__, #c); exit(1); } } while (0)
 
 // Writes a failing capture to the optional battle-artifact directory.
-static void captureEvidence(const Image *image) {
+static fn captureEvidence(const Image *image) {
     const char *dir = getenv("UI_BATTLE_ARTIFACT_DIR");
     if (!dir || !image || !Image_pixels(image)) return;
     const char *name = strrchr(__FILE__, '/');
@@ -22,7 +22,7 @@ static void captureEvidence(const Image *image) {
 }
 
 // Asserts one captured RGBA pixel within the test's channel tolerance.
-static inline void pixel(const Image *image, int x, int y, Color expected) {
+static inline fn pixel(const Image *image, int x, int y, Color expected) {
     CHECK(image && Image_pixels(image));
     CHECK(x >= 0 && y >= 0 && (u32) x < Image_width(image) && (u32) y < Image_height(image));
     const u8 *p = Image_pixels(image) + (bytes) y * Image_stride(image) + (bytes) x * 4;
@@ -57,7 +57,7 @@ static inline Image *rasterCapture(Element *root, int width, int height) {
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Checks rounded ancestor clipping in both the window and Raster renderers.
-int main(void) {
+int main() {
     ElementDesc rd = {.width = 128, .height = 128};
     ElementDesc od = {.width = 64, .height = 64, .offsetX = 32, .offsetY = 32, .radius = 16};
     ElementDesc id = {.width = 16, .height = 16, .offsetX = 24, .offsetY = 24};

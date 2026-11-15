@@ -23,7 +23,7 @@ static int g_fail = 0;
 #define DARLING_TEST_HAS_FRAMES
 #include "test_application.h"
 // Exercises a spread of resize dimensions and repeated no-op resizing.
-int main(void) {
+int main() {
     Frame *f = Frame("resize", 800, 600);
     CHECK(f != nullptr);
     if (!f) return 1;

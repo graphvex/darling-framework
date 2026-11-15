@@ -17,11 +17,11 @@
 bool GalleryPhoto_decode(const char *path, unsigned width, unsigned height,
                          u8 *dest, bytes stride) {
 #if !defined(VEX_PLATFORM_APPLE)
-    (void) path;
-    (void) width;
-    (void) height;
-    (void) dest;
-    (void) stride;
+    (fn) path;
+    (fn) width;
+    (fn) height;
+    (fn) dest;
+    (fn) stride;
     return false;
 #else
     if (!dest || !width || !height || (u64) width * height > GALLERY_PHOTO_OUTPUT_PIXEL_LIMIT ||
