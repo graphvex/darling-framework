@@ -6,6 +6,6 @@
 // Source of intent: _notes/darling/darling.md; see SCAFFOLDS.md for the live map.
 
 #include "vex.h"
-#include "../../re/clipboard/clipboard.h"
+#include "re/clipboard/clipboard.h"
 
 #endif // DARLING_BRIDGE_CLIPBOARD_H
