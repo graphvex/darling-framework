@@ -21,8 +21,24 @@ static i32 g_fail = 0;
     } while (0)
 
 typedef struct Trace { i32 ids[32]; i32 count; f32 lastMag; } Trace;
+;;GETTER
+static i32 Trace_count(const Trace *t) { return (*t).count; }
+;;SETTER
+static fn Trace_setCount(Trace *t, i32 count) { (*t).count = count; }
+;;SETTER
+static fn Trace_setIdAt(Trace *t, i32 idx, i32 id) { (*t).ids[idx] = id; }
+;;SETTER
+static fn Trace_setLastMag(Trace *t, f32 mag) { (*t).lastMag = mag; }
+;;GETTER
+static f32 Zoom_magnitude(const Zoom *z) { return (*z).magnitude; }
+
 // Appends an event-kind identifier while the fixed trace has room.
-static fn push(Trace *t, i32 id) { if ((*t).count < 32) (*t).ids[(*t).count++] = id; }
+static fn push(Trace *t, i32 id) {
+    if (Trace_count(t) < 32) {
+        Trace_setIdAt(t, Trace_count(t), id);
+        Trace_setCount(t, Trace_count(t) + 1);
+    }
+}
 
 // Records mouse-down delivery.
 static fn m_down(Element *e, const Mouse *m, any ud)  { (discard)e; (discard)m; push(ud,  1); }
@@ -39,7 +55,7 @@ static fn z_zoom(Element *e, const Zoom *z, any ud) {
     (discard)e;
     Trace *t = ud;
     push(t, 6);
-    (*t).lastMag = (*z).magnitude;
+    Trace_setLastMag(t, Zoom_magnitude(z));
 }
 // Records touch-down delivery.
 static fn t_down(Element *e, const Touch *t, any ud) { (discard)e; (discard)t; push(ud, 7); }

@@ -28,9 +28,23 @@ typedef struct Trace {
     f32 last_dy;
 } Trace;
 
+;;GETTER
+static i32 Trace_count(const Trace *t) { return (*t).count; }
+;;SETTER
+static fn Trace_setCount(Trace *t, i32 count) { (*t).count = count; }
+;;SETTER
+static fn Trace_setIdAt(Trace *t, i32 idx, i32 id) { (*t).ids[idx] = id; }
+;;SETTER
+static fn Trace_setLastDy(Trace *t, f32 dy) { (*t).last_dy = dy; }
+;;GETTER
+static f32 Scroll_dy(const Scroll *s) { return (*s).dy; }
+
 // Appends a handler identifier while the fixed trace has room.
 static fn push(Trace *t, i32 id) {
-    if ((*t).count < 16) (*t).ids[(*t).count++] = id;
+    if (Trace_count(t) < 16) {
+        Trace_setIdAt(t, Trace_count(t), id);
+        Trace_setCount(t, Trace_count(t) + 1);
+    }
 }
 
 // Records the first child scroll handler and its vertical delta.
@@ -38,7 +52,7 @@ static fn on_scroll_child(Element *e, const Scroll *s, any ud) {
     (discard)e;
     Trace *t = ud;
     push(t, 1);
-    (*t).last_dy = (*s).dy;   // stash the delta we were handed
+    Trace_setLastDy(t, Scroll_dy(s));   // stash the delta we were handed
 }
 // Records the replaceable child scroll handler in the trace.
 static fn on_scroll_child2(Element *e, const Scroll *s, any ud) {
