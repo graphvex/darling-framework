@@ -24,22 +24,39 @@ typedef struct FilterGalleryState {
 } FilterGalleryState;
 static FilterGalleryState gallery;
 
+;;GETTER
+static GpuScope *FilterGalleryState_gpu(const FilterGalleryState *s) { return (*s).gpu; }
+;;SETTER
+static fn FilterGalleryState_setGpu(FilterGalleryState *s, GpuScope *gpu) { (*s).gpu = gpu; }
+;;SETTER
+static fn FilterGalleryState_setDevice(FilterGalleryState *s, Device *device) { (*s).device = device; }
+;;GETTER
+static Picture *FilterGalleryState_pictureAt(const FilterGalleryState *s, u32 idx) { return (*s).pictures[idx]; }
+;;SETTER
+static fn FilterGalleryState_setPictureAt(FilterGalleryState *s, u32 idx, Picture *pic) { (*s).pictures[idx] = pic; }
+;;GETTER
+static Image *FilterGalleryState_imageAt(const FilterGalleryState *s, u32 idx) { return (*s).images[idx]; }
+;;SETTER
+static fn FilterGalleryState_setImageAt(FilterGalleryState *s, u32 idx, Image *img) { (*s).images[idx] = img; }
+;;GETTER
+static Image *FilterGalleryState_oracleAt(const FilterGalleryState *s, u32 idx) { return (*s).oracles[idx]; }
+
 // Releases gallery-owned widgets and images after outstanding GPU work retires.
 static fn galleryClosed(Frame *frame, any userdata) {
     (discard) frame;
     FilterGalleryState *state = userdata;
-    if (GpuScope_destroy((*state).gpu)) {
-        (*state).gpu=nullptr;
-        (*state).device=nullptr;
+    if (GpuScope_destroy(FilterGalleryState_gpu(state))) {
+        FilterGalleryState_setGpu(state, nullptr);
+        FilterGalleryState_setDevice(state, nullptr);
     } // unsignaled GPU job/device remain alive; never free under outstanding work
     for (u32 i = 0; i < 6; ++i) {
-        Picture_destroy((*state).pictures[i]);
-        (*state).pictures[i] = nullptr;
-        Image_destroy((*state).images[i]);
-        (*state).images[i] = nullptr;
+        Picture_destroy(FilterGalleryState_pictureAt(state, i));
+        FilterGalleryState_setPictureAt(state, i, nullptr);
+        Image_destroy(FilterGalleryState_imageAt(state, i));
+        FilterGalleryState_setImageAt(state, i, nullptr);
     }
     for (u32 i = 0; i < 3; ++i)
-        Image_destroy((*state).oracles[i]);
+        Image_destroy(FilterGalleryState_oracleAt(state, i));
 }
 
 // Compares one captured RGBA sample with its reference sample.
