@@ -33,6 +33,9 @@ struct Picture {
     Element *graphics;
 };
 
+;;SETTER
+static fn Picture_setGraphics(Picture *picture, Element *graphics) { (*picture).graphics = graphics; }
+
 // Creates a Picture that borrows an optional drawable RGBA8 image.
 Picture *Picture_1(const Image *image) {
     if (image && (!Image_isValid(image) || Image_format(image) != IMAGE_FORMAT_RGBA8 ||
@@ -53,7 +56,7 @@ Picture *Picture_1(const Image *image) {
         THROW("Picture Element allocation failed");
         return nullptr;
     }
-    (*picture).graphics = graphics;
+    Picture_setGraphics(picture, graphics);
     Element_setImage(graphics, image);
     return picture;
 }
@@ -67,7 +70,7 @@ Picture *Picture_0() {
 fn Picture_destroy(Picture *picture) {
     if (!picture)
         return;
-    Element *graphics = (*picture).graphics;
+    Element *graphics = Picture_graphics(picture);
     Element_remove(graphics);
     Element_destroy(graphics);
     free(picture);
@@ -92,7 +95,7 @@ fn Picture_setImage(Picture *picture, const Image *image) {
         THROW("Picture requires a valid borrowed drawable RGBA8 Image");
         return;
     }
-    Element_setImage((*picture).graphics, image);
+    Element_setImage(Picture_graphics(picture), image);
 }
 
 // Sets finite, nonnegative display dimensions; invalid dimensions are rejected.
@@ -103,7 +106,7 @@ fn Picture_setSize(Picture *picture, f32 width, f32 height) {
         THROW("Picture size must be finite and nonnegative");
         return;
     }
-    Element_setSize((*picture).graphics, width, height);
+    Element_setSize(Picture_graphics(picture), width, height);
 }
 
 // Sets the element offset when both coordinates are finite.
@@ -114,7 +117,7 @@ fn Picture_setLocation(Picture *picture, f32 x, f32 y) {
         THROW("Picture location must be finite");
         return;
     }
-    Element_setOffset((*picture).graphics, x, y);
+    Element_setOffset(Picture_graphics(picture), x, y);
 }
 
 // Returns the displayed width, or the Element safe default for a null Picture.
