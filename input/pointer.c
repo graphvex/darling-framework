@@ -77,6 +77,21 @@ typedef struct {
     any userdata;
 } Binding;
 
+;;GETTER
+static inline Element *Binding_graphics(const Binding *self) { return (*self).graphics; }
+;;GETTER
+static inline Panel *Binding_panel(const Binding *self) { return (*self).panel; }
+;;SETTER
+static inline fn Binding_setPanel(Binding *self, Panel *v) { (*self).panel = v; }
+;;GETTER
+static inline PointerFn Binding_fn(const Binding *self) { return (*self).fn; }
+;;SETTER
+static inline fn Binding_setFn(Binding *self, PointerFn v) { (*self).fn = v; }
+;;GETTER
+static inline any Binding_userdata(const Binding *self) { return (*self).userdata; }
+;;SETTER
+static inline fn Binding_setUserdata(Binding *self, any v) { (*self).userdata = v; }
+
 typedef struct {
     Element *root;       // the top element (keyed here)
     Element *pressed;    // the bound element under the button
@@ -84,6 +99,27 @@ typedef struct {
     MouseHandler handler;
     bool tracked;
 } Cursor;
+
+;;GETTER
+static inline Element *Cursor_root(const Cursor *self) { return (*self).root; }
+;;SETTER
+static inline fn Cursor_setRoot(Cursor *self, Element *v) { (*self).root = v; }
+;;GETTER
+static inline Element *Cursor_pressed(const Cursor *self) { return (*self).pressed; }
+;;SETTER
+static inline fn Cursor_setPressed(Cursor *self, Element *v) { (*self).pressed = v; }
+;;GETTER
+static inline Frame *Cursor_frame(const Cursor *self) { return (*self).frame; }
+;;SETTER
+static inline fn Cursor_setFrame(Cursor *self, Frame *v) { (*self).frame = v; }
+;;GETTER
+static inline MouseHandler *Cursor_handlerMut(Cursor *self) { return &(*self).handler; }
+;;SETTER
+static inline fn Cursor_setHandler(Cursor *self, MouseHandler v) { (*self).handler = v; }
+;;GETTER
+static inline bool Cursor_tracked(const Cursor *self) { return (*self).tracked; }
+;;SETTER
+static inline fn Cursor_setTracked(Cursor *self, bool v) { (*self).tracked = v; }
 
 static Cursor **s_cursors = nullptr;
 static i32 s_curCount = 0, s_curCap = 0;
@@ -101,7 +137,7 @@ static Binding *find_binding(Element *graphics) {
 // Finds the cursor state record for an Element root.
 static Cursor *cursor_for(Element *root) {
     for (i32 i = 0; i < s_curCount; i++)
-        if ((*s_cursors[i]).root == root) return s_cursors[i];
+        if (Cursor_root(s_cursors[i]) == root) return s_cursors[i];
     return nullptr;
 }
 
@@ -111,7 +147,7 @@ static Cursor *cursor_open(Element *root) {
     if (c) return c;
     c = calloc(1, sizeof *c);
     if (!c) return nullptr;
-    (*c).root = root;
+    Cursor_setRoot(c, root);
     if (s_curCount == s_curCap) {
         s_curCap = s_curCap ? s_curCap * 2 : 4;
         s_cursors = realloc(s_cursors, (bytes)s_curCap * sizeof *s_cursors);
@@ -141,7 +177,7 @@ static fn sleep_seconds(d64 s) {
 Panel *Pointer_hover(Element *root, f32 x, f32 y) {
     if (!root) return nullptr;
     Binding *b = bound_at(Element_root(root), x, y);
-    return b ? (*b).panel : nullptr;
+    return b ? Binding_panel(b) : nullptr;
 }
 
 // Marks the bound panel under the point pressed and invalidates its root.
@@ -151,8 +187,8 @@ fn Pointer_press(Element *root, f32 x, f32 y) {
     Cursor *c = cursor_open(root);
     if (!c) return;
     Binding *b = bound_at(root, x, y);
-    (*c).pressed = b ? (*b).graphics : nullptr;
-    if ((*c).pressed) Element_setPressed((*c).pressed, true);
+    Cursor_setPressed(c, b ? Binding_graphics(b) : nullptr);
+    if (Cursor_pressed(c)) Element_setPressed(Cursor_pressed(c), true);
     Frame_invalidateElement(root);
 }
 
@@ -163,9 +199,10 @@ fn Pointer_release(Element *root, f32 x, f32 y) {
     Cursor *c = cursor_open(root);
     if (!c) return;
     Binding *b = bound_at(root, x, y);
-    if (b && (*b).graphics == (*c).pressed && (*b).fn) (*b).fn((*b).panel, (*b).userdata);
-    if ((*c).pressed) Element_setPressed((*c).pressed, false);
-    (*c).pressed = nullptr;
+    if (b && Binding_graphics(b) == Cursor_pressed(c) && Binding_fn(b))
+        Binding_fn(b)(Binding_panel(b), Binding_userdata(b));
+    if (Cursor_pressed(c)) Element_setPressed(Cursor_pressed(c), false);
+    Cursor_setPressed(c, nullptr);
     Frame_invalidateElement(root);
 }
 
@@ -207,7 +244,7 @@ fn Pointer_onClick(Panel *panel, PointerFn fn, any userdata) {
     Element *graphics = Panel_graphics(panel);
     if (!panel || !graphics) return;
     Binding *b = find_binding(graphics);
-    if (b) { (*b).panel = panel; (*b).fn = fn; (*b).userdata = userdata; return; }
+    if (b) { Binding_setPanel(b, panel); Binding_setFn(b, fn); Binding_setUserdata(b, userdata); return; }
     if (s_bindCount == s_bindCap) {
         s_bindCap = s_bindCap ? s_bindCap * 2 : 16;
         s_bindings = realloc(s_bindings, (bytes)s_bindCap * sizeof *s_bindings);
@@ -230,14 +267,14 @@ static fn track_dispatch(Cursor *c, i32 kind, f32 x, f32 y,
                            f32 dx, f32 dy, f32 magnitude, i32 key) {
     Event event = { .kind = kind, .x = x, .y = y, .dx = dx, .dy = dy,
                     .magnitude = magnitude, .key = key };
-    Element_dispatchEvent((*c).root, &event);
+    Element_dispatchEvent(Cursor_root(c), &event);
 }
 
 // Updates the native window cursor to match the element under the pointer.
 static fn track_cursor(Cursor *c, f32 x, f32 y) {
-    Window *window = Frame_window((*c).frame);
+    Window *window = Frame_window(Cursor_frame(c));
     if (!window) return;
-    WindowCursorType type = (WindowCursorType) Element_cursorAt((*c).root, x, y);
+    WindowCursorType type = (WindowCursorType) Element_cursorAt(Cursor_root(c), x, y);
     if (Window_getCursorType(window) != type) Window_setCursorType(window, type);
 }
 
@@ -247,7 +284,7 @@ static fn track_down(any self, i32 mouseEvent, u64 nanos) {
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_DOWN, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
-    Pointer_press((*c).root, x, y);
+    Pointer_press(Cursor_root(c), x, y);
 }
 // Bridges a native mouse-up into element events and the legacy release action.
 static fn track_up(any self, i32 mouseEvent, u64 nanos) {
@@ -255,13 +292,13 @@ static fn track_up(any self, i32 mouseEvent, u64 nanos) {
     Cursor *c = self;
     f32 x = (f32)Mouse_x(), y = (f32)Mouse_y();
     track_dispatch(c, EV_MOUSE_UP, x, y, 0, 0, 1.0f, Mouse_button(mouseEvent));
-    Pointer_release((*c).root, x, y);
+    Pointer_release(Cursor_root(c), x, y);
 }
 // Bridges native pointer motion to event dispatch, repaint, and cursor tracking.
 static fn track_move(any self, d64 x, d64 y) {
     Cursor *c = self;
     track_dispatch(c, EV_MOUSE_MOVE, (f32)x, (f32)y, 0, 0, 1.0f, 0);
-    Pointer_move((*c).root, (f32)x, (f32)y);
+    Pointer_move(Cursor_root(c), (f32)x, (f32)y);
     track_cursor(c, (f32)x, (f32)y);
 }
 // Accepts repeat callbacks for the adapter interface; repeat events need no action.
@@ -296,7 +333,7 @@ static fn cleanup_on_close(Frame *frame, any userdata) {
     (discard)userdata;
     Element *root = Frame_element(frame);
     for (i32 i = 0; i < s_curCount; i++) {
-        if ((*s_cursors[i]).root != root) continue;
+        if (Cursor_root(s_cursors[i]) != root) continue;
         free(s_cursors[i]);
         memmove(&s_cursors[i], &s_cursors[i + 1],
                 (bytes)(s_curCount - i - 1) * sizeof *s_cursors);
@@ -318,19 +355,21 @@ fn Pointer_track(Frame *frame) {
     if (!frame) return;
     Element *root = Frame_element(frame);
     Cursor *c = cursor_open(root);
-    if (!c || (*c).tracked) return;
-    (*c).tracked = true;
-    (*c).frame = frame;
-    MouseHandler *handler = &(*c).handler;
-    (*handler).self = c;
-    (*handler).onMouseDown = track_down;
-    (*handler).onMouseUp = track_up;
-    (*handler).onMouseMove = track_move;
-    (*handler).onMouseMoveDelta = track_mod;
-    (*handler).onMouseDrag = track_dragf;
-    (*handler).onMouseScroll = track_scroll;
-    (*handler).onMouseZoom = track_zoom;
-    (*handler).onMouseRepeat = track_none0;
-    Window_addMouseAdapter(Frame_window(frame), handler);
+    if (!c || Cursor_tracked(c)) return;
+    Cursor_setTracked(c, true);
+    Cursor_setFrame(c, frame);
+    MouseHandler handler = {
+        .self = c,
+        .onMouseDown = track_down,
+        .onMouseUp = track_up,
+        .onMouseMove = track_move,
+        .onMouseMoveDelta = track_mod,
+        .onMouseDrag = track_dragf,
+        .onMouseScroll = track_scroll,
+        .onMouseZoom = track_zoom,
+        .onMouseRepeat = track_none0,
+    };
+    Cursor_setHandler(c, handler);
+    Window_addMouseAdapter(Frame_window(frame), Cursor_handlerMut(c));
     Frame_onClose(frame, cleanup_on_close, nullptr);
 }
