@@ -90,17 +90,34 @@ static bool node_clip_chain(const HitNode *n, i32 count, i32 i, f32 px, f32 py) 
     return true;
 }
 
+;;SETTER
+static fn Hit_setId(Hit *h, i32 id) { (*h).id = id; }
+;;SETTER
+static fn Hit_setIndex(Hit *h, i32 idx) { (*h).index = idx; }
+;;SETTER
+static fn Hit_setWinX(Hit *h, f32 x) { (*h).winX = x; }
+;;SETTER
+static fn Hit_setWinY(Hit *h, f32 y) { (*h).winY = y; }
+;;SETTER
+static fn Hit_setParentX(Hit *h, f32 x) { (*h).parentX = x; }
+;;SETTER
+static fn Hit_setParentY(Hit *h, f32 y) { (*h).parentY = y; }
+;;SETTER
+static fn Hit_setLocalX(Hit *h, f32 x) { (*h).localX = x; }
+;;SETTER
+static fn Hit_setLocalY(Hit *h, f32 y) { (*h).localY = y; }
+
 // Resolves the topmost eligible node and returns its window, parent, and local coordinates.
 bool Hit_resolve(const HitNode *nodes, i32 count, f32 winX, f32 winY, Hit *out) {
     if (!nodes || count <= 0 || !out) return false;
-    (*out).id = -1;
-    (*out).index = -1;
-    (*out).winX = winX;
-    (*out).winY = winY;
-    (*out).parentX = winX;
-    (*out).parentY = winY;
-    (*out).localX = 0.0f;
-    (*out).localY = 0.0f;
+    Hit_setId(out, -1);
+    Hit_setIndex(out, -1);
+    Hit_setWinX(out, winX);
+    Hit_setWinY(out, winY);
+    Hit_setParentX(out, winX);
+    Hit_setParentY(out, winY);
+    Hit_setLocalX(out, 0.0f);
+    Hit_setLocalY(out, 0.0f);
 
     i32 best = -1, bestDepth = -1, bestZ = 0;
     for (i32 i = 0; i < count; i++) {
@@ -134,11 +151,11 @@ bool Hit_resolve(const HitNode *nodes, i32 count, f32 winX, f32 winY, Hit *out) 
     while (nodes[root].parent >= 0 && nodes[root].parent < count && guard++ <= count)
         root = nodes[root].parent;
 
-    (*out).id = nodes[best].id;
-    (*out).index = best;
-    (*out).parentX = best == root ? winX : winX - pox;
-    (*out).parentY = best == root ? winY : winY - poy;
-    (*out).localX = winX - sox;
-    (*out).localY = winY - soy;
+    Hit_setId(out, nodes[best].id);
+    Hit_setIndex(out, best);
+    Hit_setParentX(out, best == root ? winX : winX - pox);
+    Hit_setParentY(out, best == root ? winY : winY - poy);
+    Hit_setLocalX(out, winX - sox);
+    Hit_setLocalY(out, winY - soy);
     return true;
 }
