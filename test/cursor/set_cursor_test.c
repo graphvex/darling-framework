@@ -14,9 +14,11 @@ static i32 failures;
 
 // Prove that any implemented widget gets its own Class##_setCursor API.
 typedef struct ExampleWidget { Element *element; } ExampleWidget;
+;;GETTER
+static Element *ExampleWidget_element(const ExampleWidget *self) { return (*self).element; }
 // Exposes the example widget's backing Element to the cursor adapter macro.
 static Element *ExampleWidget_graphics(const ExampleWidget *self) {
-    return self ? (*self).element : nullptr;
+    return self ? ExampleWidget_element(self) : nullptr;
 }
 DECLARE_CURSOR(ExampleWidget);
 IMPLEMENT_CURSOR(ExampleWidget)
