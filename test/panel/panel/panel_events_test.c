@@ -27,8 +27,24 @@ static i32 g_fail = 0;
 static bool near(f32 a, f32 b) { return (a > b ? a - b : b - a) < 0.01f; }
 
 typedef struct Trace { i32 ids[8]; i32 count; } Trace;
+;;GETTER
+static i32 Trace_count(const Trace *t) { return (*t).count; }
+;;SETTER
+static fn Trace_setCount(Trace *t, i32 count) { (*t).count = count; }
+;;SETTER
+static fn Trace_setIdAt(Trace *t, i32 idx, i32 id) { (*t).ids[idx] = id; }
+;;GETTER
+static f32 Scroll_dx(const Scroll *s) { return (*s).dx; }
+;;GETTER
+static f32 Scroll_dy(const Scroll *s) { return (*s).dy; }
+
 // Append one dispatch marker while capacity remains.
-static fn push(Trace *t, i32 id) { if ((*t).count < 8) (*t).ids[(*t).count++] = id; }
+static fn push(Trace *t, i32 id) {
+    if (Trace_count(t) < 8) {
+        Trace_setIdAt(t, Trace_count(t), id);
+        Trace_setCount(t, Trace_count(t) + 1);
+    }
+}
 
 // Record that the child received a scroll event.
 static fn on_scroll_child(Element *e, const Scroll *s, any ud)  { (discard)e; (discard)s; push(ud, 1); }
@@ -38,7 +54,7 @@ static fn on_scroll_parent(Element *e, const Scroll *s, any ud) { (discard)e; (d
 // Apply wheel deltas to the registered ScrollPanel viewport.
 static fn on_wheel(Element *e, const Scroll *s, any ud) {
     (discard)e;
-    ScrollPanel_scrollBy(ud, (*s).dx, (*s).dy);
+    ScrollPanel_scrollBy(ud, Scroll_dx(s), Scroll_dy(s));
 }
 
 #include "test_application.h"
