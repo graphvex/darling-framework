@@ -161,6 +161,61 @@ static i32 group_of(i32 kind) {
     }
 }
 
+typedef fn (*MouseFn)(Element *element, const Mouse *mouse, any userdata);
+typedef fn (*ScrollFn)(Element *element, const Scroll *scroll, any userdata);
+typedef fn (*ZoomFn)(Element *element, const Zoom *zoom, any userdata);
+typedef fn (*KeyFn)(Element *element, const Key *key, any userdata);
+typedef fn (*TouchFn)(Element *element, const Touch *touch, any userdata);
+typedef fn (*DocumentFn)(Element *element, const Document *document, any userdata);
+
+;;GETTER
+static MouseFn MouseEvent_onDown(const MouseEvent *h) { return (*h).onDown; }
+;;GETTER
+static MouseFn MouseEvent_onUp(const MouseEvent *h) { return (*h).onUp; }
+;;GETTER
+static MouseFn MouseEvent_onMove(const MouseEvent *h) { return (*h).onMove; }
+;;GETTER
+static MouseFn MouseEvent_onDrag(const MouseEvent *h) { return (*h).onDrag; }
+;;GETTER
+static MouseFn MouseEvent_onEnter(const MouseEvent *h) { return (*h).onEnter; }
+;;GETTER
+static MouseFn MouseEvent_onLeave(const MouseEvent *h) { return (*h).onLeave; }
+;;GETTER
+static any MouseEvent_userdata(const MouseEvent *h) { return (*h).userdata; }
+
+;;GETTER
+static ScrollFn ScrollEvent_onScroll(const ScrollEvent *h) { return (*h).onScroll; }
+;;GETTER
+static any ScrollEvent_userdata(const ScrollEvent *h) { return (*h).userdata; }
+
+;;GETTER
+static ZoomFn ZoomEvent_onZoom(const ZoomEvent *h) { return (*h).onZoom; }
+;;GETTER
+static any ZoomEvent_userdata(const ZoomEvent *h) { return (*h).userdata; }
+
+;;GETTER
+static KeyFn KeyEvent_onDown(const KeyEvent *h) { return (*h).onDown; }
+;;GETTER
+static KeyFn KeyEvent_onUp(const KeyEvent *h) { return (*h).onUp; }
+;;GETTER
+static any KeyEvent_userdata(const KeyEvent *h) { return (*h).userdata; }
+
+;;GETTER
+static TouchFn TouchEvent_onDown(const TouchEvent *h) { return (*h).onDown; }
+;;GETTER
+static TouchFn TouchEvent_onMove(const TouchEvent *h) { return (*h).onMove; }
+;;GETTER
+static TouchFn TouchEvent_onUp(const TouchEvent *h) { return (*h).onUp; }
+;;GETTER
+static any TouchEvent_userdata(const TouchEvent *h) { return (*h).userdata; }
+
+;;GETTER
+static DocumentFn DocumentEvent_onChanged(const DocumentEvent *h) { return (*h).onChanged; }
+;;GETTER
+static DocumentFn DocumentEvent_onSelected(const DocumentEvent *h) { return (*h).onSelected; }
+;;GETTER
+static any DocumentEvent_userdata(const DocumentEvent *h) { return (*h).userdata; }
+
 // Run the one handler a binding has for this kind; true if it ran.
 static bool invoke(const Binding *b, const Event *event) {
     const Binding binding = *b;
@@ -170,51 +225,51 @@ static bool invoke(const Binding *b, const Event *event) {
         case GRP_MOUSE: {
             const Mouse mouse = { ev.x, ev.y, ev.key };
             const MouseEvent *h = &binding.h.mouse;
-            fn (*fn)(Element *, const Mouse *, any ) = nullptr;
+            MouseFn fn = nullptr;
             switch (ev.kind) {
-                case EV_MOUSE_DOWN:  fn = (*h).onDown;  break;
-                case EV_MOUSE_UP:    fn = (*h).onUp;    break;
-                case EV_MOUSE_MOVE:  fn = (*h).onMove;  break;
-                case EV_MOUSE_DRAG:  fn = (*h).onDrag;  break;
-                case EV_MOUSE_ENTER: fn = (*h).onEnter; break;
-                case EV_MOUSE_LEAVE: fn = (*h).onLeave; break;
+                case EV_MOUSE_DOWN:  fn = MouseEvent_onDown(h);  break;
+                case EV_MOUSE_UP:    fn = MouseEvent_onUp(h);    break;
+                case EV_MOUSE_MOVE:  fn = MouseEvent_onMove(h);  break;
+                case EV_MOUSE_DRAG:  fn = MouseEvent_onDrag(h);  break;
+                case EV_MOUSE_ENTER: fn = MouseEvent_onEnter(h); break;
+                case EV_MOUSE_LEAVE: fn = MouseEvent_onLeave(h); break;
             }
-            if (fn) { fn(element, &mouse, (*h).userdata); return true; }
+            if (fn) { fn(element, &mouse, MouseEvent_userdata(h)); return true; }
         } break;
         case GRP_SCROLL: {
             const Scroll scroll = { ev.x, ev.y, ev.dx, ev.dy };
             const ScrollEvent *h = &binding.h.scroll;
-            if ((*h).onScroll) { (*h).onScroll(element, &scroll, (*h).userdata); return true; }
+            if (ScrollEvent_onScroll(h)) { ScrollEvent_onScroll(h)(element, &scroll, ScrollEvent_userdata(h)); return true; }
         } break;
         case GRP_ZOOM: {
             const Zoom zoom = { ev.x, ev.y, ev.magnitude };
             const ZoomEvent *h = &binding.h.zoom;
-            if ((*h).onZoom) { (*h).onZoom(element, &zoom, (*h).userdata); return true; }
+            if (ZoomEvent_onZoom(h)) { ZoomEvent_onZoom(h)(element, &zoom, ZoomEvent_userdata(h)); return true; }
         } break;
         case GRP_KEY: {
             const Key key = { ev.key };
             const KeyEvent *h = &binding.h.key;
-            fn (*fn)(Element *, const Key *, any ) = nullptr;
-            if (ev.kind == EV_KEY_DOWN) fn = (*h).onDown;
-            else if (ev.kind == EV_KEY_UP) fn = (*h).onUp;
-            if (fn) { fn(element, &key, (*h).userdata); return true; }
+            KeyFn fn = nullptr;
+            if (ev.kind == EV_KEY_DOWN) fn = KeyEvent_onDown(h);
+            else if (ev.kind == EV_KEY_UP) fn = KeyEvent_onUp(h);
+            if (fn) { fn(element, &key, KeyEvent_userdata(h)); return true; }
         } break;
         case GRP_TOUCH: {
             const Touch touch = { ev.x, ev.y, ev.key };
             const TouchEvent *h = &binding.h.touch;
-            fn (*fn)(Element *, const Touch *, any ) = nullptr;
-            if (ev.kind == EV_TOUCH_DOWN) fn = (*h).onDown;
-            else if (ev.kind == EV_TOUCH_MOVE) fn = (*h).onMove;
-            else if (ev.kind == EV_TOUCH_UP) fn = (*h).onUp;
-            if (fn) { fn(element, &touch, (*h).userdata); return true; }
+            TouchFn fn = nullptr;
+            if (ev.kind == EV_TOUCH_DOWN) fn = TouchEvent_onDown(h);
+            else if (ev.kind == EV_TOUCH_MOVE) fn = TouchEvent_onMove(h);
+            else if (ev.kind == EV_TOUCH_UP) fn = TouchEvent_onUp(h);
+            if (fn) { fn(element, &touch, TouchEvent_userdata(h)); return true; }
         } break;
         case GRP_DOCUMENT: {
             const Document document = { nullptr, 0u, 0u };
             const DocumentEvent *h = &binding.h.document;
-            fn (*fn)(Element *, const Document *, any ) = nullptr;
-            if (ev.kind == EV_DOCUMENT_CHANGED) fn = (*h).onChanged;
-            else if (ev.kind == EV_DOCUMENT_SELECTED) fn = (*h).onSelected;
-            if (fn) { fn(element, &document, (*h).userdata); return true; }
+            DocumentFn fn = nullptr;
+            if (ev.kind == EV_DOCUMENT_CHANGED) fn = DocumentEvent_onChanged(h);
+            else if (ev.kind == EV_DOCUMENT_SELECTED) fn = DocumentEvent_onSelected(h);
+            if (fn) { fn(element, &document, DocumentEvent_userdata(h)); return true; }
         } break;
     }
     return false;
