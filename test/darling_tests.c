@@ -17,6 +17,13 @@ typedef struct {
     Frame *owner;
 } TestCase;
 
+;;GETTER
+static const char *TestCase_names(const TestCase *t) { return (*t).names; }
+;;GETTER
+static Color TestCase_color(const TestCase *t) { return (*t).color; }
+;;GETTER
+static Frame *TestCase_owner(const TestCase *t) { return (*t).owner; }
+
 typedef struct {
     const char *name;
     Color color;
@@ -27,14 +34,14 @@ typedef struct {
 static fn open_test(Panel *panel, any ud) {
     (discard)panel;
     TestCase *t = ud;
-    Frame *w = Frame((*t).names, 560, 400);
-    Frame_setOwner(w, (*t).owner);
+    Frame *w = Frame(TestCase_names(t), 560, 400);
+    Frame_setOwner(w, TestCase_owner(t));
 
     ElementDesc d = {0};
     d.width = 360; d.height = 220;
     d.anchor = PART_CENTER; d.pivot = PART_CENTER;
     d.radius = 56;
-    d.background = (*t).color;
+    d.background = TestCase_color(t);
     d.shadow = COLOR_RGBA(0, 0, 0, 150);
     d.shadowX = 0; d.shadowY = 0; d.shadowBlur = 30;
     Frame_addPanel(w, &d);

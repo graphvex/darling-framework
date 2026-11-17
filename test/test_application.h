@@ -23,6 +23,17 @@ typedef struct DarlingTestState {
 } DarlingTestState;
 static DarlingTestState darling_test_state;
 
+;;GETTER
+static i32 DarlingTestState_argc(const DarlingTestState *s) { return (*s).argc; }
+;;GETTER
+static char **DarlingTestState_argv(const DarlingTestState *s) { return (*s).argv; }
+;;GETTER
+static i32 DarlingTestState_result(const DarlingTestState *s) { return (*s).result; }
+;;SETTER
+static fn DarlingTestState_setResult(DarlingTestState *s, i32 res) { (*s).result = res; }
+;;GETTER
+static bool DarlingTestState_keepOpen(const DarlingTestState *s) { return (*s).keepOpen; }
+
 // Interactive bodies return to Application_start rather than running a loop.
 static inline fn Darling_testKeepOpen() { darling_test_state.keepOpen = true; }
 
@@ -30,16 +41,16 @@ static fn darling_test_owner(Application *application, any userdata) {
     (discard)application;
     DarlingTestState *state = userdata;
 #ifdef DARLING_TEST_WITH_ARGS
-    (*state).result = darling_test_body((*state).argc, (*state).argv);
+    DarlingTestState_setResult(state, darling_test_body(DarlingTestState_argc(state), DarlingTestState_argv(state)));
 #else
-    (*state).result = darling_test_body();
+    DarlingTestState_setResult(state, darling_test_body());
 #endif
 }
 
 static fn darling_test_start(Application *application, any userdata) {
     DarlingTestState *state = userdata;
-    if (!Application_invoke(application, darling_test_owner, state)) (*state).result = 1;
-    if (!(*state).keepOpen || (*state).result != 0) Application_close(application);
+    if (!Application_invoke(application, darling_test_owner, state)) DarlingTestState_setResult(state, 1);
+    if (!DarlingTestState_keepOpen(state) || DarlingTestState_result(state) != 0) Application_close(application);
 }
 
 i32 main(i32 argc, char **argv) {
