@@ -8,6 +8,16 @@ layout policy, input/focus and the native-window/application bridge. It is the
 residency, platform spelling) and what graphvex owns (element composition,
 graphics types, the present seam), and it rebuilds neither.
 
+## Graphics stack
+
+```text
+graphvex (api) → collage (compositor) | meld (renderers) → darling
+```
+
+- darling **submits to collage** (`../compositor/`): `ElementNode` records with `Property` rects. It owns no compositor, filter or render code of its own.
+- The **3D/2D panel** holds a meld `MeldView`, hands collage that view's newest scene image as a `SceneSource` at the panel's event bound, and forwards abstract input (pointer, wheel, actions) to meld. Many panels are many views in one composite.
+- darling never includes graphvex drivers or meld internals. Planned: `panel/scene_panel` replaces `drawable/viewer_3d` and `scene/scene_3d`; `compositor/` folds into collage.
+
 ## Disclaimers
 
 - **125 of 185 `.c` files are `;;DRAFT`/`;;INCOMPLETE` scaffolds with zero API.**
